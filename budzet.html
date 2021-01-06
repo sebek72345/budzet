@@ -24,8 +24,9 @@
                 </div>
                 <h2 class="title">Twój budżet domowy</h2>
             </div>
-            <canvas id="line-chart"></canvas>
-           
+            <div class=""><canvas id="line-chart"></canvas>
+                <div class="loader">Ładowanie danych</div></div>
+            
             <div class="most-spending">
                 <h3>Najwięcej wydajesz na poniższe kategorie produktów: </h3>
                 <div class="category-wrapper">
@@ -36,27 +37,14 @@
                         <p class="category-name">Transport</p>
                     <p class="category-amount">261,16 zł</p></div>
                     </template>
-                <div class="category">
-                    <div class="image-wrapper">
-                    <img src="./assets/transport.svg" alt="">
-                    </div>
-                    <p class="category-name">Transport</p>
-                    <p class="category-amount">261,16 zł</p>
-                </div>
-            
-                <div class="category">
-                    <div class="image-wrapper">
-                    <img src="./assets/zdrowie.svg" alt="">
-                    </div>
-                    <p class="category-name">Zdrowie</p>
-                    <p class="category-amount">261,16 zł</p>
-                </div>
             </div>
             </div>
         </div>
         <div class="spending-by-categories">
             <canvas id="doughnut-chart" width="400px" height="400px"></canvas>
-        </div>
+       
+                <div class="loader">Ładowanie danych</div>
+ </div>
         <div class="additional-charts">
         <div class="select-mounth">
         <label for="period">Wybierz czas rozliczenia: </label>
@@ -81,7 +69,7 @@
                    
                     <div class="speedometer-dial">
                         <img src="./assets/licznik.svg" alt="">
-                        <div class="speedometer-arrow ">
+                        <div class="speedometer-arrow " >
                             <img src="./assets/hand.svg" alt="">
                      </div>
                     </div>
@@ -109,7 +97,7 @@
                             a 15.9155 15.9155 0 0 1 0 -31.831"
                         />
                         <path class="circle"
-                          stroke-dasharray="20, 100"
+                          stroke-dasharray="0, 100"
                           d="M18 2.0845
                             a 15.9155 15.9155 0 0 1 0 31.831
                             a 15.9155 15.9155 0 0 1 0 -31.831"

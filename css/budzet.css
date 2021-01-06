@@ -10,7 +10,13 @@
     --main-padding:16px;
     --main-margin:24px;
     --nav-height:60px;
-    --speedometer-rotare:0deg
+    --speedometer-rotare:0deg;
+    --circle:0;
+    --stroke-color:rgb(57, 177, 20);
+
+}
+canvas{
+    display: none;
 }
 .wrapper{
     font-family: 'Arvo',serif;
@@ -80,6 +86,10 @@ flex-grow: 2;
     color: rgb(177, 174, 174);
     font-size:12px;
 }
+.category-name{
+    text-transform: capitalize;
+    font-size: 12px;
+}
 .no-category{
     color:red
 }
@@ -102,7 +112,7 @@ flex-grow: 2;
     z-index: 2;
     font-size: 32px;
     right: 20px;
-    top:0;
+    top:-10px;
 }
 .spedometer-desc{
     text-align: center;
@@ -138,7 +148,7 @@ select {
     bottom: -15px;
     transform-origin: 85% 50%;
     transform: translate(-100%,0) rotate(0deg);
-    animation: moveHand 2s forwards;
+    animation: moveHand 2s ease-out forwards;
 }
 @keyframes moveHand{
     100%{
@@ -189,21 +199,79 @@ select {
   stroke-width: 2.8;
   stroke-linecap: round;
   animation: progress 1s ease-out forwards;
+  stroke: var(--stroke-color);
 }
 
 @keyframes progress {
-  0% {
-    stroke-dasharray: 100 100;
+  100% {
+    stroke-dasharray: var(--circle) 100;
   }
 }
 
-.circular-chart.orange .circle {
-  stroke: #ff9f00;
-}
+
 
 .percentage {
   fill: #666;
   font-family: sans-serif;
   font-size: 0.5em;
   text-anchor: middle;
+}
+.loader,
+.loader:before,
+.loader:after {
+  background: #2255db;
+  -webkit-animation: load1 1s infinite ease-in-out;
+  animation: load1 1s infinite ease-in-out;
+  width: 1em;
+  height: 4em;
+}
+.loader {
+  color: #2255db;
+  text-indent: -9999em;
+  margin: 88px auto;
+  position: relative;
+  font-size: 11px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  position: absolute;
+  top: 0;
+  content: '';
+}
+.loader:before {
+  left: -1.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 1.5em;
+}
+@-webkit-keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
+}
+@keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0;
+    height: 4em;
+  }
+  40% {
+    box-shadow: 0 -2em;
+    height: 5em;
+  }
 }
