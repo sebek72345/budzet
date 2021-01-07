@@ -1,129 +1,181 @@
 import {firebaseApp} from './init-firebase.js'
-const selectedMonth=document.querySelector("#period");
+const selectedMonth=document.querySelector("#month");
+const selectedYear=document.querySelector("#year");
+const changeLimit=document.querySelector(".change-limit")
+let isLoaded=false
+let userId;
+changeLimit.addEventListener("keydown",e=>changeMounthlyLimit(e))
+selectedMonth.addEventListener("change",reloadData)
+selectedYear.addEventListener("change",reloadData)
+async function changeMounthlyLimit(e){
+  e.preventDefault();
+  if(userId && e.key==="Enter"){
+    await firebaseApp.firestore().collection(userId).doc(`${selectedMonth.value}-${selectedYear.value}`).set({
+      limit:Number(e.target.value)
+    },{merge:true}).then(async()=>{showTostify("Twój miesięczny limit został","green");
+    const data=await getDataFromDataBase((`${selectedMonth.value}-${selectedYear.value}`));
+    const [mounthlyLimit,spendings,incomes]=data
+    const allSpending=getSum(spendings);
+    setLimitChart(mounthlyLimit,allSpending);
+    }).catch(err=>{
+      showTostify("Twój miesięczny limit NIE  został","red");
+      console.log(err);
+  } )
 
-selectedMonth.addEventListener("change",()=>{
+ 
+}
+changeLimit.value+=e.key
+}
+function showTostify(text,color){
+  const modal=document.querySelector(".modal");
+  modal.style.backgroundColor=color;
+      modal.textContent=text;
+    modal.classList.add("active");
+    setTimeout(() => {
+      modal.classList.remove("active");
+
+    }, 3000);
+}
+function reloadData(){
+  isLoaded=false
+  deleteElements()
   removeSpendingCategories();
-  restartAnimations();
- /*  removeChats(); */
+  spinnersVisability("block")
+  removeChats();
   init()
-})
-
-async function getDaySpending(period="7-2020"){
-/*   let arrayOfSpending=[];
-
- await firebase.auth().onAuthStateChanged( function(user) {
-    if (user) {
-    firebaseApp.firestore().collection(user.uid).doc(period).get().then(doc=>{
-        if(doc.exists){
-          
-          arrayOfSpending=doc.data().wydatki;
-          console.log(arrayOfSpending)
-          return
-        }})
-    } 
-  }); console.log(arrayOfSpending); 
- */
-const user = firebase.auth().currentUser;
-console.log(user);
+}
+async function getDataFromDataBase(period="7-2020"){
+const user = firebaseApp.auth().currentUser;
 if(!user) return; 
 const uid = user.uid;
-const snap  =await firebase.firestore().collection(uid).doc(period).get();
+userId=user.uid
+const snap  =await firebaseApp.firestore().collection(uid).doc(period).get();
 if(snap.exists) {
-  console.log(snap.data());
-  return snap.data().spending;
+  const mounthlyLimit=snap.data().limit
+  const incomes=snap.data().przychody
+  const spendings=snap.data().wydatki
+  isLoaded=true
+  return [mounthlyLimit,spendings,incomes]
 } else {
-  // handle the case where there was no data
+  return []
 }
-console.log(snap);
 }
+
 init()
 async function init () {
-
- const daysInMonth=new Date(2020,selectedMonth.value,0).getDate();
+const daysInMonth=new Date(selectedYear.value,selectedMonth.value,0).getDate();
 const arrayOfDays= getArrayOfDays(daysInMonth) 
-/*  await logUser();
+ /*  await logUser();  */
 await userIsActive()
-console.log("in init");
-await getDaySpending();
-console.log("after"); */
-const spendings=[
-  {id:"_qnab6hsff",category:"transport",desc:"Wydatki na paliwo",amount:50.35,date:"2/01/2021"},
-  {id:"_he8cg7bnp",category:"kosmetyki",desc:"Wydatki na żel",amount:12.75,date:"5/01/2021"},
-  {id:"_bd0u5qzwj",category:"prezenty",desc:"Wydatki na kwiaty",amount:152.35,date:"10/01/2021"},
-  {id:"_dfujkyxne",category:"transport",desc:"Wydatki na paliwo",amount:82.35,date:"15/01/2021"},
-  {id:"_dfujkyxne",category:"transport",desc:"Wydatki na paliwo",amount:82.35,date:"15/01/2021"},
-  {id:"_dfujkyxne",category:"transport",desc:"Wydatki na paliwo",amount:82.35,date:"15/01/2021"},
-  {id:"_lfsnfe8tt",category:"dom",desc:"Wydatki na saune",amount:122.11,date:"18/01/2021"},
-  {id:"_lfsnfe8tt",category:"dom",desc:"Wydatki na saune",amount:122.10,date:"19/01/2021"},
-  {id:"_dq62efzc1",category:"jedzenie",desc:"Wydatki na piwczywo",amount:15.54,date:"26/01/2021"},
- 
-  {id:"_polc04qs8",category:"zdrowie i uroda",desc:"Wydatki na piwo",amount:42.31,date:"31/01/2021"},
-];
-const incomes=[
-  {id:"_qnab6hsff",category:"Wypłata",desc:"Wypłata za miesiąc grudzień",amount:5000.35,data:"2/01/2021"},
-  {id:"_he8cg7bnp",category:"Praca dodatkowa",desc:"Kosznie trawników",amount:120.00,data:"5/01/2021"},
-];
+const data=await getDataFromDataBase((`${selectedMonth.value}-${selectedYear.value}`));
+const [mounthlyLimit,spendings,incomes]=data
+console.log({data});
+if(spendings===undefined){
+  showTostify("W wybranym przez Ciebie okresie nie ma wydatków","red");
+spinnersVisability("none");
+restoreElements()
+displayCharts()
+setLimitChart()
+setSpeedometer()
+const limitAmountEl=document.querySelector("#limit-amount");
+  limitAmountEl.textContent=mounthlyLimit;
+return}
+
+
+const sumIncome=getSum(incomes);
 const spendingByDay=sortSpendingByDay(spendings,arrayOfDays)
 const [categories,amounts]=reduceArrayWithTheSameCategory(spendings)
-if(spendings){
-  setTimeout(() => {
+if(isLoaded){
     displayCharts(categories,amounts,spendingByDay,arrayOfDays);
-  removeSpinners()
-  }, 1500);
-  
+    spinnersVisability("none")
+    startAnimation()
+    restoreElements()
 }
 
 const allSpending=getSum(spendings);
-setLimitChart(3000,allSpending)
-setSpeedometer(80)
+setLimitChart(mounthlyLimit,allSpending)
+setSpeedometer(sumIncome,allSpending)
 addSpendingCategories(categories,amounts);
 
 }
 
 function logUser(){
-  const wydatki=[
-    {id:"_qnab6hsff",category:"transport",desc:"Wydatki na paliwo",amount:50.35,data:"2/01/2021"},
-    {id:"_he8cg7bnp",category:"kosmetyki",desc:"Wydatki na żel",amount:12.75,data:"5/01/2021"},
-    {id:"_bd0u5qzwj",category:"dziwczyna",desc:"Wydatki na kwiaty",amount:152.35,data:"10/01/2021"},
-    {id:"_dfujkyxne",category:"transport",desc:"Wydatki na paliwo",amount:82.35,data:"15/01/2021"},
-    {id:"_lfsnfe8tt",category:"relaks",desc:"Wydatki na saune",amount:1122.1,data:"18/01/2021"},
-    {id:"_dq62efzc1",category:"jedzenie",desc:"Wydatki na piwczywo",amount:15.54,data:"26/01/2021"},
-    {id:"_polc04qs8",category:"żarcie",desc:"Wydatki na piwo",amount:42.31,data:"31/01/2021"},
-];
   const email="Sebastian723@interia.eu"
   const password="Sebek7234"
   firebaseApp.auth().signInWithEmailAndPassword(email,password).then(user=>{
-    const {user:{uid}}=user
-    firebaseApp.firestore().collection(uid).doc("7-2020").set({
+    const {user:{uid}}=user;
+    const  przychody= [
+      {
+        id: "_qnaf6hff",
+        category: "Wypłata",
+        desc: "Wypłata za miesiąc grudzien",
+        amount: 5000.35,
+        date: "6/01/2021"
+      },
+      {
+        id: "_qnapshff",
+        category: "Praca dodatkowa",
+        desc: "Koszenie trawników",
+        amount: 50.35,
+        date: "10/01/2021"
+      }
+    ]
+    const wydatki= [
+      {
+        id: "_qnab6hsff",
+        category: "Transport",
+        desc: "Wydatki na paliwo",
+        amount: 50.35,
+        date: "2/01/2021"
+      },
+      {
+        id: "_he8cg7bnp",
+        category: "Dom",
+        desc: "Wydatki na żel",
+        amount: 12.75,
+        date: "5/01/2021"
+      },
+      {
+        id: "_bd0u5qzwj",
+        category: "Jedzenie",
+        desc: "Wydatki na kwiaty",
+        amount: 152.35,
+        date: "10/01/2021"
+      }
+    ]
+    firebaseApp.firestore().collection(uid).doc(`8-2020`).set({
       limit:3000,
       wydatki,
-      przychody:[]
+      przychody
     })
   })
   console.log("in logUser");
 
 }
 function userIsActive(){
-  firebaseApp.auth().onAuthStateChanged(user=>{
+  return new Promise((resolve, reject) => 
+    firebaseApp.auth().onAuthStateChanged( user=>{
     if(user){
       console.log("user is active");
-      return true
-    }else{
+      return resolve(true)
+    } else{
       console.log("no user");
-      return false
+      return resolve(false);
     }
-  })
+ }))
 }
 function setLimitChart(limit=3000,totalSpending){
+  const defaultValue= totalSpending===undefined;
   const percentage=document.querySelector(".percentage")
   const limitAmountEl=document.querySelector("#limit-amount")
   const restAmountEl=document.querySelector("#rest-amount")
   const percent=Number((totalSpending*100/limit).toFixed(2))
-  const restAmount=limit-totalSpending
-  document.documentElement.style.setProperty('--circle',`${percent}`);  
-  percentage.textContent=`${percent}%`
-  limitAmountEl.textContent=`${limit} zł`
-  restAmountEl.textContent=`${restAmount} zł`
+  let restAmount=(limit-totalSpending).toFixed(2)
+  document.documentElement.style.setProperty('--circle',`${defaultValue? "0" :percent}`);  
+  restAmount=restAmount<0?"Jesteś na minusie":`${restAmount} zł`
+  percentage.textContent=defaultValue? "0%" :`${percent}%`
+  limitAmountEl.textContent=`${defaultValue? "Brak danych" :limit} zł`
+  restAmountEl.textContent=`${defaultValue? "Brak danych":restAmount}`
 switch (true) {
   case percent<25:
       document.documentElement.style.setProperty('--stroke-color',"rgb(15, 226, 7)");  
@@ -138,11 +190,15 @@ switch (true) {
     document.documentElement.style.setProperty('--stroke-color',"rgb(219, 14, 14)"); 
 }
 }
-function setSpeedometer(percent){
+function setSpeedometer(sumIncomes,sumSpendings){
+ const defaultValue= sumIncomes===undefined && sumSpendings===undefined
+  let percent=(sumSpendings*100/sumIncomes).toFixed(0)
+  percent= percent>100 ?100:percent
   const deg=percent*180/100
-document.documentElement.style.setProperty('--speedometer-rotare',`${deg}deg`);
+document.documentElement.style.setProperty('--speedometer-rotare',`${defaultValue?0: deg}deg`);
 const spedingPercent=document.querySelector(".spending-percent");
-spedingPercent.textContent=`${percent} %`
+spedingPercent.textContent=`${percent>=100?"powyżej ":""}${defaultValue?0:percent} %`
+console.log({deg,percent,defaultValue});
 }
 function addSpendingCategories(categories,amounts){
   const categoriesList=document.querySelector(".category-wrapper");
@@ -211,6 +267,7 @@ function categoryExpencesChart(categories=["Brak danych"],values=[1]){
           aspectRatio:1
         },
        })
+       graph.update()
 }
 function linearChart(expences=[],days=[],){
     const  canvas = document.getElementById('line-chart');
@@ -280,8 +337,8 @@ const graph=new Chart(ctx, {
       fontColor:"#1b0ba7",
       text: (expences.length &&  days.length) ?'Wydatki każdego dnia miesiąca':"Brak danych",
       fontSize:18,
-      
-    }, 
+
+    },
   }
 });
 
@@ -297,49 +354,42 @@ function getUniqueId(){
   return '_' + Math.random().toString(36).substr(2, 9);
 }
 function reduceArrayWithTheSameCategory(spendings){
-
- let newObject={};
- spendings.forEach(({category,amount})=>{
-   if(newObject.hasOwnProperty(category)){
-    let newAmount=(newObject[category]+amount).toFixed(2)
-     newObject[category]=Number(newAmount)
-   }else{
-     newObject[category]=amount
-   }
- })
-let array=[] //convert array to object
-for (let prop in newObject) {
-  array.push({ category: prop, amount: newObject[prop] }); 
-} ;
-array=array.sort((a,b)=>{
+  let array=reduceArrayOfObjectByKey(spendings,"category")
+const newArray=array.sort((a,b)=>{
   if(a.amount>b.amount)return -1
   return 1
 }) //sort by higest spending
-const amounts=array.map(a=>a.amount)
+const amounts=newArray.map(a=>a.amount)
 const categories=array.map(a=>a.category)
 return [categories,amounts]
 }
 function getSum(array){
+  if(!array.length)return 0
 const sum=array.reduce((acc,item)=>{return acc+=item.amount},0)
 return sum
 }
-function sortSpendingByDay(spendings,days){
-let dailyExpences={}
-spendings.forEach(({date,amount})=>{
-  if(dailyExpences.hasOwnProperty(date)){
-    let newAmount=(dailyExpences[date]+amount).toFixed(2)
-    dailyExpences[date]=Number(newAmount)
+function reduceArrayOfObjectByKey(array,key){
+  let tempObj={}
+array.forEach((data)=>{
+
+  if(tempObj.hasOwnProperty(data[key])){
+    let newAmount=(tempObj[data[key]]+data.amount).toFixed(2)
+    tempObj[data[key]]=Number(newAmount)
   }else{
-    dailyExpences[date]=amount
+    tempObj[data[key]]=data.amount
   }
+  return
 })
-let array=[] //convert array to object
-for (let prop in dailyExpences) {
- array.push({ date: prop, amount: dailyExpences[prop] }); 
+let newArray=[] //convert array to object
+for (let prop in tempObj) {
+ newArray.push({ [key]: prop, amount: tempObj[prop] }); 
 } ;
-let daysWithSpending=array.map(arr=>{
+return newArray
+}
+function sortSpendingByDay(spendings,days){
+ const array= reduceArrayOfObjectByKey(spendings,"date")
+ let daysWithSpending=array.map(arr=>{
   const newDate=arr.date.slice(0,2)
- 
   if(newDate[1]==="/"){
     return {date:Number(newDate.slice(0,-1)),amount:arr.amount}
   }
@@ -353,7 +403,6 @@ days.map((day, index) => {
     }
   });
 });
-
 return expencesAssignToDay
 }
 function removeSpendingCategories(){
@@ -364,7 +413,7 @@ function removeSpendingCategories(){
         categories.removeChild(categories.lastChild);
     }
 }
-/* function removeChats(){
+function removeChats(){
   //remove categories chart
   removeChart(".spending-by-categories","doughnut-chart")
   //remove bar chart
@@ -376,24 +425,38 @@ const wrapper=document.querySelector(wrapperClass);
 canvas.remove();
 const newCanvas=document.createElement("canvas")
 newCanvas.id=chartClass
+
+if (chartClass==="line-chart") {
+  const elementBefore=wrapper.querySelector(".most-spending")
+  return  wrapper.insertBefore(newCanvas,elementBefore)
+
+}
 wrapper.append(newCanvas)
-} */
-function restartAnimations(){
-  restartSingle("circle")
-/* 
-  restartSingle("speedometer-arrow") */
-};
-function restartSingle(className){
-  const hand=document.querySelector(`.${className}`)
-  hand.classList.remove(className);
-  void hand.offsetWidth;
-   hand.classList.add(className)
 }
 function displayCharts(categories,amounts,spendingByDay,arrayOfDays){
   categoryExpencesChart(categories,amounts);
   linearChart(spendingByDay,arrayOfDays);
 }
-function removeSpinners(){
+function spinnersVisability(visable){
 const spinners=[...document.getElementsByClassName("loader")];
-spinners.forEach(item=>item.remove())
+spinners.forEach(item=>item.style.display=visable)
+}
+function startAnimation(){
+  const hand=document.querySelector(".speedometer-arrow")
+  const circle=document.querySelector(".circle")
+
+  hand.style.animationPlayState ="running";
+  circle.style.animationPlayState ="running";
+}
+function restoreElements(){
+  const speedometer=document.querySelector(".ratio-spending-container");
+  const ringChart=document.querySelector(".rest-money-wrapper");
+  ringChart.style.display="flex"
+  speedometer.style.display="block"
+}
+function deleteElements(){
+  const speedometer=document.querySelector(".ratio-spending-container");
+  const ringChart=document.querySelector(".rest-money-wrapper");
+  ringChart.style.display="none"
+  speedometer.style.display="none"
 }
