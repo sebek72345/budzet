@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budżet Domowy - #4front-end</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <a class="header__logo" href="#">
+          <img
+            class="header__images"
+            src="https://dummyimage.com/160x60/000/fff"
+            alt="logo"
+          />
+        </a>
+        <nav class="header__nav">
+          <ul class="header__list">
+            <li class="header__item">
+              <a class="header__link" href="#">Podsumowanie</a>
+            </li>
+            <li class="header__item">
+              <a class="header__link" href="#">Transakcje</a>
+            </li>
+            <li class="header__item">
+              <a class="header__link" href="#">Ustawienia</a>
+            </li>
+            <li class="header__item header__item--active">
+              <a class="header__link" href="#">Wyloguj</a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <main class="main">
+        <!-- Sidebar -->
+        <aside class="infoPanel">
+          <div class="infoPanel__element">
+            <!-- element accountBalance-->
+            <div class="accountBalance">
+              <p class="accountBalance__text">Twoje oszczędności</p>
+              <div id="accountBalance">10 425 PLN</div>
+            </div>
+            <!-- end element accountBalance -->
+          </div>
+          <div class="infoPanel__element">
+            <!-- element accountMessage-->
+            <p class="infoPanel__news">
+              Zupełna nowość w naszej aplikacji Budżetu Domowego!
+            </p>
+            <button>Generuj pdf</button>
+            <!-- end element accountMessage-->
+          </div>
+          <div class="infoPanel__element">
+            <p class="infoPanel__text">
+              Wygeneruj listę transakcji w formacie PDF, aby jeszcze skuteczniej
+              zarządzać budżetem!
+            </p>
+          </div>
+        </aside>
+        <!-- End sidebar -->
+        <!-- Add position to budget list - mainPanel -->
+        <section class="mainPanel">
+          <div class="mainPanel__navi">
+            <button class="mainPanel__btn">Dodaj przychody</button>
+            <button class="mainPanel__btn">Dodaj wydatki</button>
+            <a href="#" class="mainPanel__date">Wybierz miesiąc</a>
+          </div>
+          <div class="mainPanel__naviSearch">
+            <p class="mainPanel__text">
+              Lista transakcji w wybranym przez Ciebie okresie:
+            </p>
+            <input
+              type="text"
+              id="mainPanel__input"
+              placeholder="Odszukaj swój wydatek..."
+            />
+          </div>
+          <section class="mainPanel__rollList">
+            <ul id="mainPanel__list">
+              <template id="transaction-clone">
+                <li class="mainPanel__item">
+                  <h2></h2>
+                  <div class="mainPanel__position">
+                    <button class="edit-button">EDIT</button>
+                    <button class="delate-button">DELATE</button>
+                  </div>
+                </li>
+              </template>
+            </ul>
+          </section>
+        </section>
+        <!-- end mainPanel -->
+      </main>
+      <!-- <button id="btn">DOdaj</button> -->
+    </div>
+    <object id="output" type="application/pdf"></object>
+  </body>
+  <script
+    defer
+    src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"
+  ></script>
+  <script
+    defer
+    src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"
+  ></script>
+  <script
+    defer
+    src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"
+    integrity="sha512-ToRWKKOvhBSS8EtqSflysM/S7v9bB9V0X3B1+E7xo7XZBEZCPL3VX5SFIp8zxY19r7Sz0svqQVbAOx+QcLQSAQ=="
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.10/jspdf.plugin.autotable.min.js"
+    integrity="sha512-ao7tFS/ESwasMazQVMXaZSgkwoglIX+rMGf8v2m7IRip8BNiqrQ+BY9vqUMtJw3xf7Mnaw0YjbHGmyBiKxfEPQ=="
+    crossorigin="anonymous"
+  ></script>
+
+  <script type="module" src="js/tranzakcje.js"></script>
+  <script src="./assets/font-pdf/Century Gothic-normal.js"></script>
+</html>
