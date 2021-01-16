@@ -26,6 +26,12 @@ $(document).ready(function () {
     $("html").css("scrollBehavior", "smooth");
   });
 
+  // toggle menu/navbar script
+  $(".menu-button").click(function () {
+    $(".navbar .menu").toggleClass("active");
+    $(".menu-button i").toggleClass("active");
+  });
+
   //carousel script
   $(".carousel").owlCarousel({
     margin: 20,
