@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/signIn.css" />
+    <title>Budżet Domowy</title>
+  </head>
+  <body>
+    <div class="modal"></div>
+    <div class="container">
+      <div class="forms-container">
+        <div class="signin-signup">
+          <form class="sign-in-form">
+            <h2 class="title">Zaloguj się</h2>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input
+                type="text"
+                placeholder="Wprowadz e-mail"
+                required
+                name="email"
+              />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input
+                type="password"
+                name="password"
+                placeholder="Hasło"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Hasło musi zawierać jedną liczbę, jedną wielka literę, małe litery oraz długość hasła powinna zawierać minimum 8 znaków"
+                required
+              />
+            </div>
+            <input type="submit" value="Zaloguj" class="btn login" />
+          </form>
+          <form class="sign-up-form">
+            <h2 class="title">Załóż konto</h2>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input
+                type="text"
+                placeholder="Nazwa użytkownika"
+                required
+                name="username"
+              />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-envelope"></i>
+              <input type="email" placeholder="Email" required name="email" />
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input
+                type="password"
+                placeholder="Hasło"
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                title="Hasło musi zawierać jedną liczbę, jedną wielka literę, małe litery oraz długość hasła powinna zawierać minimum 8 znaków"
+                required
+                name="password"
+              />
+            </div>
+            <input type="submit" class="btn" value="Dołącz" />
+          </form>
+        </div>
+      </div>
+
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <h3>Nie masz jeszcze konta?</h3>
+            <p>Dołącz do nas</p>
+            <button class="btn sign" id="sign-up-btn">Zarejestruj się</button>
+          </div>
+          <img
+            src="./assets/addUser.svg"
+            class="image"
+            id="image-sign"
+            alt=""
+          />
+        </div>
+        <div class="panel right-panel">
+          <div class="content">
+            <h3>Posiadasz już konto?</h3>
+            <p>Kliknij poniżej, by przejść do panelu logowania</p>
+            <button class="btn sign" id="sign-in-btn">Zaloguj się</button>
+          </div>
+          <img
+            src="../assets/login.svg"
+            class="image"
+            id="image-login"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+    <script
+      defer
+      src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"
+    ></script>
+    <script
+      defer
+      src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"
+    ></script>
+    <script
+      defer
+      src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"
+    ></script>
+    <script type="module" src="./js/signIn.js"></script>
+  </body>
+</html>
