@@ -13,6 +13,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.11/typed.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+    <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js" defer>
+</script>
     <script src="./js/index.js" defer></script>
 </head>
 <body>
@@ -124,20 +127,20 @@
             </div>
             <div class="column right">
                 <div class="text">Napisz do nas</div>
-                <form action="#">
+                <form action="#" class="contact-email">
                     <div class="fields">
                         <div class="field name">
-                            <input type="text" placeholder="Imię" required>
+                            <input type="text" placeholder="Imię" required name="firstName">
                         </div>
                         <div class="field email">
-                            <input type="email" placeholder="Email" required>
+                            <input type="email" placeholder="Email" required name="email">
                         </div>
                     </div>
                     <div class="field">
-                        <input type="text" placeholder="Temat" required>
+                        <input type="text" placeholder="Temat" required name="subject">
                     </div>
                     <div class="field textarea">
-                        <textarea cols="30" rows="10" placeholder="Wiadomość..." required>
+                        <textarea cols="30" rows="10" placeholder="Wiadomość..." required name="content" >
                         </textarea>
                     </div>
                     <div class="button">
