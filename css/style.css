@@ -497,6 +497,10 @@ hr {
   cursor: pointer;
 }
 
+.link-title small a {
+  color: black;
+}
+
 .footer-info {
   display: flex;
   align-items: flex-end;
@@ -666,14 +670,28 @@ span {
   }
   #footer {
     flex-direction: column;
-    flex-wrap: wrap;
+    text-align: center;
   }
-  .footer-left-col {
+
+   .link-title {
+    flex-basis: 50%;
+    min-width:100%;
+  }
+  .social-icons {
     flex-basis: 100%;
   }
-  .footer-right-col {
+  .copyright-text {
     flex-basis: 100%;
   }
+  .footer-logo{
+    flex-basis: 100%;
+  }
+
+  .copyright-text,
+  .footer-logo {
+    text-align: center;
+  }
+
   .footer h4 {
     padding-top: 8px;
   }
