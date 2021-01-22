@@ -576,6 +576,7 @@ hr {
     display: inline-block;
     margin: 20px 0;
     font-size: 25px;
+    color: red;
   }
   .home .home-content .text-1 {
     font-size: 70px;
