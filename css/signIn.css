@@ -8,7 +8,20 @@ body,
 input {
   font-family: "Lato", sans-serif;
 }
-
+.modal {
+  position: fixed;
+  padding: 20px 50px;
+  background-color: green;
+  left: 50%;
+  top: -200px;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  transition: top 1s ease-in;
+  z-index: 15;
+}
+.modal.active {
+  top: 0px;
+}
 .container {
   position: relative;
   width: 100%;
@@ -139,7 +152,7 @@ form.sign-in-form {
   width: 3000px; */
   top: -10%;
   right: 48%;
-  background-image: linear-gradient(90deg, #9ab7eca9, #385ca0a9) ;
+  background-image: linear-gradient(90deg, #9ab7eca9, #385ca0a9);
   transition: 1.5s ease-in-out;
   z-index: 6;
 }
@@ -150,11 +163,11 @@ form.sign-in-form {
   transition-delay: 0.2s;
 }
 
-#image-login{
+#image-login {
   margin: 100px 0 0 100px;
 }
 
-#image-sign{
+#image-sign {
   margin: 100px 0 0 100px;
 }
 

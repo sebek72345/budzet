@@ -53,4 +53,28 @@ $(document).ready(function () {
       },
     },
   });
+  //Sending email
+  const emailEl = document.querySelector(".contact-email");
+
+  emailEl.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const firstName = e.target.elements.firstName.value;
+    const email = e.target.elements.email.value;
+    const subject = e.target.elements.subject.value;
+    const content = e.target.elements.content.value;
+    const templateParams = {
+      name: firstName,
+      email,
+      subject,
+      content,
+    };
+
+    emailjs.send(
+      "service_qhiee3g",
+      "template_ro2rfhf",
+      templateParams,
+      "user_rKSxubFxTbH8A7cKq1w1S"
+    );
+    emailEl.reset();
+  });
 });
