@@ -18,19 +18,7 @@
 canvas {
   display: none;
 }
-.modal {
-  position: fixed;
-  padding: 20px 50px;
-  background-color: green;
-  left: 50%;
-  top: -200px;
-  transform: translateX(-50%);
-  border-radius: 10px;
-  transition: top 1s ease-in;
-}
-.modal.active {
-  top: 0px;
-}
+
 .wrapper {
   font-family: "Arvo", serif;
   height: 100vh;

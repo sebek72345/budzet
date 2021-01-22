@@ -10,7 +10,7 @@ const firebaseConfig = {
 export const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 export function showTostify(text, color) {
-  const modal = document.querySelector(".modal");
+  const modal = document.querySelector(".modal--info");
   modal.style.backgroundColor = color;
   modal.textContent = text;
   modal.classList.add("active");
