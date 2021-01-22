@@ -286,6 +286,7 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  min-height: 400px;
 }
 .teams .carousel .card:hover .box {
   transform: scale(1.05);
@@ -446,6 +447,10 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
   height: 300px;
   float: right;
   margin-block: -170px;
+}
+
+#info {
+  padding-left: 4px;
 }
 
 /*----footer----*/
