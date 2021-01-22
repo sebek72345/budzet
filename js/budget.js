@@ -95,6 +95,8 @@ async function init() {
     displayCharts();
     drawLimitChart(mounthlyLimit, null);
     drawSpeedometer();
+    document.querySelector(".most-spending>h3").textContent =
+      "Brak kategorii do wyświetlenia.";
     return;
   }
 
@@ -106,6 +108,8 @@ async function init() {
     spinnersVisability("none");
     startAnimation();
     restoreSpeedometerAndLimitCharts();
+    document.querySelector(".most-spending>h3").textContent =
+      "Najwięcej wydajesz na poniższe kategorie produktów:";
   }
 
   const allSpending = getSum(spendings);

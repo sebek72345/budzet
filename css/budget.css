@@ -50,6 +50,7 @@ main {
   display: flex;
   align-items: center;
 }
+
 .title {
   font-size: 32px;
   margin-left: var(--main-margin);
