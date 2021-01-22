@@ -2,12 +2,76 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
 }
 
 body,
 input {
   font-family: "Lato", sans-serif;
 }
+.max-width {
+  max-width: 1300px;
+  padding: 0 80px;
+  margin: auto;
+}
+
+/* nav section */
+.navbar {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  padding: 8px 0;
+  transition: all 0.3s ease;
+  font-family: "Ubuntu", sans-serif;
+  background: repeating-linear-gradient(120deg, #ffffff, #8e9feca6, #ffffff);
+}
+
+.navbar .max-width {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar .menu li {
+  list-style: none;
+  display: inline-block;
+}
+
+.navbar .menu li a {
+  display: block;
+  color: rgba(31, 29, 29, 0.699);
+  font-size: 20px;
+  font-weight: 500;
+  margin-left: 15px;
+  margin-right: 15px;
+  transition: color 0.3 ease;
+}
+
+.navbar li a:hover {
+  color: rgb(67, 65, 236);
+  font-size: 21px;
+}
+
+.menu-button {
+  color: slateblue;
+  font-size: 25px;
+  cursor: pointer;
+  display: none;
+}
+
+.menu-button1::first-line {
+  color: rgb(67, 65, 236);
+}
+
+.menu-button1:hover::first-line {
+  color: white;
+}
+
+.navbar img {
+  width: 60px;
+  cursor: pointer;
+}
+
 .modal {
   position: fixed;
   padding: 20px 50px;

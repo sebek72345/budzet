@@ -481,7 +481,7 @@ hr {
   flex-wrap: wrap;
 }
 
-.link-title h4, 
+.link-title h4,
 .social-icons h4 {
   color: #f67c92c5;
   margin-bottom: 20px;
@@ -512,7 +512,7 @@ hr {
 .social-icons {
   flex-basis: 20%;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
 }
 
 span {
@@ -658,17 +658,17 @@ span {
     font-size: 23px;
     line-height: 38px;
   }
-#footer{
-  flex-direction: column;
-  flex-wrap: wrap;
-}
-.footer-left-col{
-  flex-basis: 100%;
-}
-.footer-right-col{
-  flex-basis: 100%;
-}
-.footer h4{
-  padding-top: 8px;
-}
+  #footer {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .footer-left-col {
+    flex-basis: 100%;
+  }
+  .footer-right-col {
+    flex-basis: 100%;
+  }
+  .footer h4 {
+    padding-top: 8px;
+  }
 }
