@@ -42,14 +42,15 @@ main {
   justify-content: space-between;
   height: 100%;
   padding: var(--main-padding);
-  max-height: calc(100vh - 60px);
+  max-height: calc(100vh - 80px);
 }
 
 /* navbar section */
 .navbar {
-  position: fixed;
+  position: relative;
   width: 100%;
-  z-index: 999;
+  z-index: 2;
+  height: 80px;
   padding: 8px 0;
   transition: all 0.3s ease;
   font-family: "Ubuntu", sans-serif;
@@ -79,7 +80,7 @@ main {
 
 .navbar li a:hover {
   color: rgb(67, 65, 236);
-  font-size: 21px;
+  transform: scale(1.1);
 }
 
 .menu-button {
