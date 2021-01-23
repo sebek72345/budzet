@@ -33,7 +33,7 @@
     crossorigin="anonymous"
   ></script>
   <script src="https://cdn.jsdelivr.net/npm/vanilla-datatables@latest/dist/vanilla-dataTables.min.js" type="text/javascript"></script>
-    <script src="js/transactions.js"></script>
+    <script type="module" src="js/transactions.js"></script>
     <script src="./assets/font-pdf/Century Gothic-normal.js"></script>
 </head>
 
@@ -87,124 +87,143 @@
                     <p class="infoPanel__te">
                         Wygeneruj listę transakcji w formacie PDF, aby jeszcze skuteczniej zarządzać budżetem!
                     </p>
+                    <button id="pdf">Wygeneruj PDF</button>
                 </div>
             </aside>
             <!-- End sidebar -->
             <!-- Add position to budget list - mainPanel -->
             <section class="mainPanel">
                 <div class="mainPanel__navi">
-                    <button class="mainPanel__btn" id="addBtn">Dodaj przychody</button>
-                    <button class="mainPanel__btn">Dodaj wydatki</button>
-                    <label type=""class="mainPanel__btn">Wybierz miesiąc <svg class="mainPanel__btn--svg"
-                        width="15px" height="15px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M12 16a1 1 0 0 1-.64-.23l-6-5a1 1 0 1 1 1.28-1.54L12 13.71l5.36-4.32a1 1 0 0 1 1.41.15 1 1 0 0 1-.14 1.46l-6 4.83A1 1 0 0 1 12 16z" />
-                    </svg></label>
-                   
-
-                    <!-- Modal -->
-                    <div id="modal" class="modal">
+                    <button class="mainPanel__btn" id="addIncomeBtn">Dodaj przychody</button>
+                    <button class="mainPanel__btn" id="addSpendingBtn">Dodaj wydatki</button>
+                    <select class="mainPanel__btn" id="select-month">
+                        <option value="1">Styczeń</option>
+              <option value="2">Luty</option>
+              <option value="3">Marzec</option>
+              <option value="4">Kwiecień</option>
+              <option value="5">Maj</option>
+              <option value="6">Czerwiec</option>
+              <option value="7">Lipiec</option>
+              <option value="8">Sierpień</option>
+              <option value="9">Wrzesień</option>
+              <option value="10">Październik</option>
+              <option value="11">Listopad</option>
+              <option value="12">Grudzień</option> </select>
+              <select class="mainPanel__btn"  id="select-year">
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020" selected>2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+              </select>
+<select class="mainPanel__btn" id="filter-transactions-date">
+    <option value="theLatest" selected>Najnowsze</option>
+    <option value="theOldest">Najstarsze</option>
+</select>
+<select class="mainPanel__btn" id="filter-transactions-type">
+    <option value="All" selected>Wszystkie</option>
+    <option value="Incomes">Przychody</option>
+    <option value="Spendings">Wydatki</option>
+</select>
+                    <!-- Modal income -->
+                    <div id="modal--income" class="modal">
 
                         <!-- Modal content -->
-                        <div class="modal__content">
+                        <div class="modal__content" id="modal__content--income">
                             <div class="modal__header">
-                                <span class="modal__close">&times;</span>
+                                <span class="modal__close--income">&times;</span>
                                 <p>Dodaj przychód</p>
                             </div>
                             <div class="modal__body">
-                                <input type="datetime-local" class="modal__btn" placeholder="Wprowadź datę" id="modalAdd_data">
-                                <input type="text" class="modal__btn" placeholder="Wprowadź nazwę przychodu">
-                                <input type="number" class="modal__btn" placeholder="Wprowadź kwotę...">
-                                <label for="priceType" class="modal__btn --label"> Wybierz rodzaj przychodu:
-                                <select name="priceType" id="priceType" class="modal__btn">
-                                    <option value="wynagrodzenie">Wynagrodzenie</option>
-                                    <option value="oszczednosci">Oszczędności</option>
-                                    <option value="pracaDodatkowa">Praca dodatkowa</option>
-                                    <option value="inne">Inne</option>
-                                </select></label>
+                                <input type="text" class="modal__btn" id="add-income-date" placeholder="Wprowadź datę: dd/mm/rrrr"  required>
+                                <label for="priceType" class="modal__btn --label"> Wybierz kategorie:
+                                    <select name="priceType" id="add-income-category" class="modal__btn" required>
+                                        <option value="Wynagrodzenie">Wynagrodzenie</option>
+                                        <option value="Praca Dodatkowa">Praca Dodatkowa</option>
+                                        <option value="Inne">Inne</option>
+                                    </select></label>
+                                <input type="text" class="modal__btn" id="add-income-desc" placeholder="Krótki opis" required>
+                                <input type="number" id="add-income-amount" class="modal__btn " placeholder="Wprowadź kwotę..." min="0" step="0.01" required>
                             </div>
                             <div class="modal__footer">
-                                <h2>Korzystasz z BudgetApp</h2>
+                                <h2 style="text-align: center;">Korzystasz z BudgetApp</h2>
                             </div>
+                            <div class="button-wrapper"><button class="btn-confirm income" type="submit">Zatwierdź</button></div>
+                            
                         </div>
-                        <!-- modal end -->
+                        <!-- modal content end -->
                     </div>
-                </div>
-                <div class="mainPanel__navi" id="mainPanel__navi">
-                    <input type="text" class="mainPanel__btn --search" id="mainPanel__inputS" onkeyup="filterFunction()" placeholder="Odszukaj swój wydatek...">
+                    <!-- modal income end -->
+                    <!-- Modal spending -->
+                    <div id="modal--spending" class="modal">
 
+                        <!-- Modal content -->
+                        <div class="modal__content"  id="modal__content--spending">
+                            <div class="modal__header">
+                                <span class="modal__close--spending">&times;</span>
+                                <p>Dodaj wydatek</p>
+                            </div>
+                            <div class="modal__body">
+                                <input type="text" class="modal__btn" id="add-spending-date" placeholder="Wprowadź datę: dd/mm/rrrr"  required>
+                                <label for="priceType" class="modal__btn --label"> Wybierz kategorie:
+                                    <select name="priceType" id="add-spending-category" class="modal__btn" required>
+                                        <option value="Dom">Dom</option>
+                                        <option value="Elektronika">Elektronika</option>
+                                        <option value="Jedzenie">Jedzenie</option>
+                                        <option value="Odzież">Odzież</option>
+                                        <option value="Prezenty">Prezenty</option>
+                                        <option value="Rozrywka">Rozrywka</option>
+                                        <option value="Transport">Transport</option>
+                                        <option value="Zdrowie">Zdrowie</option>
+                                        <option value="Inne">Inne</option>
+                                    </select></label>
+                                <input type="text" class="modal__btn" id="add-spending-desc" placeholder="Krótki opis" required>
+                                <input type="number" id="add-spending-amount" class="modal__btn " placeholder="Wprowadź kwotę..." min="0" step="0.01" required>
+                            </div>
+                            <div class="modal__footer">
+                                <h2 style="text-align: center;">Korzystasz z BudgetApp</h2>
+                            </div>
+                            <div class="button-wrapper"><button class="btn-confirm spending" type="submit">Zatwierdź</button></div>
+                            
+                        </div>
+                        <!-- modal content end -->
+                    </div>
+                    <!-- modal income end -->
                 </div>
                 <div class="mainPanel__btnPanel">
-
                 </div>
                 <div class="mainPanel__naviSearch">
                     <span class="mainPanel__text"> Lista transakcji w wybranym przez Ciebie okresie</span>
                 </div>
-
                 <table class="table" id="table">
-                 
                     <thead class="table__header">
                         <th class="table__th">
                             Data</th>
                         <th class="table__th">
-                            Nazwa operacji</th>
+                           Kategoria</th>
                         <th class="table__th">
                             Kwota operacji</th>
                         <th class="table__th">
-                            Rodzaj operacji</th>
-                        <th class="table__th">
-                            Dodatkowe informacje</th>
+                            Opis</th>
                         <th class="table__th">Akcja</th>
                     </thead>
                     <tbody id="table__body">
-                        <tr class="mainPanel__position">
-                            <td class="table__td">21.01.2021</td>
-                            <td class="table__td">Wynagrodzenie</td>
-                            <td class="table__td">120,65 PLN</td>
-                            <td class="table__td">Uznanie</td>
-                            <td class="table__td">Stypendium Work-ON</td>
-                            <td class="table__td">
-                                <a href="#" class="table__actionBt --edit">Edytuj</a>
-                                <a href="#" class="table__actionBt --delete">Usuń</a>
-                            </td>
-                        </tr>
-                        <tr class="mainPanel__position">
-                            <td class="table__td">14.02.2021</td>
-                            <td class="table__td">od mamy na walentynki</td>
-                            <td class="table__td">00,65 PLN</td>
-                            <td class="table__td">Uznanie</td>
-                            <td class="table__td">W tym miesiącu było kiepsko</td>
-                            <td class="table__td">
-                                <a href="#" class="table__actionBt --edit">Edytuj</a>
-                                <a href="#" class="table__actionBt --delete">Usuń</a>
-                            </td>
-                        </tr>
-                        <tr class="mainPanel__position">
-                            <td class="table__td">21.01.2021</td>
-                            <td class="table__td">Mandat Karny Kredytowany</td>
-                            <td class="table__td">650 PLN</td>
-                            <td class="table__td">Obciążenie</td>
-                            <td class="table__td">nienajgorzej</td>
-                            <td class="table__td">
-                                <a href="#" class="table__actionBt --edit">Edytuj</a>
-                                <a href="#" class="table__actionBt --delete">Usuń</a>
-                            </td>
-                        </tr>
-                        <tr class="mainPanel__position">
-                            <td class="table__td">01.01.1991</td>
-                            <td class="table__td">mycie szyb sąsiadce</td>
-                            <td class="table__td">5 PLN</td>
-                            <td class="table__td">Uznanie</td>
-                            <td class="table__td">Pracowałem 1h</td>
-                            <td class="table__td">
-                                <a href="#" class="table__actionBt --edit">Edytuj</a>
-                                <a href="#" class="table__actionBt --delete">Usuń</a>
-                            </td>
-                        </tr>
+                        <template id="transaction-clone">
+                            <tr class="mainPanel__position">
+                                <td class="table__td date">21.01.2021</td>
+                                <td class="table__td category">Wynagrodzenie</td>
+                                <td class="table__td price" >120,65 PLN</td>
+                                <td class="table__td desc">Stypendium Work-ON</td>
+                                <td class="table__td">
+                                    <a href="#" class="table__actionBt --edit">Edytuj</a>
+                                    <a href="#" class="table__actionBt --delete">Usuń</a>
+                                </td>
+                            </tr>
+                          </template>
                     </tbody>
                 </table>
-
-                <!-- <input type="text" id="mainPanel__input" onkeyup="nazwa()" placeholder="Odszukaj swój wydatek..."> -->
             </section>
             </section>
             <!-- end mainPanel -->
