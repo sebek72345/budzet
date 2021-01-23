@@ -265,6 +265,7 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
 .home .home-content img {
   height: 500px;
   float: right;
+  margin-top: -100px;
 }
 
 /* about */
@@ -669,16 +670,24 @@ span {
     line-height: 38px;
   }
   #footer {
+    text-align: justify;
+    padding-left: 10px;
+  }
+
+  .footer-row{
     flex-direction: column;
     text-align: center;
+    font-size: 120%
   }
 
    .link-title {
-    flex-basis: 50%;
-    min-width:100%;
+    flex-basis: 100%;
+    padding-top: 10px;
   }
   .social-icons {
     flex-basis: 100%;
+    padding-top: 10px;
+    text-align: center;
   }
   .copyright-text {
     flex-basis: 100%;
@@ -692,7 +701,13 @@ span {
     text-align: center;
   }
 
-  .footer h4 {
-    padding-top: 8px;
+  .link-title h4,
+  .social-icons h4 {
+    line-height: 30px;
   }
+
+  .link-title small,
+  .social-icons small{
+  font-size: 80%
+}
 }

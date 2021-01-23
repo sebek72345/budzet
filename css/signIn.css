@@ -549,4 +549,45 @@ span {
     bottom: 28%;
     left: 50%;
   }
+  #footer {
+    text-align: justify;
+    padding-left: 10px;
+  }
+
+  .footer-row{
+    flex-direction: column;
+    text-align: center;
+    font-size: 120%
+  }
+
+   .link-title {
+    flex-basis: 100%;
+    padding-top: 10px;
+  }
+  .social-icons {
+    flex-basis: 100%;
+    padding-top: 10px;
+    text-align: center;
+  }
+  .copyright-text {
+    flex-basis: 100%;
+  }
+  .footer-logo{
+    flex-basis: 100%;
+  }
+
+  .copyright-text,
+  .footer-logo {
+    text-align: center;
+  }
+
+  .link-title h4,
+  .social-icons h4 {
+    line-height: 30px;
+  }
+
+  .link-title small,
+  .social-icons small{
+  font-size: 80%
+}
 }
