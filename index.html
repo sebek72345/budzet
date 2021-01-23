@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -208,3 +209,210 @@
 
 
 
+=======
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budżet Domowy - #4front-end</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <script src="src/script.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <a class="header__logo" href="#">
+                <img class="header__images" src="/img/logo_home.png" width="160px" alt="logo">
+            </a>
+            <nav class="header__nav">
+                <ul class="header__list">
+                    <li class="header__item">
+                        <a class="header__link" href="#">Podsumowanie</a>
+                    </li>
+                    <li class="header__item">
+                        <a class="header__link" href="#">Transakcje</a>
+                    </li>
+                    <li class="header__item">
+                        <a class="header__link" href="#">Ustawienia</a>
+                    </li>
+                    <li class="header__item">
+                        <a class="header__link" href="#">Wyloguj</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main class="main">
+            <!-- Sidebar -->
+            <aside id="infoPanelMy" class="infoPanel">
+                <div class="infoPanel__element">
+                    <!-- element accountBalance-->
+                    <div class="accountBalance">
+                        <div class="smalltext">Stan konta</div>
+                        <h3 class="accountBalance__text">Twoje oszczędności</h3><br>
+                        <span class="accountBalance__span" id="accountBalance">10 212 <div class="accountBalance__coin">
+                                PLN</div></span>
+                    </div>
+                    <!-- end element accountBalance -->
+                </div>
+                <div class="infoPanel__element">
+                    <!-- element accountMessage-->
+                    <div class="smalltext">Wiadomość</div>
+                    <p class="infoPanel__text">Wypróbuj nowość!</p>
+                    <p class="infoPanel__content">Filtruj swoje wydatki według typu transakcji. Zobacz wszystkie uznania
+                        lub obciążenia budżetu domowego.</p>
+                    <!-- end element accountMessage-->
+                </div>
+                <div class="infoPanel__element">
+                    <div class="smalltext">Zobacz także</div>
+                    <p class="infoPanel__te">
+                        Wygeneruj listę transakcji w formacie PDF, aby jeszcze skuteczniej zarządzać budżetem!
+                    </p>
+                </div>
+            </aside>
+            <!-- End sidebar -->
+            <!-- Add position to budget list - mainPanel -->
+            <section class="mainPanel">
+                <div class="mainPanel__navi">
+                    <button class="mainPanel__btn" id="addBtn">Dodaj przychód</button>
+                    <button class="mainPanel__btn" id="minusBtn">Dodaj wydatek</button>
+                    <label type=""class="mainPanel__btn">Wybierz miesiąc <svg class="mainPanel__btn--svg"
+                        width="15px" height="15px" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 16a1 1 0 0 1-.64-.23l-6-5a1 1 0 1 1 1.28-1.54L12 13.71l5.36-4.32a1 1 0 0 1 1.41.15 1 1 0 0 1-.14 1.46l-6 4.83A1 1 0 0 1 12 16z" />
+                    </svg></label>
+                   
+
+                        <!-- Modal content - "DODAJ PRZYCHÓD id=modal_plus" -->
+                        <div class="modal__content" id="modal__plus">
+                            <div id="modal__header">
+                                <h2>Dodaj przychód</h2>
+                                </div>
+                                <form id="modal__addMoneyPlus"></form>
+                                <div class="modal__body">
+                                <p class="modal__nameInput">Wprowadź datę</p>
+                                <input type="datetime-local" class="modal__btn" placeholder="Wprowadź datę" id="modalAdd_data">
+                                 <p class="modal__nameInput">Wprowadź nazwę operacji</p>
+                                <input type="text" class="modal__btn" placeholder="Wprowadź nazwę przychodu">
+                                <p class="modal__nameInput">Wprowadź datę</p>
+                                <input type="number" class="modal__btn" 
+                                placeholder="Wprowadź kwotę...">
+                                <p class="modal__nameInput">Wprowadź datę</p>
+                                <label for="priceType" class="modal__btn --label"> Wybierz rodzaj przychodu:
+                                <select name="priceType" id="priceType" class="modal__btn">
+                                    <option value="wynagrodzenie">Wynagrodzenie</option>
+                                    <option value="oszczednosci">Oszczędności</option>
+                                    <option value="pracaDodatkowa">Praca dodatkowa</option>
+                                    <option value="inne">Inne</option>
+                                </select></label>
+                            </div>
+                            <input type="submit" class="modal__downbtn"><input type="reset" class="modal__downbtn"></form>
+                            
+                        
+                        </div>
+                         <!-- Modal content - "DODAJ PRZYCHÓD id=modal_minus" -->
+                         <div class="modal__content" id="modal__minus">
+                            <div id="modal__header">
+                                <h2>Dodaj wydatek</h2>
+                                </div>
+                                <form id="modal__addMoneyMinus"></form>
+                                <div class="modal__body">
+                                <p class="modal__nameInput">Wprowadź datę</p>
+                                <input type="datetime-local" class="modal__btn" placeholder="Wprowadź datę" id="modalAdd_data">
+                                 <p class="modal__nameInput">Wprowadź nazwę operacji</p>
+                                <input type="text" class="modal__btn" placeholder="Wprowadź nazwę przychodu">
+                                <p class="modal__nameInput">Wprowadź datę</p>
+                                <input type="number" class="modal__btn" 
+                                placeholder="Wprowadź kwotę...">
+                                <p class="modal__nameInput">Wprowadź datę</p>
+                                <label for="priceType" class="modal__btn --label"> Wybierz rodzaj wydatku:
+                                <select name="priceType" id="priceType" class="modal__btn">
+                                    <option value="zakupyspozywczce">Zakupy spożywcze</option>
+                                    <option value="oplatymieszkaniowe">Opłaty mieszkaniowe</option>
+                                    <option value="ratykredytowe">Raty kredytowe</option>
+                                    <option value="inne">Inne</option>
+                                </select></label>
+                            </div>
+                            <input type="submit" class="modal__downbtn"><input type="reset" class="modal__downbtn"></form>
+                        </div>
+                    </div>
+                <div class="mainPanel__navi" id="mainPanel__navi">
+                    <input type="text" class="mainPanel__btn --search" id="mainPanel__inputS" onkeyup="filterFunction()" placeholder="Odszukaj swój wydatek...">
+                </div>
+                <div class="mainPanel__naviSearch">
+                    <span class="mainPanel__text"> Lista transakcji w wybranym przez Ciebie okresie</span>
+                </div>
+
+                <table class="table" id="table">
+                    <thead class="table__header">
+                        <th class="table__th">
+                            Data</th>
+                        <th class="table__th">
+                            Nazwa operacji</th>
+                        <th class="table__th">
+                            Kwota operacji</th>
+                        <th class="table__th">
+                            Rodzaj operacji</th>
+                        <th class="table__th">
+                            Dodatkowe informacje</th>
+                        <th class="table__th">Akcja</th>
+                    </thead>
+                    <tbody id="table__body">
+                        <tr class="mainPanel__position" id="tr">
+                            <td class="table__td">21.01.2021</td>
+                            <td class="table__td">Wynagrodzenie</td>
+                            <td class="table__td">120,65 PLN</td>
+                            <td class="table__td">Uznanie</td>
+                            <td class="table__td">Stypendium Work-ON</td>
+                            <td class="table__td">
+                                <button href="#" class="table__actionBt --edit">Edytuj</button>
+                                <button href="#" class="table__actionBt --delete">Usuń</button></td>
+                        </tr>
+                        <tr class="mainPanel__position" id="tr">
+                            <td class="table__td">14.02.2021</td>
+                            <td class="table__td">od mamy na walentynki</td>
+                            <td class="table__td">00,65 PLN</td>
+                            <td class="table__td">Uznanie</td>
+                            <td class="table__td">W tym miesiącu było kiepsko</td>
+                            <td class="table__td">
+                                <button href="#" class="table__actionBt --edit">Edytuj</button>
+                                <button href="#" class="table__actionBt --delete">Usuń</button></td>
+                        </tr>
+                        <tr class="mainPanel__position" id="tr">
+                            <td class="table__td">21.01.2021</td>
+                            <td class="table__td">Mandat Karny Kredytowany</td>
+                            <td class="table__td">650 PLN</td>
+                            <td class="table__td">Obciążenie</td>
+                            <td class="table__td">nienajgorzej</td>
+                            <td class="table__td">
+                                <button href="#" class="table__actionBt --edit">Edytuj</button>
+                                <button href="#" class="table__actionBt --delete">Usuń</button></td>
+                        </tr>
+                        <tr class="mainPanel__position" id="tr">
+                            <td class="table__td">01.01.1991</td>
+                            <td class="table__td">mycie szyb sąsiadce</td>
+                            <td class="table__td">5 PLN</td>
+                            <td class="table__td">Uznanie</td>
+                            <td class="table__td">Pracowałem 1h</td>
+                            <td class="table__td">
+                                <button href="#" class="table__actionBt --edit">Edytuj</button>
+                                <button href="#" class="table__actionBt --delete">Usuń</button></td>
+                         </tr>
+                    </tbody>
+                </table>
+
+                <!-- <input type="text" id="mainPanel__input" onkeyup="nazwa()" placeholder="Odszukaj swój wydatek..."> -->
+            </section>
+            <!-- end mainPanel -->
+        </main>
+    </div>
+
+
+</body>
+
+</html>
+>>>>>>> 7c60451d2b73770e645c25050b66ea81b3a27fee
