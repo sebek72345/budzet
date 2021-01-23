@@ -270,7 +270,7 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
 /* about */
 
 .teams .carousel .card {
-  background: #222;
+  background: #fff;
   border-radius: 6px;
   padding: 25px 35px;
   text-align: center;
@@ -278,7 +278,7 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
   transition: all 0.3s ease;
 }
 .teams .carousel .card:hover {
-  background-color: crimson;
+  background-color: greenyellow;
 }
 .teams .carousel .card .box {
   display: flex;
@@ -317,7 +317,7 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
   margin: 0 5px;
   outline: none !important;
   border-radius: 50%;
-  border: 2px solid crimson !important;
+  border: 2px solid #fff !important;
   transition: all 0.3s ease;
 }
 .owl-dot.active {
@@ -326,7 +326,7 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
 }
 .owl-dot.active,
 .owl-dot:hover {
-  background: crimson !important;
+  background: greenyellow !important;
 }
 
 /* contact styling section */
@@ -673,9 +673,9 @@ span {
     text-align: center;
   }
 
-   .link-title {
+  .link-title {
     flex-basis: 50%;
-    min-width:100%;
+    min-width: 100%;
   }
   .social-icons {
     flex-basis: 100%;
@@ -683,7 +683,7 @@ span {
   .copyright-text {
     flex-basis: 100%;
   }
-  .footer-logo{
+  .footer-logo {
     flex-basis: 100%;
   }
 
