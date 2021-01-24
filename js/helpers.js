@@ -62,7 +62,7 @@ export function userIsActive() {
 }
 export async function switchSignInSingOut() {
   const isLogged = await userIsActive();
-  const userStatus = document.querySelector(".header__list>li:last-child a");
+  const userStatus = document.querySelector(".menu>li:last-child a");
   if (isLogged) {
     userStatus.textContent = "Wyloguj";
     userStatus.addEventListener("click", () => {

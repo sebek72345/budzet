@@ -127,7 +127,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   });
 
   addSpending.addEventListener("click", () => {
-    toggleVisabilityIncomeModal("open");
+    toggleVisabilitySpendingModal("open");
     const confirmBnt = document.querySelector(".btn-confirm.spending");
     let newDate = document.querySelector("#add-spending-date");
     newDate.value = getCurrentData();

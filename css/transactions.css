@@ -168,7 +168,6 @@
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
-  cursor: pointer;
   transition: 0.1s;
 }
 .table__th {
@@ -254,6 +253,9 @@
   line-height: 13px;
   text-align: left;
 }
+.infoPanel__te {
+  font-size: 12px;
+}
 .accountBalance__text,
 .infoPanel__text {
   font-size: 2.4rem;
@@ -262,7 +264,6 @@
   margin-block-end: 1em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
-  padding-bottom: 12px;
   color: #328985;
   text-align: left;
   display: inline-block;
@@ -292,7 +293,7 @@
 }
 
 .infoPanel__content {
-  line-height: 24px;
+  line-height: 18px;
   text-align: center;
   color: #232323;
   font-weight: 300;
@@ -332,7 +333,6 @@
   margin: 0 auto;
   padding: 8px 16px;
   line-height: 24px;
-  cursor: pointer;
   transition: 0.1s;
   padding: 0.3%;
   border: 1px solid #888;
@@ -413,6 +413,15 @@
   background: repeating-linear-gradient(220deg, #b2ff9e, #fff);
   border: 1px solid;
   border-color: #000;
+  width: 40%;
+  font-size: 16px;
+  margin: 10px auto;
+}
+.modal__close--spending,
+.modal__close--income,
+.btn-confirm,
+#pdf {
+  cursor: pointer;
 }
 
 /* keyframsy */
