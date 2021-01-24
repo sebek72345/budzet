@@ -35,26 +35,30 @@ window.addEventListener("DOMContentLoaded", async () => {
   const filterTypeTransaction = document.querySelector(
     "#filter-transactions-type"
   );
+  let displayText = document.querySelector(".informations");
 
   let transations = [];
   let spendings = [];
   let incomes = [];
+  let monthLimit;
   let table;
 
   /*  await logUser();
   await userIsActive(); */
-  await firebaseApp
-    .firestore()
-    .collection("8SenRtWDipgvAi3Q4Ptz7slJeXV2")
-    .doc(`${month.value}-${year.value}`)
-    .onSnapshot(async (doc) => {
-      updateView();
-    });
-
+  async function realTimeUpdate() {
+    await firebaseApp
+      .firestore()
+      .collection("8SenRtWDipgvAi3Q4Ptz7slJeXV2")
+      .doc(`${month.value}-${year.value}`)
+      .onSnapshot(async (doc) => {
+        await updateView();
+        console.log("update", transations);
+      });
+  }
+  realTimeUpdate();
   //listener start
   month.addEventListener("change", async () => {
-    console.log(table, "destroy");
-    updateView();
+    await updateView();
   });
   year.addEventListener("change", () => {
     updateView();
@@ -136,13 +140,17 @@ window.addEventListener("DOMContentLoaded", async () => {
   //listener end
 
   async function updateView() {
-    console.log(table);
-    const data = await getDataFromDataBase(`${month.value}-${year.value}`);
-    if (!data[1]) {
-      console.log("work");
-      let displayText = document.querySelector(".informations");
+    console.log("updateView");
+    displayText.textContent = "";
+    let data = await getDataFromDataBase(`${month.value}-${year.value}`);
+    monthLimit = data[0];
+    console.log(data[1]);
+    if (!data[1] || !data[1].length) {
+      console.log("brak");
       displayText.textContent = "Brak wyników do wyświetlenia";
+      document.querySelector(".dataTable-bottom").style.display = "none";
       removerContainer();
+      transations = [];
       return;
     }
     spendings = data[1].filter((item) => !item.income);
@@ -402,17 +410,19 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
   async function updateDatabase(newTransactions, period) {
     console.log(`${month.value}-${year.value}`);
-    console.log(newTransactions);
+    console.log(transations);
     const user = await firebaseApp.auth().currentUser;
     await firebaseApp
       .firestore()
       .collection(user.uid)
       .doc(`${month.value}-${year.value}`)
       .set({
+        limit: monthLimit || 0,
         transactions: newTransactions,
       })
       .then(() => {
         showTostify("Wydatki zostały dopisane do twojej listy", "green");
+        realTimeUpdate();
       })
       .catch((err) =>
         showTostify("Coś poszło nie tak, spróbój ponownie", "red")
@@ -422,7 +432,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     return "_" + Math.random().toString(36).substr(2, 9);
   }
   function getCurrentData() {
-    const dateObj = new Date(year.value, month.value);
+    const dateObj = new Date(year.value, month.value - 1);
     const dayValue = dateObj.getDate();
     let monthValue = dateObj.getMonth() + 1;
     const yearValue = dateObj.getFullYear();
