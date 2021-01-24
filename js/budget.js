@@ -14,6 +14,7 @@ const translateCategories = {
   Rozrywka: "Entertainment.svg",
   Transport: "Transport.svg",
   Zdrowie: "Health.svg",
+  Inne: "Other.svg",
 };
 
 const selectedMonth = document.querySelector("#month");
@@ -124,13 +125,14 @@ function drawLimitChart(limit, totalSpending) {
   const percentage = document.querySelector(".percentage");
   const limitAmountEl = document.querySelector("#limit-amount");
   const restAmountEl = document.querySelector("#rest-amount");
-  const percent = Number(((totalSpending * 100) / limit).toFixed(2));
+  const percent = limit && Number(((totalSpending * 100) / limit).toFixed(2));
   let restAmount = defaultValue ? 0 : (limit - totalSpending).toFixed(2);
   document.documentElement.style.setProperty(
     "--circle",
     `${defaultValue ? "0" : percent}`
   );
-  restAmount = restAmount < 0 ? "Jesteś na minusie" : `${restAmount} zł`;
+  console.log(restAmount, percent);
+  restAmount = restAmount < -0.1 ? "Jesteś na minusie" : `${restAmount} zł`;
   percentage.textContent = defaultValue ? "0%" : `${percent}%`;
   limitAmountEl.textContent = limitSpendig ? "Ustal swój limit" : limit + " zł";
   restAmountEl.textContent = `${defaultValue ? "Brak danych" : restAmount}`;
@@ -211,15 +213,15 @@ function categoryExpencesChart(categories = ["Brak danych"], values = [1]) {
         {
           label: "Population (millions)",
           backgroundColor: [
-            "#3e95cd",
-            "#003f5c",
-            "#2f4b7c",
-            "#665191",
-            "#a05195",
-            "#d45087",
-            "#f95d6a",
+            "#e241e2",
+            "#6106a2",
+            "#0000FF",
+            "#00FF00",
+            "#FFFF00",
+            "#FF7F00",
+            "#FF0000",
             "#ff7c43",
-            "#ffa600",
+            "#15a91a",
           ],
           data: values.map((value) => value),
         },
@@ -302,6 +304,7 @@ function linearChart(expences = [], days = []) {
               display: true,
               labelString: "Wydatki [zł]",
               fontSize: 14,
+              fontColor: "black",
             },
             gridLines: {
               display: true,
@@ -309,6 +312,7 @@ function linearChart(expences = [], days = []) {
             ticks: {
               beginAtZero: true,
               stepSize: 50,
+              fontColor: "black",
             },
           },
         ],
@@ -318,11 +322,13 @@ function linearChart(expences = [], days = []) {
               display: true,
               labelString: "Dzień Miesiąca",
               fontSize: 14,
+              fontColor: "black",
             },
             ticks: {
               beginAtZero: true,
               maxRotation: 0,
               maxTicksLimit: 18,
+              fontColor: "black",
             },
           },
         ],
@@ -333,7 +339,7 @@ function linearChart(expences = [], days = []) {
       title: {
         display: true,
         fontFamily: "Helvetica",
-        fontColor: "#1b0ba7",
+        fontColor: "#8a8989",
         text:
           expences.length && days.length
             ? "Wydatki każdego dnia miesiąca"
