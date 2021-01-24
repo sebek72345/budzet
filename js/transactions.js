@@ -31,6 +31,10 @@ window.addEventListener("DOMContentLoaded", async () => {
   const addSpending = document.querySelector("#addSpendingBtn");
   const closeAddIncome = document.querySelector(".modal__close--income");
   const closeAddSpending = document.querySelector(".modal__close--spending");
+  const filterDate = document.querySelector("#filter-transactions-date");
+  const filterTypeTransaction = document.querySelector(
+    "#filter-transactions-type"
+  );
 
   let transations = [];
   let spendings = [];
@@ -39,19 +43,35 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   /*  await logUser();
   await userIsActive(); */
-
   await firebaseApp
     .firestore()
     .collection("8SenRtWDipgvAi3Q4Ptz7slJeXV2")
     .doc(`${month.value}-${year.value}`)
     .onSnapshot(async (doc) => {
       updateView();
-      console.log("first");
     });
 
   //listener start
-  month.addEventListener("change", updateView);
-  year.addEventListener("change", updateView);
+  month.addEventListener("change", async () => {
+    console.log(table, "destroy");
+    updateView();
+  });
+  year.addEventListener("change", () => {
+    updateView();
+  });
+  filterDate.addEventListener("change", () => {
+    const filteredTansactions = filterItem(transations);
+    fillTabele(filteredTansactions);
+    drawTable();
+    interactiveButtons();
+  });
+  filterTypeTransaction.addEventListener("change", () => {
+    const filteredTansactions = filterItem(transations);
+    fillTabele(filteredTansactions);
+    drawTable();
+    interactiveButtons();
+  });
+
   addIncome.addEventListener("click", () => {
     const modalBackground = document.querySelector("#modal--income");
     const modalContent = document.querySelector("#modal__content--income");
@@ -114,27 +134,38 @@ window.addEventListener("DOMContentLoaded", async () => {
   });
   buttonPdf.addEventListener("click", () => generatePDF(transations));
   //listener end
+
   async function updateView() {
-    removerContainer();
+    console.log(table);
     const data = await getDataFromDataBase(`${month.value}-${year.value}`);
+    if (!data[1]) {
+      console.log("work");
+      let displayText = document.querySelector(".informations");
+      displayText.textContent = "Brak wyników do wyświetlenia";
+      removerContainer();
+      return;
+    }
     spendings = data[1].filter((item) => !item.income);
     incomes = data[1].filter((item) => item.income);
     transations = incomes.concat(spendings);
-    dateDown(transations);
-    /* drawTable(); */
-    /* table.destroy(); */
+    transations = filterItem(transations);
+    fillTabele(transations);
+    drawTable();
     interactiveButtons();
+    table.on("datatable.page", function (page) {
+      interactiveButtons();
+    });
     const savingsEl = document.querySelector("#accountBalance");
     const savingsAmounts = getSavings(spendings, incomes);
     savingsEl.innerHTML = `${savingsAmounts} <div class="accountBalance__coin">
       PLN</div>`;
-    console.log("update");
+    console.log("after");
   }
   function dateDown(array) {
     array.sort((item1, item2) => {
       const [day1] = item1.date.split("/");
       const [day2] = item2.date.split("/");
-      if (Number(day1) > Number(day2)) return 1;
+      if (Number(day1) < Number(day2)) return 1;
       else {
         return -1;
       }
@@ -148,6 +179,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     li.forEach((item) => item.remove());
   }
   function drawTable() {
+    console.log("draw Tabele");
     table = new DataTable("table", {
       sortable: false,
       perPage: 5,
@@ -159,8 +191,8 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
   //show transactions
   function fillTabele(array) {
-    console.log();
     removerContainer();
+    console.log("Fill Tabele");
     const list = document.querySelector("#table__body");
     array.forEach((item) => {
       const transactionClone = template.content.cloneNode(true);
@@ -187,20 +219,19 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
   //delate item from DOM
   function interactiveButtons() {
+    console.log("interactive");
+
     const deleteButtons = [...document.querySelectorAll(".--delete")];
     const editButtons = [...document.querySelectorAll(".--edit")];
-
+    console.log({ deleteButtons, editButtons });
     deleteButtons.forEach((deleteItem) => {
       deleteItem.addEventListener("click", (e) => {
-        /* table.destroy(); */
-        console.log(e);
         removerContainer();
         deleteTransaction(e);
       });
     });
     editButtons.forEach((editItem) => {
       editItem.addEventListener("click", (e) => {
-        console.log(e.target);
         const row = e.target.parentNode.parentNode;
         const transactionId = row.dataset.id;
         const editedTransaction = transations.filter(
@@ -209,9 +240,11 @@ window.addEventListener("DOMContentLoaded", async () => {
         const restTransactions = transations.filter(
           (item) => item.id !== transactionId
         );
+        const modalTitle = document.querySelectorAll(".modal__header>p");
+        modalTitle[0].textContent = "Edytuj Tranzakcje";
+        modalTitle[1].textContent = "Edytuj Tranzakcje";
+        console.log("trans");
         if (editedTransaction.income) {
-          console.log("wydprzychowatek");
-
           const modalBackground = document.querySelector("#modal--income");
           const modalContent = document.querySelector(
             "#modal__content--income"
@@ -230,6 +263,9 @@ window.addEventListener("DOMContentLoaded", async () => {
             ".btn-confirm.income"
           );
           confirmBnt.addEventListener("click", () => {
+            removerContainer();
+            console.log("income edit");
+            modalTitle[0].textContent = "Dodaj Tranzakcje";
             const newIncome = {
               //assign values from parameters
               date: newDate.value,
@@ -239,16 +275,11 @@ window.addEventListener("DOMContentLoaded", async () => {
               id: transactionId,
               income: true,
             };
-            console.log(newAmount.value);
             updateDatabase([...restTransactions, newIncome]);
             modalBackground.style.display = "none";
             modalContent.style.display = "none";
-            /* newCategory = "Wynagrodzenie";
-    newAmount = "";
-    newDesc = ""; */
           });
         } else {
-          console.log("wydatek");
           const modalBackground = document.querySelector("#modal--spending");
           const modalContent = document.querySelector(
             "#modal__content--spending"
@@ -267,6 +298,11 @@ window.addEventListener("DOMContentLoaded", async () => {
           newDesc.value = editedTransaction.desc;
           newAmount.value = editedTransaction.amount;
           confirmBnt.addEventListener("click", () => {
+            removerContainer();
+            console.log("spending edit");
+
+            modalTitle[1].textContent = "Dodaj Tranzakcje";
+            console.log(modalTitle[1]);
             const newSpending = {
               //assign values from parameters
               date: newDate.value,
@@ -280,14 +316,8 @@ window.addEventListener("DOMContentLoaded", async () => {
             updateDatabase([...restTransactions, newSpending]);
             modalBackground.style.display = "none";
             modalContent.style.display = "none";
-            /* newCategory = "Wynagrodzenie";
-      newAmount = "";
-      newDesc = ""; */
           });
         }
-        //openmodalValue(editedTransaction.category,editedTransaction.desc,editedTransaction.amount,editedTransaction.date)
-        console.log(editedTransaction);
-        /* updateDatabase([...restTransactions, editedTransaction], "7-2020"); */ //na klikniecie w modalu
       });
     });
   }
@@ -299,33 +329,37 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
     return `${day} ${months[month - 1]} ${year}`;
   }
-  //filter type
-  const filterType = ["spendings", "incomes", "najnowsze", "najstarsze"];
-  /* filterItem(allTransactions, "incomes"); */
-  function filterItem(array, type) {
-    let filteredArray;
-    switch (type) {
-      case "spendings":
-        filteredArray = array.filter(({ income }) => !income);
-        break;
-      case "incomes":
-        filteredArray = array.filter(({ income }) => income);
-        break;
-      case "najnowsze":
-        filteredArray = dateDown(array);
-        break;
-      case "najstarsze":
-        filteredArray = dateDown(array);
-        filteredArray.reverse();
-        break;
 
-      default:
-        filteredArray = array;
-        break;
+  function filterItem(array) {
+    console.log(filterTypeTransaction.value, filterDate.value);
+    table && table.destroy();
+    let filteredArray = [...array];
+    if (filterTypeTransaction.value === "Incomes") {
+      filteredArray = filteredArray.filter(({ income }) => income);
+    } else if (filterTypeTransaction.value === "Spendings") {
+      filteredArray = filteredArray.filter(({ income }) => !income);
     }
-    console.log(filteredArray);
 
-    return fillTabele(filteredArray);
+    if (filterDate.value === "theLatest") {
+      filteredArray = filteredArray.sort((item1, item2) => {
+        const [day1] = item1.date.split("/");
+        const [day2] = item2.date.split("/");
+        if (Number(day1) < Number(day2)) return 1;
+        else {
+          return -1;
+        }
+      });
+    } else if (filterDate.value === "theOldest") {
+      filteredArray = filteredArray.sort((item1, item2) => {
+        const [day1] = item1.date.split("/");
+        const [day2] = item2.date.split("/");
+        if (Number(day1) > Number(day2)) return 1;
+        else {
+          return -1;
+        }
+      });
+    }
+    return filteredArray;
   }
   //get sum of array
   function getSum(array) {
@@ -367,6 +401,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     updateDatabase([...updatedTransaction], "7-2020");
   }
   async function updateDatabase(newTransactions, period) {
+    console.log(`${month.value}-${year.value}`);
     console.log(newTransactions);
     const user = await firebaseApp.auth().currentUser;
     await firebaseApp
@@ -387,7 +422,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     return "_" + Math.random().toString(36).substr(2, 9);
   }
   function getCurrentData() {
-    const dateObj = new Date();
+    const dateObj = new Date(year.value, month.value);
     const dayValue = dateObj.getDate();
     let monthValue = dateObj.getMonth() + 1;
     const yearValue = dateObj.getFullYear();

@@ -24,7 +24,6 @@ export async function getDataFromDataBase(period = "7-2020") {
   const uid = user.uid;
   const snap = await firebaseApp.firestore().collection(uid).doc(period).get();
   if (snap.exists) {
-    console.log(snap.data());
     const mounthlyLimit = snap.data().limit;
     const transactions = snap.data().transactions || [];
     return [mounthlyLimit, transactions];
