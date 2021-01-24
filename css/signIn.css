@@ -27,7 +27,7 @@ input {
 .navbar {
   position: fixed;
   width: 100%;
-  z-index: 999;
+  z-index: 5;
   padding: 8px 0;
   transition: all 0.3s ease;
   font-family: "Ubuntu", sans-serif;
@@ -89,7 +89,7 @@ input {
   transform: translateX(-50%);
   border-radius: 10px;
   transition: top 1s ease-in;
-  z-index: 15;
+  z-index: 20;
 }
 .modal.active {
   top: 0px;
