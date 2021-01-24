@@ -1,9 +1,10 @@
 import {
   firebaseApp,
   getDataFromDataBase,
-  userIsActive,
-  logUser,
+  switchSignInSingOut,
   showTostify,
+  logUser,
+  userIsActive,
 } from "./helpers.js";
 // dodac do kazdej tranzakcji income:false or true
 
@@ -37,53 +38,76 @@ window.addEventListener("DOMContentLoaded", async () => {
   );
   let displayText = document.querySelector(".informations");
 
-  let transations = [];
+  let transactions = [];
   let spendings = [];
   let incomes = [];
   let monthLimit;
   let table;
+  let isLogged = await userIsActive();
+  if (!isLogged) {
+    return;
+  }
+  const userId = await firebaseApp.auth().currentUser.uid;
+  await logUser();
+  /* await userIsActive(); */
+  switchSignInSingOut();
 
-  /*  await logUser();
-  await userIsActive(); */
-  async function realTimeUpdate() {
-    await firebaseApp
+  function realTimeUpdate() {
+    firebaseApp
       .firestore()
-      .collection("8SenRtWDipgvAi3Q4Ptz7slJeXV2")
+      .collection(userId)
       .doc(`${month.value}-${year.value}`)
-      .onSnapshot(async (doc) => {
-        await updateView();
-        console.log("update", transations);
+      .onSnapshot((doc) => {
+        updateView();
       });
   }
   realTimeUpdate();
   //listener start
-  month.addEventListener("change", async () => {
-    await updateView();
+  month.addEventListener("change", () => {
+    updateView();
   });
   year.addEventListener("change", () => {
     updateView();
   });
   filterDate.addEventListener("change", () => {
-    const filteredTansactions = filterItem(transations);
-    fillTabele(filteredTansactions);
+    const filteredTansactions = filterItem(transactions);
+    fillTable(filteredTansactions);
     drawTable();
     interactiveButtons();
   });
   filterTypeTransaction.addEventListener("change", () => {
-    const filteredTansactions = filterItem(transations);
-    fillTabele(filteredTansactions);
+    const filteredTansactions = filterItem(transactions);
+    fillTable(filteredTansactions);
     drawTable();
     interactiveButtons();
   });
-
-  addIncome.addEventListener("click", () => {
+  function toggleVisabilityIncomeModal(visibility) {
     const modalBackground = document.querySelector("#modal--income");
     const modalContent = document.querySelector("#modal__content--income");
-    modalBackground.style.display = "block";
-    modalContent.style.display = "block";
+    if (visibility === "open") {
+      modalBackground.style.display = "block";
+      modalContent.style.display = "block";
+    } else if (visibility === "close") {
+      modalBackground.style.display = "none";
+      modalContent.style.display = "none";
+    }
+  }
+  function toggleVisabilitySpendingModal(visibility) {
+    const modalBackground = document.querySelector("#modal--spending");
+    const modalContent = document.querySelector("#modal__content--spending");
+    if (visibility === "open") {
+      modalBackground.style.display = "block";
+      modalContent.style.display = "block";
+    } else if (visibility === "close") {
+      modalBackground.style.display = "none";
+      modalContent.style.display = "none";
+    }
+  }
+  addIncome.addEventListener("click", () => {
+    toggleVisabilityIncomeModal("open");
+    const confirmBnt = document.querySelector(".btn-confirm.income");
     let newDate = document.querySelector("#add-income-date");
     newDate.value = getCurrentData();
-    const confirmBnt = modalBackground.querySelector(".btn-confirm.income");
     confirmBnt.addEventListener("click", () => {
       let newCategory = document.querySelector("#add-income-category").value;
       let newDesc = document.querySelector("#add-income-desc").value;
@@ -91,95 +115,66 @@ window.addEventListener("DOMContentLoaded", async () => {
         document.querySelector("#add-income-amount").value
       );
       const dataValue = newDate.value;
-      addToDataBase(true, newCategory, newDesc, newAmount, dataValue);
-      modalBackground.style.display = "none";
-      modalContent.style.display = "none";
-      /* newCategory = "Wynagrodzenie";
-      newAmount = "";
-      newDesc = ""; */
+      addToDataBase(true, newCategory, newDesc, newAmount, newDate.value);
+      toggleVisabilityIncomeModal("close");
     });
   });
-  closeAddSpending.addEventListener("click", () => {
-    const modalBackground = document.querySelector("#modal--spending");
-    const modalContent = document.querySelector("#modal__content--spending");
-    modalBackground.style.display = "none";
-    modalContent.style.display = "none";
-  });
   closeAddIncome.addEventListener("click", () => {
-    "#modamodal--income";
-    const modalBackground = document.querySelector("#modal--income");
-    const modalContent = document.querySelector("#modal__content--income");
-    modalBackground.style.display = "none";
-    modalContent.style.display = "none";
+    toggleVisabilityIncomeModal("close");
+  });
+  closeAddSpending.addEventListener("click", () => {
+    toggleVisabilitySpendingModal("close");
   });
 
   addSpending.addEventListener("click", () => {
-    const modalBackground = document.querySelector("#modal--spending");
-    const modalContent = document.querySelector("#modal__content--spending");
-    modalBackground.style.display = "block";
-    modalContent.style.display = "block";
+    toggleVisabilityIncomeModal("open");
+    const confirmBnt = document.querySelector(".btn-confirm.spending");
     let newDate = document.querySelector("#add-spending-date");
     newDate.value = getCurrentData();
-    const confirmBnt = modalBackground.querySelector(".btn-confirm.spending");
+    console.log(newDate.value);
     confirmBnt.addEventListener("click", () => {
       let newCategory = document.querySelector("#add-spending-category").value;
       let newDesc = document.querySelector("#add-spending-desc").value;
       let newAmount = Number(
         document.querySelector("#add-spending-amount").value
       );
-      const dataValue = newDate.value;
-      addToDataBase(false, newCategory, newDesc, newAmount, dataValue);
-      modalBackground.style.display = "none";
-      modalContent.style.display = "none";
-      /* newCategory = "Wynagrodzenie";
-      newAmount = "";
-      newDesc = ""; */
+      addToDataBase(false, newCategory, newDesc, newAmount, newDate.value);
+      toggleVisabilityIncomeModal("close");
     });
   });
-  buttonPdf.addEventListener("click", () => generatePDF(transations));
+  buttonPdf.addEventListener("click", () => generatePDF(transactions));
   //listener end
 
+  //Start functions
   async function updateView() {
-    console.log("updateView");
-    displayText.textContent = "";
     let data = await getDataFromDataBase(`${month.value}-${year.value}`);
     monthLimit = data[0];
-    console.log(data[1]);
     if (!data[1] || !data[1].length) {
       console.log("brak");
       displayText.textContent = "Brak wyników do wyświetlenia";
       document.querySelector(".dataTable-bottom").style.display = "none";
       removerContainer();
-      transations = [];
+      transactions = [];
       return;
     }
     spendings = data[1].filter((item) => !item.income);
     incomes = data[1].filter((item) => item.income);
-    transations = incomes.concat(spendings);
-    transations = filterItem(transations);
-    fillTabele(transations);
+    transactions = incomes.concat(spendings);
+    transactions = filterItem(transactions);
+    fillTable(transactions);
     drawTable();
     interactiveButtons();
+    changeDynamicText();
     table.on("datatable.page", function (page) {
       interactiveButtons();
     });
+  }
+  function changeDynamicText() {
     const savingsEl = document.querySelector("#accountBalance");
     const savingsAmounts = getSavings(spendings, incomes);
     savingsEl.innerHTML = `${savingsAmounts} <div class="accountBalance__coin">
-      PLN</div>`;
-    console.log("after");
-  }
-  function dateDown(array) {
-    array.sort((item1, item2) => {
-      const [day1] = item1.date.split("/");
-      const [day2] = item2.date.split("/");
-      if (Number(day1) < Number(day2)) return 1;
-      else {
-        return -1;
-      }
-    });
-    fillTabele(array);
-    return array;
+  PLN</div>`;
+    displayText.textContent = "";
   }
   //remove previous list item
   function removerContainer() {
@@ -187,20 +182,21 @@ window.addEventListener("DOMContentLoaded", async () => {
     li.forEach((item) => item.remove());
   }
   function drawTable() {
-    console.log("draw Tabele");
     table = new DataTable("table", {
       sortable: false,
       perPage: 5,
       perPageSelect: false,
+      firstLast: true,
+      nextText: "Następna",
+      prevText: "Poprzednia",
       labels: {
         info: "",
       },
     });
   }
   //show transactions
-  function fillTabele(array) {
+  function fillTable(array) {
     removerContainer();
-    console.log("Fill Tabele");
     const list = document.querySelector("#table__body");
     array.forEach((item) => {
       const transactionClone = template.content.cloneNode(true);
@@ -209,8 +205,6 @@ window.addEventListener("DOMContentLoaded", async () => {
       const desc = row.querySelector(".desc");
       const category = row.querySelector(".category");
       const price = transactionClone.querySelector(".price");
-      const deleteIcon = transactionClone.querySelector(".--delete"); //add data set data-uid
-      const editIcon = transactionClone.querySelector(".--edit"); //add data set data-uid
       row.dataset.id = item.id;
       const formatedDate = formatDate(item.date);
       category.innerHTML = item.category;
@@ -227,11 +221,8 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
   //delate item from DOM
   function interactiveButtons() {
-    console.log("interactive");
-
     const deleteButtons = [...document.querySelectorAll(".--delete")];
     const editButtons = [...document.querySelectorAll(".--edit")];
-    console.log({ deleteButtons, editButtons });
     deleteButtons.forEach((deleteItem) => {
       deleteItem.addEventListener("click", (e) => {
         removerContainer();
@@ -242,10 +233,10 @@ window.addEventListener("DOMContentLoaded", async () => {
       editItem.addEventListener("click", (e) => {
         const row = e.target.parentNode.parentNode;
         const transactionId = row.dataset.id;
-        const editedTransaction = transations.filter(
+        const editedTransaction = transactions.filter(
           (item) => item.id === transactionId
         )[0];
-        const restTransactions = transations.filter(
+        const restTransactions = transactions.filter(
           (item) => item.id !== transactionId
         );
         const modalTitle = document.querySelectorAll(".modal__header>p");
@@ -339,7 +330,6 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
 
   function filterItem(array) {
-    console.log(filterTypeTransaction.value, filterDate.value);
     table && table.destroy();
     let filteredArray = [...array];
     if (filterTypeTransaction.value === "Incomes") {
@@ -349,25 +339,22 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
 
     if (filterDate.value === "theLatest") {
-      filteredArray = filteredArray.sort((item1, item2) => {
-        const [day1] = item1.date.split("/");
-        const [day2] = item2.date.split("/");
-        if (Number(day1) < Number(day2)) return 1;
-        else {
-          return -1;
-        }
-      });
+      filteredArray = filterAscending(filteredArray);
     } else if (filterDate.value === "theOldest") {
-      filteredArray = filteredArray.sort((item1, item2) => {
-        const [day1] = item1.date.split("/");
-        const [day2] = item2.date.split("/");
-        if (Number(day1) > Number(day2)) return 1;
-        else {
-          return -1;
-        }
-      });
+      filteredArray = filterAscending(filteredArray).reverse();
     }
     return filteredArray;
+  }
+  function filterAscending(array) {
+    const newArray = array.sort((item1, item2) => {
+      const [day1] = item1.date.split("/");
+      const [day2] = item2.date.split("/");
+      if (Number(day1) < Number(day2)) return 1;
+      else {
+        return -1;
+      }
+    });
+    return newArray;
   }
   //get sum of array
   function getSum(array) {
@@ -386,10 +373,8 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
 
   function addToDataBase(isIncome, category, desc, amount, date) {
-    //income true false
     const transactionId = getUniqueId();
     const newTransaction = {
-      //assign values from parameters
       date,
       category,
       desc,
@@ -397,20 +382,17 @@ window.addEventListener("DOMContentLoaded", async () => {
       id: transactionId,
       income: isIncome ? true : false,
     };
-    const newTransactions = [...transations, newTransaction];
+    const newTransactions = [...transactions, newTransaction];
     updateDatabase(newTransactions, "7-2020");
   }
   async function deleteTransaction(e) {
     const transactionId = e.target.parentNode.parentNode.dataset.id;
-    const user = await firebaseApp.auth().currentUser;
-    const updatedTransaction = transations.filter(
+    const updatedTransaction = transactions.filter(
       ({ id }) => id !== transactionId
     );
     updateDatabase([...updatedTransaction], "7-2020");
   }
-  async function updateDatabase(newTransactions, period) {
-    console.log(`${month.value}-${year.value}`);
-    console.log(transations);
+  async function updateDatabase(newTransactions) {
     const user = await firebaseApp.auth().currentUser;
     await firebaseApp
       .firestore()
@@ -432,10 +414,11 @@ window.addEventListener("DOMContentLoaded", async () => {
     return "_" + Math.random().toString(36).substr(2, 9);
   }
   function getCurrentData() {
-    const dateObj = new Date(year.value, month.value - 1);
-    const dayValue = dateObj.getDate();
-    let monthValue = dateObj.getMonth() + 1;
-    const yearValue = dateObj.getFullYear();
+    const currentDay = new Date().getDate();
+    const settlementDate = new Date(year.value, month.value - 1, currentDay);
+    const dayValue = settlementDate.getDate();
+    let monthValue = settlementDate.getMonth() + 1;
+    const yearValue = settlementDate.getFullYear();
     monthValue = monthValue.toString();
     monthValue = monthValue.length < 2 ? `0${monthValue}` : monthValue;
     let formatedDatee = `${dayValue}/${monthValue}/${yearValue}`;
@@ -452,7 +435,6 @@ window.addEventListener("DOMContentLoaded", async () => {
     const body = [...singleRow];
     const savings = getSavings(spendings, incomes);
     const doc = new jsPDF();
-    console.log({ spendings, incomes, array });
     doc.setFont("Century Gothic");
     doc.setFontType("normal");
     doc.autoTable({
@@ -480,6 +462,7 @@ window.addEventListener("DOMContentLoaded", async () => {
           //spending
           if (data.row.index === item.index) {
             data.cell.styles.fillColor = [230, 50, 50];
+            console.log(data.cell);
           }
         });
         incomes.forEach((item) => {
@@ -515,15 +498,6 @@ window.addEventListener("DOMContentLoaded", async () => {
       finalY + 20,
       "Mamy nadzieję że dzięki nam zaoszczędzisz dużo pieniędzy"
     );
-
-    doc.output("dataurlnewwindow");
-    var string = doc.output("datauristring");
-    var iframe =
-      "<iframe width='100%' height='100%' src='" + string + "'></iframe>";
-    var x = window.open();
-    x.document.open();
-    x.document.write(iframe);
-    x.document.close();
-    /*  doc.save("listaTranzakcji.pdf"); */
+    doc.save(`TwojeWydatki-${months[month.value - 1]}-${year.value}.pdf`);
   }
 });
