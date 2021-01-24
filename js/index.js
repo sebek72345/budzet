@@ -32,6 +32,63 @@ $(document).ready(function () {
     $(".menu-button i").toggleClass("active");
   });
 
+  //typing text animation
+  var typed = new Typed(".typing-1", {
+    strings: ["Wynagrodzenie", "Praca dodatkowa", "Inne"],
+    typeSpeed: 100,
+    backSpeed: 60,
+    loop: true,
+  });
+  var typed = new Typed(".typing-2", {
+    strings: ["Wynagrodzenie z firmy", "Wynagrodzenie za prace dodatkową"],
+    typeSpeed: 100,
+    backSpeed: 60,
+    loop: true,
+  });
+  var typed = new Typed(".typing-3", {
+    strings: ["8000", "5500", "6800", "4200"],
+    typeSpeed: 100,
+    backSpeed: 60,
+    loop: true,
+  });
+  var typed = new Typed(".typing-4", {
+    strings: [
+      "Dom",
+      "Elektronika",
+      "Jedzenie",
+      "Odzież",
+      "Prezenty",
+      "Rozrywka",
+      "Transport",
+      "Zdrowie",
+      "Inne",
+    ],
+    typeSpeed: 100,
+    backSpeed: 60,
+    loop: true,
+  });
+  var typed = new Typed(".typing-5", {
+    strings: [
+      "Zakup telefonu",
+      "Rachunki",
+      "Zakupy w markecie",
+      "Zakup spodni oraz koszulki",
+      "Prezent dla drugiej połówki",
+      "Wypad do kina",
+      "Paliwo",
+      "Leki w aptece",
+    ],
+    typeSpeed: 100,
+    backSpeed: 60,
+    loop: true,
+  });
+  var typed = new Typed(".typing-6", {
+    strings: ["500", "30", "80", "430", "120", "270"],
+    typeSpeed: 100,
+    backSpeed: 60,
+    loop: true,
+  });
+
   //carousel script
   $(".carousel").owlCarousel({
     margin: 20,

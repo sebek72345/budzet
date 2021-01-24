@@ -33,7 +33,7 @@ html {
 body {
   height: 100vh;
   width: 100%;
-  background: repeating-linear-gradient(90deg, #8e9feca6, #fff);
+  background: repeating-linear-gradient(90deg, #b2ff9e, #fff);
   display: flex;
   flex-direction: row;
   flex-direction: column;
@@ -80,17 +80,12 @@ section .title {
   padding: 8px 0;
   transition: all 0.3s ease;
   font-family: "Ubuntu", sans-serif;
-  background: repeating-linear-gradient(120deg, #ffffff, #8e9feca6, #ffffff);
+  background: repeating-linear-gradient(120deg, #ffffff, #b2ff9e, #ffffff);
 }
 
 .navbar.sticky {
   padding: 15px 0;
-  background: repeating-linear-gradient(
-    120deg,
-    #ffffffd3,
-    #b1ecf0d5,
-    #c7f5edd0
-  );
+  background: repeating-linear-gradient(120deg, #ffffff, #adf7b6, #adf7b6);
 }
 
 .navbar .max-width {
@@ -218,10 +213,8 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
     left: 1200px;
 } */
 
-
-
 /* home styling section */
-.home{
+.home {
   align-content: center;
 }
 
@@ -236,7 +229,7 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
   background: transparent;
   outline: none;
   border: 2px solid #6c579ec5;
-  background-color: #6580bba4;
+  background-color: #70e000;
   border-radius: 5px;
   font-weight: bold;
   cursor: pointer;
@@ -274,6 +267,103 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
   margin-top: -100px;
 }
 
+/* how it works content */
+.income-text h3 {
+  font-size: 30px;
+}
+.income-text p {
+  padding: 20px;
+  font-size: 20px;
+}
+.income-text {
+  display: flex;
+  float: left;
+  width: 50%;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  padding: 20px;
+  height: 424px;
+}
+.income-image img {
+  width: 100%;
+  height: auto;
+}
+.income-image {
+  display: flex;
+  position: relative;
+  color: black;
+  float: right;
+  width: 50%;
+  padding: 20px;
+}
+.income-image span {
+  display: inline-block;
+  color: #25ccf7;
+}
+.category {
+  position: absolute;
+  top: 170px;
+  left: 80px;
+}
+.description {
+  position: absolute;
+  top: 241px;
+  left: 80px;
+}
+.amount {
+  position: absolute;
+  top: 298px;
+  left: 80px;
+}
+.expenses-text h3 {
+  font-size: 30px;
+}
+.expenses-text p {
+  padding: 20px;
+  font-size: 20px;
+}
+.expenses-text {
+  display: flex;
+  float: right;
+  width: 50%;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  padding: 20px;
+  height: 424px;
+}
+.expenses-image img {
+  width: 100%;
+  height: auto;
+}
+.expenses-image {
+  display: flex;
+  position: relative;
+  color: black;
+  float: left;
+  width: 50%;
+  padding: 20px;
+}
+.expenses-image span {
+  display: inline-block;
+  color: #25ccf7;
+}
+.category-1 {
+  position: absolute;
+  top: 170px;
+  left: 80px;
+}
+.description-1 {
+  position: absolute;
+  top: 241px;
+  left: 80px;
+}
+.amount-1 {
+  position: absolute;
+  top: 298px;
+  left: 80px;
+}
 /* about */
 
 .teams .carousel .card {
@@ -308,7 +398,7 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
   width: 150px;
   object-fit: cover;
   border-radius: 50%;
-  border: 5px solid crimson;
+  border: 5px solid #70e000;
   transition: all 0.3s ease;
 }
 .teams .carousel .card:hover img {
@@ -372,7 +462,7 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
 
 .contact .contact-content .row i {
   font-size: 25px;
-  color: slateblue;
+  color: #70e000;
 }
 
 .contact .contact-content .info .head {
@@ -407,7 +497,7 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
 .contact .right form .textarea textarea {
   height: 100%;
   width: 100%;
-  border: 1px solid lightcyan;
+  border: 1px solid #70e000;
   border-radius: 6px;
   outline: none;
   padding: 0 15px;
@@ -435,8 +525,8 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
 .contact .right form .button button {
   width: 100%;
   height: 100%;
-  border: 2px solid#6c579ec5;
-  background-color: #6580bba4;
+  border: 2px solid #000;
+  background-color: #70e000;
   color: #000;
   outline: none;
   font-size: 20px;
@@ -558,7 +648,7 @@ span {
   }
 }
 
-@media (max-width: 1024px){
+@media (max-width: 1024px) {
   .home .home-content .common-btn {
     width: fit-content;
   }
@@ -673,10 +763,9 @@ span {
   }
 
   .home .home-content .common-btn a {
-   font-size: 15px;
-   padding: 5px; 
+    font-size: 15px;
+    padding: 5px;
   }
-
 }
 
 @media (max-width: 690px) {
@@ -692,7 +781,6 @@ span {
   .home .home-content a {
     font-size: 20px;
   }
-  
 }
 
 @media (max-width: 500px) {
@@ -715,10 +803,10 @@ span {
   }
 
   .home .home-content .common-btn a {
-   font-size: 15px;
-   padding: 5px; 
+    font-size: 15px;
+    padding: 5px;
   }
-    
+
   .about .about-content .right /*.left */ .text {
     font-size: 19px;
   }
@@ -742,13 +830,13 @@ span {
     padding-left: 10px;
   }
 
-  .footer-row{
+  .footer-row {
     flex-direction: column;
     text-align: center;
-    font-size: 120%
+    font-size: 120%;
   }
 
-   .link-title {
+  .link-title {
     flex-basis: 100%;
     padding-top: 10px;
   }
@@ -775,9 +863,9 @@ span {
   }
 
   .link-title small,
-  .social-icons small{
-  font-size: 80%
-}
+  .social-icons small {
+    font-size: 80%;
+  }
 }
 
 @media (max-width: 475px) {
@@ -804,13 +892,11 @@ span {
   }
 
   .home .home-content .common-btn a {
-   font-size: 18px; 
+    font-size: 18px;
   }
 }
 
-
 @media (max-width: 320px) {
-
   .home {
     height: 200%;
   }
@@ -834,7 +920,7 @@ span {
   }
 
   .home .home-content .common-btn a {
-   font-size: 15px;
-   padding: 5px; 
+    font-size: 15px;
+    padding: 5px;
   }
 }
