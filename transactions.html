@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./css/transactions.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vanilla-datatables@latest/dist/vanilla-dataTables.min.css" rel="stylesheet" type="text/css">
     <script
     defer
@@ -40,27 +41,23 @@
 <body>
     <div class="modal--info"></div>
     <div class="wrapper">
-        <header class="header">
-            <a class="header__logo" href="#">
-                <img class="header__images" src="assets/logo_home.png" width="160px" alt="logo">
-            </a>
-            <nav class="header__nav">
-                <ul class="header__list">
-                    <li class="header__item">
-                        <a class="header__link" href="#">Podsumowanie</a>
-                    </li>
-                    <li class="header__item">
-                        <a class="header__link" href="#">Transakcje</a>
-                    </li>
-                    <li class="header__item">
-                        <a class="header__link" href="#">Ustawienia</a>
-                    </li>
-                    <li class="header__item">
-                        <a class="header__link" href="#">Wyloguj</a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
+        <nav class="navbar">
+            <div class="max-width">
+                <a href="index.html" title="Strona główna"><img src="images/logo.svg"></a>
+                <ul class="menu">
+                    <li class="menu-button1"><a href="#">Pulpit</a></li>
+                    <li class="menu-button"><a href="#">Transakcje</a></li>
+                    <li class="menu-button"><a href="#">Ustawienia</a></li>
+                    <li class="menu-button"><a href="#">Wyloguj</a></li>
+                    
+                    <!-- <div class="animation start-aplikacja"></div> -->
+                 </ul>
+                 <div class="menu-button">
+                     <i class="fas fa-bars"></i>
+                 </div>
+            </div> 
+        </nav>
+        
         <main class="main">
             <!-- Sidebar -->
             <aside id="infoPanelMy" class="infoPanel">
