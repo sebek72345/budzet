@@ -57,7 +57,7 @@ input {
 
 .navbar li a:hover {
   color: rgb(67, 65, 236);
-  font-size: 21px;
+  transform: scale(1.1);
 }
 
 .menu-button {
@@ -551,13 +551,13 @@ span {
     padding-left: 10px;
   }
 
-  .footer-row{
+  .footer-row {
     flex-direction: column;
     text-align: center;
-    font-size: 120%
+    font-size: 120%;
   }
 
-   .link-title {
+  .link-title {
     flex-basis: 100%;
     padding-top: 10px;
   }
@@ -569,7 +569,7 @@ span {
   .copyright-text {
     flex-basis: 100%;
   }
-  .footer-logo{
+  .footer-logo {
     flex-basis: 100%;
   }
 
@@ -584,7 +584,7 @@ span {
   }
 
   .link-title small,
-  .social-icons small{
-  font-size: 80%
-}
+  .social-icons small {
+    font-size: 80%;
+  }
 }

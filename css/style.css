@@ -111,7 +111,7 @@ section .title {
 
 .navbar li a:hover {
   color: rgb(67, 65, 236);
-  font-size: 21px;
+  transform: scale(1.05);
 }
 
 .navbar.sticky .menu li a:hover {
