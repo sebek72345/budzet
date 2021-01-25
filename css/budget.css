@@ -39,13 +39,19 @@ main {
 }
 
 /* navbar section */
+.max-width {
+  max-width: 1300px;
+  padding: 0 80px;
+  margin: auto;
+}
 .navbar {
-  position: relative;
+  /* position: fixed; */
   width: 100%;
-  z-index: 5;
+  z-index: 999;
+  padding: 8px 0;
   transition: all 0.3s ease;
   font-family: "Ubuntu", sans-serif;
-  background: #43aa8b;
+  background: #2fbf94;
   height: 70px;
 }
 
@@ -62,32 +68,40 @@ main {
 
 .navbar .menu li a {
   display: block;
-  color: rgba(31, 29, 29, 0.699);
+  color: #eeeff0;
   font-size: 26px;
   font-weight: 500;
   margin-left: 15px;
   margin-right: 15px;
-  transition: color 0.3 ease;
+  transition: 0.5 ease;
 }
 
 .navbar li a:hover {
-  color: #277da1;
   transform: scale(1.1);
 }
 
 .menu-button {
-  font-size: 25px;
+  font-size: #277da1;
   cursor: pointer;
   display: none;
 }
 
 .menu-button1::first-line {
-  color: #277da1;
+  color: #484848;
+}
+
+.menu-button1:hover::first-line {
+  color: #eeeff0;
 }
 
 .navbar img {
   width: 70px;
   cursor: pointer;
+}
+
+.wrapper {
+  height: 100vh;
+  max-width: 100vw;
 }
 
 /*styling main chart*/

@@ -62,7 +62,6 @@ window.addEventListener("DOMContentLoaded", async () => {
       });
   }
   realTimeUpdate();
-  countDayToEndMonth();
 
   //listener start
   month.addEventListener("change", () => {
@@ -133,7 +132,6 @@ window.addEventListener("DOMContentLoaded", async () => {
     const confirmBnt = document.querySelector(".btn-confirm.spending");
     let newDate = document.querySelector("#add-spending-date");
     newDate.value = getCurrentData();
-    console.log(newDate.value);
     confirmBnt.addEventListener("click", () => {
       let newCategory = document.querySelector("#add-spending-category").value;
       let newDesc = document.querySelector("#add-spending-desc").value;
@@ -152,7 +150,6 @@ window.addEventListener("DOMContentLoaded", async () => {
     let data = await getDataFromDataBase(`${month.value}-${year.value}`);
     monthLimit = data[0];
     if (!data[1] || !data[1].length) {
-      console.log("brak");
       displayText.innerHTML =
         'Brak wyników do wyświetlenia<br><h2 style="font-size:16px">Dodaj tranzakcje do swojej listy<h2>';
       removerContainer();
@@ -174,7 +171,6 @@ window.addEventListener("DOMContentLoaded", async () => {
   function changeDynamicText() {
     const savingsEl = document.querySelector("#accountBalance");
     const savingsAmounts = getSavings(spendings, incomes);
-    console.log(savingsAmounts < 0);
     savingsEl.innerHTML = `${savingsAmounts} <div class="accountBalance__coin">
     PLN</div>`;
     if (Number(savingsAmounts) < 0) {
@@ -251,7 +247,6 @@ window.addEventListener("DOMContentLoaded", async () => {
         const modalTitle = document.querySelectorAll(".modal__header>p");
         modalTitle[0].textContent = "Edytuj Tranzakcje";
         modalTitle[1].textContent = "Edytuj Tranzakcje";
-        console.log("trans");
         if (editedTransaction.income) {
           const modalBackground = document.querySelector("#modal--income");
           const modalContent = document.querySelector(
@@ -272,7 +267,6 @@ window.addEventListener("DOMContentLoaded", async () => {
           );
           confirmBnt.addEventListener("click", () => {
             removerContainer();
-            console.log("income edit");
             modalTitle[0].textContent = "Dodaj Tranzakcje";
             const newIncome = {
               //assign values from parameters
@@ -307,10 +301,7 @@ window.addEventListener("DOMContentLoaded", async () => {
           newAmount.value = editedTransaction.amount;
           confirmBnt.addEventListener("click", () => {
             removerContainer();
-            console.log("spending edit");
-
             modalTitle[1].textContent = "Dodaj Tranzakcje";
-            console.log(modalTitle[1]);
             const newSpending = {
               //assign values from parameters
               date: newDate.value,
@@ -320,7 +311,6 @@ window.addEventListener("DOMContentLoaded", async () => {
               id: transactionId,
               income: false,
             };
-            console.log(newAmount.value);
             updateDatabase([...restTransactions, newSpending]);
             modalBackground.style.display = "none";
             modalContent.style.display = "none";
@@ -433,13 +423,6 @@ window.addEventListener("DOMContentLoaded", async () => {
     let formatedDatee = `${dayValue}/${monthValue}/${yearValue}`;
     return formatedDatee;
   }
-  function countDayToEndMonth() {
-    const date = new Date();
-    const currentMonth = date.getMonth() + 1;
-    const currentYear = date.getFullYear();
-    month.value = currentMonth;
-    year.value = currentYear;
-  }
   function generatePDF(array) {
     var head = [["Data", "Przychód", "Kategoria", "Opis", "Cena"]];
     const singleRow = array.map(({ date, category, desc, amount, income }) => {
@@ -477,7 +460,6 @@ window.addEventListener("DOMContentLoaded", async () => {
           //spending
           if (data.row.index === item.index) {
             data.cell.styles.fillColor = [230, 50, 50];
-            console.log(data.cell);
           }
         });
         incomes.forEach((item) => {
