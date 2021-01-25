@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tranzakcje</title>
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/modalInfo.css" />
+    <link rel="stylesheet" href="./css/transactions.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/vanilla-datatables@latest/dist/vanilla-dataTables.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script
+      defer
+      src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"
+    ></script>
+    <script
+      defer
+      src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"
+    ></script>
+    <script
+      defer
+      src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"
+      integrity="sha512-ToRWKKOvhBSS8EtqSflysM/S7v9bB9V0X3B1+E7xo7XZBEZCPL3VX5SFIp8zxY19r7Sz0svqQVbAOx+QcLQSAQ=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.10/jspdf.plugin.autotable.min.js"
+      integrity="sha512-ao7tFS/ESwasMazQVMXaZSgkwoglIX+rMGf8v2m7IRip8BNiqrQ+BY9vqUMtJw3xf7Mnaw0YjbHGmyBiKxfEPQ=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/vanilla-datatables@latest/dist/vanilla-dataTables.min.js"
+      type="text/javascript"
+    ></script>
+    <script type="module" src="js/transactions.js"></script>
+    <script src="./assets/font-pdf/Century Gothic-normal.js"></script>
+  </head>
+
+  <body>
+    <div class="modal--info"></div>
+    <div class="wrapper">
+      <nav class="navbar">
+        <div class="max-width">
+          <a href="index.html" title="Strona główna"
+            ><img src="images/logo.svg"
+          /></a>
+          <ul class="menu">
+            <li class="menu-button"><a href="/budget.html">Pulpit</a></li>
+            <li class="menu-button1"><a href="/">Transakcje</a></li>
+            <li class="menu-button"><a href="/index.html">Wyloguj</a></li>
+            <!-- <div class="animation start-aplikacja"></div> -->
+          </ul>
+          <div class="menu-button">
+            <i class="fas fa-bars"></i>
+          </div>
+        </div>
+      </nav>
+
+      <main class="main">
+        <!-- Sidebar -->
+        <aside id="infoPanelMy" class="infoPanel">
+          <div class="infoPanel__element">
+            <!-- element accountBalance-->
+
+            <h3 class="infoPanel__text">Twoje oszczędności:</h3>
+            <br />
+            <span class="accountBalance__span" id="accountBalance"
+              >-----
+              <div class="accountBalance__coin">PLN</div></span
+            >
+
+            <!-- <h3 class="dayToEnd--info">Do końca miesiąca zostało:</h3>
+            <div class="dayToEnd">13 dni</div> -->
+            <!-- end element accountBalance -->
+          </div>
+          <div class="infoPanel__element">
+            <!-- element accountMessage-->
+            <p class="infoPanel__text">Wypróbuj nowość!</p>
+            <p class="infoPanel__content">
+              Filtruj swoje wydatki według typu transakcji. Zobacz wszystkie
+              uznania lub obciążenia budżetu domowego.
+            </p>
+            <!-- end element accountMessage-->
+          </div>
+          <div class="infoPanel__element">
+            <div class="infoPanel__text">Wygeneruj PDF</div>
+            <p class="infoPanel__te">
+              Teraz możesz zabrać listę transakcji ze sobą, aby jeszcze
+              skuteczniej zarządzać budżetem!
+            </p>
+            <button id="pdf">PDF</button>
+          </div>
+        </aside>
+        <!-- End sidebar -->
+        <!-- Add position to budget list - mainPanel -->
+        <section class="mainPanel">
+          <div class="mainPanel__navi">
+            <div class="group_title_tranzaction">
+              <span class="mainPanel__text">
+                Wybierz interesujący Cię okres:
+                <h6>Możesz skorzystać również z filtrów</h6></span
+              >
+              <div class="group_button">
+                <button class="mainPanel__btn" id="addIncomeBtn">
+                  Dodaj przychody
+                </button>
+                <button class="mainPanel__btn" id="addSpendingBtn">
+                  Dodaj wydatki
+                </button>
+              </div>
+            </div>
+            <!-- Modal income -->
+            <div id="modal--income" class="modal">
+              <!-- Modal content -->
+              <div class="modal__content" id="modal__content--income">
+                <div class="modal__header">
+                  <span class="modal__close--income">&times;</span>
+                  <p>Dodaj Transakcje</p>
+                </div>
+                <div class="modal__body">
+                  <input
+                    type="text"
+                    class="modal__btn"
+                    id="add-income-date"
+                    placeholder="Wprowadź datę: dd/mm/rrrr"
+                    required
+                  />
+                  <label for="priceType" class="modal__btn --label">
+                    Wybierz kategorie:
+                    <select
+                      name="priceType"
+                      id="add-income-category"
+                      class="modal__btn"
+                      required
+                    >
+                      <option value="Wynagrodzenie">Wynagrodzenie</option>
+                      <option value="Praca Dodatkowa">Praca Dodatkowa</option>
+                      <option value="Inne">Inne</option>
+                    </select></label
+                  >
+                  <input
+                    type="text"
+                    class="modal__btn"
+                    id="add-income-desc"
+                    placeholder="Krótki opis"
+                    required
+                  />
+                  <input
+                    type="number"
+                    id="add-income-amount"
+                    class="modal__btn"
+                    placeholder="Wprowadź kwotę..."
+                    min="0"
+                    step="0.01"
+                    required
+                  />
+                </div>
+                <div class="modal__footer">
+                  <h2 style="text-align: center">Korzystasz z BudgetApp</h2>
+                </div>
+                <div class="button-wrapper">
+                  <button class="btn-confirm income" type="submit">
+                    Dodaj
+                  </button>
+                </div>
+              </div>
+              <!-- modal content end -->
+            </div>
+            <!-- modal income end -->
+            <!-- Modal spending -->
+            <div id="modal--spending" class="modal">
+              <!-- Modal content -->
+              <div class="modal__content" id="modal__content--spending">
+                <div class="modal__header">
+                  <span class="modal__close--spending">&times;</span>
+                  <p>Dodaj Transakcje</p>
+                </div>
+                <div class="modal__body">
+                  <input
+                    type="text"
+                    class="modal__btn"
+                    id="add-spending-date"
+                    placeholder="Wprowadź datę: dd/mm/rrrr"
+                    required
+                  />
+                  <label for="priceType" class="modal__btn --label">
+                    Wybierz kategorie:
+                    <select
+                      name="priceType"
+                      id="add-spending-category"
+                      class="modal__btn"
+                      required
+                    >
+                      <option value="Dom">Dom</option>
+                      <option value="Elektronika">Elektronika</option>
+                      <option value="Jedzenie">Jedzenie</option>
+                      <option value="Odzież">Odzież</option>
+                      <option value="Prezenty">Prezenty</option>
+                      <option value="Rozrywka">Rozrywka</option>
+                      <option value="Transport">Transport</option>
+                      <option value="Zdrowie">Zdrowie</option>
+                      <option value="Inne">Inne</option>
+                    </select></label
+                  >
+                  <input
+                    type="text"
+                    class="modal__btn"
+                    id="add-spending-desc"
+                    placeholder="Krótki opis"
+                    required
+                  />
+                  <input
+                    type="number"
+                    id="add-spending-amount"
+                    class="modal__btn"
+                    placeholder="Wprowadź kwotę..."
+                    min="0"
+                    step="0.01"
+                    required
+                  />
+                </div>
+                <div class="modal__footer">
+                  <h2 style="text-align: center">Korzystasz z BudgetApp</h2>
+                </div>
+                <div class="button-wrapper">
+                  <button class="btn-confirm spending" type="submit">
+                    Dodaj
+                  </button>
+                </div>
+              </div>
+              <!-- modal content end -->
+            </div>
+            <!-- modal income end -->
+          </div>
+
+          <div class="mainPanel__navi alignRight">
+            <div>
+              <select class="mainPanel__btn" id="select-month">
+                <option value="1">Styczeń</option>
+                <option value="2">Luty</option>
+                <option value="3">Marzec</option>
+                <option value="4">Kwiecień</option>
+                <option value="5">Maj</option>
+                <option value="6">Czerwiec</option>
+                <option value="7">Lipiec</option>
+                <option value="8">Sierpień</option>
+                <option value="9">Wrzesień</option>
+                <option value="10">Październik</option>
+                <option value="11">Listopad</option>
+                <option value="12">Grudzień</option>
+              </select>
+              <select class="mainPanel__btn" id="select-year">
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020" selected>2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+              </select>
+            </div>
+            <div>
+              <select class="mainPanel__btn" id="filter-transactions-date">
+                <option value="theLatest" selected>Najnowsze</option>
+                <option value="theOldest">Najstarsze</option>
+              </select>
+              <select class="mainPanel__btn" id="filter-transactions-type">
+                <option value="All" selected>Wszystkie</option>
+                <option value="Incomes">Przychody</option>
+                <option value="Spendings">Wydatki</option>
+              </select>
+            </div>
+          </div>
+          <table class="table" id="table">
+            <thead class="table__header">
+              <th class="table__th">Data</th>
+              <th class="table__th">Kategoria</th>
+              <th class="table__th">Kwota operacji</th>
+              <th class="table__th">Opis</th>
+              <th class="table__th">Akcja</th>
+            </thead>
+            <tbody id="table__body">
+              <template id="transaction-clone">
+                <tr class="mainPanel__position">
+                  <td class="table__td date">21.01.2021</td>
+                  <td class="table__td category">Wynagrodzenie</td>
+                  <td class="table__td price">120,65 PLN</td>
+                  <td class="table__td desc">Stypendium Work-ON</td>
+                  <td class="table__td">
+                    <a href="#" class="table__actionBt --edit">Edytuj</a>
+                    <a href="#" class="table__actionBt --delete">Usuń</a>
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+          <h3 class="informations"></h3>
+        </section>
+        <!-- end mainPanel -->
+      </main>
+    </div>
+  </body>
+</html>
