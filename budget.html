@@ -13,6 +13,8 @@
   </head>
   <body>
     <div class="modal--info"></div>
+    <div class="loader loader--position"></div>
+
     <div class="wrapper">
       <nav class="navbar">
         <div class="max-width">
@@ -43,7 +45,6 @@
           </div>
           <div>
             <canvas id="line-chart"></canvas>
-            <div class="loader"></div>
           </div>
           <div class="most-spending">
             <h3>Najwięcej wydajesz na poniższe kategorie produktów:</h3>
@@ -62,8 +63,6 @@
         </div>
         <div class="spending-by-categories">
           <canvas id="doughnut-chart" width="400px" height="400px"></canvas>
-
-          <div class="loader">Ładowanie danych</div>
         </div>
         <div class="additional-charts">
           <div class="select-mounth">
@@ -97,21 +96,22 @@
             <div class="ratio-spending-container">
               <div class="speedometer">
                 <div class="speedometer-dial">
-                  <p class="spending-percent"></p>
                   <img src="./assets/arc.svg" alt="arc" />
                   <div class="speedometer-arrow">
                     <img src="./assets/hand.svg" alt="" />
                   </div>
                 </div>
+                <div class="">
+                  <p class="spedometer-desc">
+                    Stosunek Twoich wydatków do przychodów:
+                  </p>
+                  <p class="spending-percent"></p>
+                </div>
               </div>
-              <p class="spedometer-desc">
-                Stosunek Twoich wydatków do przychodów
-              </p>
             </div>
-            <div class="loader">Ładowanie danych</div>
           </div>
+
           <div class="limit-money">
-            <div class="loader"></div>
             <div class="rest-money-wrapper">
               <div class="rest-money-description">
                 <div class="spending-limit">

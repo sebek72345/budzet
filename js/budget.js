@@ -213,15 +213,15 @@ function categoryExpencesChart(categories = ["Brak danych"], values = [1]) {
         {
           label: "Population (millions)",
           backgroundColor: [
-            "#e241e2",
-            "#6106a2",
-            "#0000FF",
-            "#00FF00",
-            "#FFFF00",
-            "#FF7F00",
-            "#FF0000",
-            "#ff7c43",
-            "#15a91a",
+            "#F3722C",
+            "#F8961E",
+            "#F9844A",
+            "#F9C74F",
+            "#90BE6D",
+            "#43AA8B",
+            "#4D908E",
+            "#577590",
+            "#277DA1",
           ],
           data: values.map((value) => value),
         },
@@ -229,7 +229,7 @@ function categoryExpencesChart(categories = ["Brak danych"], values = [1]) {
     },
     options: {
       elements: { arc: { borderWidth: 0 } },
-      legend: { labels: { boxWidth: 15 } },
+      legend: { labels: { boxWidth: 15, fontColor: "#050202" } },
       tooltips: {
         displayColors: false,
         callbacks: {
@@ -258,9 +258,10 @@ function categoryExpencesChart(categories = ["Brak danych"], values = [1]) {
       title: {
         display: true,
         text: "Wydatki względem kategorii [zł]",
-        color: "black",
+        fontColor: "#050202",
       },
       aspectRatio: 1,
+      responsive: true,
     },
   });
 }
@@ -280,12 +281,13 @@ function linearChart(expences = [], days = []) {
           label: "Wydatki",
           borderColor: "#48c011",
           fill: true,
-          backgroundColor: "#328011",
+          backgroundColor: "#2D898B",
           steppedLine: true,
         },
       ],
     },
     options: {
+      responsive: true,
       tooltips: {
         displayColors: false,
         callbacks: {
@@ -311,7 +313,7 @@ function linearChart(expences = [], days = []) {
             },
             ticks: {
               beginAtZero: true,
-              stepSize: 50,
+              stepSize: 100,
               fontColor: "black",
             },
           },
@@ -323,6 +325,9 @@ function linearChart(expences = [], days = []) {
               labelString: "Dzień Miesiąca",
               fontSize: 14,
               fontColor: "black",
+            },
+            gridLines: {
+              display: false,
             },
             ticks: {
               beginAtZero: true,
@@ -339,7 +344,7 @@ function linearChart(expences = [], days = []) {
       title: {
         display: true,
         fontFamily: "Helvetica",
-        fontColor: "#8a8989",
+        fontColor: "#050202",
         text:
           expences.length && days.length
             ? "Wydatki każdego dnia miesiąca"
@@ -456,12 +461,20 @@ function startAnimation() {
 function restoreSpeedometerAndLimitCharts() {
   const speedometer = document.querySelector(".ratio-spending-container");
   const ringChart = document.querySelector(".rest-money-wrapper");
+  const mostSpending = document.querySelector(".most-spending>h3");
+  const desc = document.querySelector(".spedometer-desc");
   ringChart.style.display = "flex";
   speedometer.style.display = "block";
+  mostSpending.style.display = "block";
+  desc.style.display = "block";
 }
 function deleteElements() {
   const speedometer = document.querySelector(".ratio-spending-container");
   const ringChart = document.querySelector(".rest-money-wrapper");
+  const mostSpending = document.querySelector(".most-spending>h3");
+  const most = document.querySelector(".spedometer-desc");
+  console.log(most);
   ringChart.style.display = "none";
   speedometer.style.display = "none";
+  mostSpending.style.display = "none";
 }
