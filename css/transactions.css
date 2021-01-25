@@ -7,6 +7,9 @@
   font-size: 10px;
   font-family: "Lato", sans-serif;
 }
+html {
+  height: 100vh;
+}
 .max-width {
   max-width: 1300px;
   padding: 0 80px;
@@ -19,7 +22,8 @@
   padding: 8px 0;
   transition: all 0.3s ease;
   font-family: "Ubuntu", sans-serif;
-  background: repeating-linear-gradient(120deg, #ffffff, #b2ff9e, #ffffff);
+  background: #2fbf94;
+  height: 70px;
 }
 
 .navbar .max-width {
@@ -35,36 +39,34 @@
 
 .navbar .menu li a {
   display: block;
-  color: rgba(31, 29, 29, 0.699);
-  font-size: 20px;
+  color: #eeeff0;
+  font-size: 26px;
   font-weight: 500;
   margin-left: 15px;
   margin-right: 15px;
-  transition: color 0.3 ease;
+  transition: 0.5 ease;
 }
 
 .navbar li a:hover {
-  color: rgb(67, 65, 236);
-  font-size: 21px;
+  transform: scale(1.1);
 }
 
 .menu-button {
-  color: slateblue;
-  font-size: 25px;
+  font-size: #277da1;
   cursor: pointer;
   display: none;
 }
 
 .menu-button1::first-line {
-  color: rgb(67, 65, 236);
+  color: #484848;
 }
 
 .menu-button1:hover::first-line {
-  color: white;
+  color: #eeeff0;
 }
 
 .navbar img {
-  width: 60px;
+  width: 70px;
   cursor: pointer;
 }
 
@@ -75,7 +77,7 @@
 
 .main {
   flex-basis: 100%;
-  height: calc(100% - 80px);
+  height: calc(100% - 70px);
   display: flex;
   background: #eeeff0;
   background-attachment: fixed;
@@ -89,18 +91,12 @@
   flex-basis: 70%;
   padding-top: 1%;
 }
-.mainPanel__navi {
-  display: flex;
-  justify-content: center;
-  left: 50%;
-  max-width: 100%;
-  right: auto;
-}
+
 .mainPanel__btn {
-  background-color: transparent;
+  background-color: rgb(135 174 208);
   border: 1px solid rgba(28, 30, 33, 0.15);
-  border-radius: 100px;
-  color: #005a42;
+  border-radius: 17px;
+  color: rgb(248, 248, 248);
   margin-bottom: 9px;
   margin-right: 9px;
   padding: 9px 17px;
@@ -112,20 +108,34 @@
   cursor: pointer;
   transition: 0.1s;
 }
+.mainPanel__btn:focus {
+  border: none;
+  outline: none;
+}
+.alignRight {
+  margin-bottom: -35px;
+  width: 80%;
+  z-index: 1;
+}
+.alignRight > div {
+  display: inline-block;
+  margin-right: 46px;
+}
 .--svg {
   background-color: #f6f6f6aa;
 }
 .mainPanel__btn:hover {
-  color: #f6f6f6aa;
-  background-color: #005a42;
+  color: rgb(10 89 128);
+  background-color: rgb(167 178 217);
 }
 .--svg:hover {
   color: #f6f6f6aa;
 }
-
+option {
+  font-size: 14px;
+}
 .mainPanel__naviSearch {
   display: flex;
-  padding: 1% 0%;
   justify-content: space-between;
   align-items: center;
   flex-basis: 5%;
@@ -135,10 +145,24 @@
   width: 100%;
   margin: 0 auto;
   letter-spacing: 0.3px;
-  color: #005a42;
-  font-size: 2rem;
+  font-size: 24px;
+  font-weight: 600;
+}
+.group_title_tranzaction {
+  display: flex;
+  justify-content: space-between;
+}
+.group_button {
+  display: flex;
+  justify-content: space-between;
 }
 
+.group_button > button {
+  display: inline-block;
+  width: 180px;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+}
 .--search {
   background-image: url("../img/searchicon.svg");
   background-size: 20px;
@@ -157,9 +181,7 @@
 #table {
   overflow: auto;
 }
-tr {
-  border: 5px solid black;
-}
+
 .table__td {
   border: 1px solid #677b8c39;
   margin-top: 1px;
@@ -208,6 +230,9 @@ tr {
 .mainPanel__item:hover {
   background-color: #eee;
 }
+td {
+  vertical-align: middle !important;
+}
 
 .mainPanel__typeOfImg {
   height: 50px;
@@ -218,7 +243,7 @@ tr {
 .infoPanel {
   display: flex;
   flex-direction: column;
-  margin: 0;
+  margin: 30px 0;
   max-width: 30%;
   padding: 5px 50px 5px 10px;
 }
@@ -226,13 +251,13 @@ tr {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border: 1px solid #000;
+  align-items: center;
   margin: 10px 15px;
   min-width: 250px;
   max-width: 300px;
   text-align: left;
   padding: 15px 15px 15px;
-  background: repeating-linear-gradient(220deg, #b2ff9e, #fff);
+  box-shadow: 2px 2px 4px 6px #6c9586;
 }
 .infoPanel .close {
   position: absolute;
@@ -246,41 +271,45 @@ tr {
 .accountBalance,
 .infoPanel__content {
   width: 100%;
-  background: repeating-linear-gradient(220deg, #b2ff9e, #fff);
-}
-.smalltext {
-  color: #677b8c;
-  font-size: 1rem;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  line-height: 13px;
-  text-align: left;
 }
 .infoPanel__te {
-  font-size: 12px;
+  font-size: 14px;
+  text-align: justify;
 }
 .accountBalance__text,
 .infoPanel__text {
   font-size: 2.4rem;
   font-weight: 600;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
+  margin-bottom: 10px;
   color: #328985;
   text-align: left;
   display: inline-block;
   line-height: 32px;
   border-bottom: 3px solid #328985;
 }
+.dayToEnd--info {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  color: #328985;
+  font-size: 16px;
+}
+.dayToEnd {
+  font-size: 18px;
+  font-weight: 600;
+}
+.table {
+  margin-top: 35px;
+}
 .accountBalance__span {
   display: flex;
   line-height: 30px;
-  padding-left: 12%;
   font-weight: 600;
+  min-width: 200px;
   letter-spacing: 1px;
   font-size: 2.4rem;
   color: #25833f;
+  text-align: center;
+  margin: 0 auto;
 }
 .accountBalance__coin {
   text-transform: uppercase;
@@ -288,23 +317,23 @@ tr {
   font-size: 1.4rem;
   font-weight: 600;
   color: #fff;
-  width: 50px;
+  width: 70px;
   text-align: center;
   margin-left: 3%;
   border-radius: 100px;
-  background-color: yellowgreen;
+  background-color: #be7d37;
 }
 
 .infoPanel__content {
   line-height: 18px;
-  text-align: center;
   color: #232323;
   font-weight: 300;
   font-size: 2rem;
+  text-align: justify;
 }
 .infoPanel__content {
   background-image: none;
-  text-align: left;
+  text-align: justify;
 }
 .infoPanel__news {
   color: #005a42;
@@ -315,7 +344,7 @@ tr {
 .modal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   left: 0;
   top: 0;
   width: 100%;
@@ -329,7 +358,7 @@ tr {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-color: #ebf1ecea;
+  background-color: #eeeff0;
   border: 2px solid rgba(28, 30, 33, 0.35);
   border-radius: 4px;
   color: #005a42;
@@ -374,6 +403,9 @@ tr {
   font-weight: 500;
   border-radius: 4px 4px 0px 0;
 }
+.modal__header > p {
+  font-size: 20px;
+}
 .modal__body {
   padding: 2px 16px;
 }
@@ -402,23 +434,30 @@ tr {
 }
 
 .btn-confirm {
-  padding: 10px 15px;
+  padding: 10px 30px;
   border: none;
   border-radius: 40px;
-  background-color: rgb(27, 141, 40);
-  margin: 5px 0;
+  background-color: #77b99b;
+  color: rgb(28, 26, 26);
+  margin: 10px 0;
   font-size: 18px;
+  letter-spacing: 3px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 .button-wrapper {
   text-align: center;
 }
 #pdf {
-  background: repeating-linear-gradient(220deg, #b2ff9e, #fff);
-  border: 1px solid;
-  border-color: #000;
+  border-radius: 20px;
   width: 40%;
   font-size: 16px;
+  padding: 5px 10px;
   margin: 10px auto;
+  outline: none;
+  background-color: #a04c2d;
+  color: #ddd;
+  letter-spacing: 3px;
 }
 .modal__close--spending,
 .modal__close--income,
@@ -426,7 +465,29 @@ tr {
 #pdf {
   cursor: pointer;
 }
+.informations {
+  text-align: center;
+  font-size: 26px;
+  padding-top: 16px;
+}
 
+.dataTable-table > thead > tr > th {
+  text-align: center !important;
+  border: none !important;
+}
+.dataTable-search > input {
+  border-radius: 17px !important;
+  width: 200px !important;
+  padding: 10px 20px;
+}
+.dataTable-search > input:focus {
+  outline: none;
+}
+.dataTable-pagination > li:not(.pager) a {
+  background-color: #bdd4e1 !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+}
 /* keyframsy */
 @keyframes modal__animation {
   0% {

@@ -37,16 +37,16 @@ window.addEventListener("DOMContentLoaded", async () => {
     "#filter-transactions-type"
   );
   let displayText = document.querySelector(".informations");
-
+  await logUser();
   let transactions = [];
   let spendings = [];
   let incomes = [];
   let monthLimit;
   let table;
   let isLogged = await userIsActive();
-  if (!isLogged) {
+  /* if (!isLogged) {
     return;
-  }
+  } */
   const userId = await firebaseApp.auth().currentUser.uid;
   await logUser();
   /* await userIsActive(); */
@@ -62,6 +62,8 @@ window.addEventListener("DOMContentLoaded", async () => {
       });
   }
   realTimeUpdate();
+  countDayToEndMonth();
+
   //listener start
   month.addEventListener("change", () => {
     updateView();
@@ -151,8 +153,8 @@ window.addEventListener("DOMContentLoaded", async () => {
     monthLimit = data[0];
     if (!data[1] || !data[1].length) {
       console.log("brak");
-      displayText.textContent = "Brak wyników do wyświetlenia";
-      document.querySelector(".dataTable-bottom").style.display = "none";
+      displayText.innerHTML =
+        'Brak wyników do wyświetlenia<br><h2 style="font-size:16px">Dodaj tranzakcje do swojej listy<h2>';
       removerContainer();
       transactions = [];
       return;
@@ -172,8 +174,15 @@ window.addEventListener("DOMContentLoaded", async () => {
   function changeDynamicText() {
     const savingsEl = document.querySelector("#accountBalance");
     const savingsAmounts = getSavings(spendings, incomes);
+    console.log(savingsAmounts < 0);
     savingsEl.innerHTML = `${savingsAmounts} <div class="accountBalance__coin">
-  PLN</div>`;
+    PLN</div>`;
+    if (Number(savingsAmounts) < 0) {
+      savingsEl.style.color = "#bf5656";
+    } else {
+      savingsEl.style.color = "#62b891";
+    }
+
     displayText.textContent = "";
   }
   //remove previous list item
@@ -424,7 +433,13 @@ window.addEventListener("DOMContentLoaded", async () => {
     let formatedDatee = `${dayValue}/${monthValue}/${yearValue}`;
     return formatedDatee;
   }
-
+  function countDayToEndMonth() {
+    const date = new Date();
+    const currentMonth = date.getMonth() + 1;
+    const currentYear = date.getFullYear();
+    month.value = currentMonth;
+    year.value = currentYear;
+  }
   function generatePDF(array) {
     var head = [["Data", "Przychód", "Kategoria", "Opis", "Cena"]];
     const singleRow = array.map(({ date, category, desc, amount, income }) => {

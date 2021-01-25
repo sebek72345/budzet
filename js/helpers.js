@@ -33,11 +33,12 @@ export async function getDataFromDataBase(period = "7-2020") {
 }
 export function logUser() {
   const email = "Sebastian723@interia.eu";
-  const password = "Sebek7234";
+  const password = "123456";
   firebaseApp
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then((user) => {
+      console.log(user);
       /*  firebaseApp
         .firestore()
         .collection("8SenRtWDipgvAi3Q4Ptz7slJeXV2")
@@ -45,6 +46,9 @@ export function logUser() {
         .set({
           transactions: transac,
         }); */
+    })
+    .catch((err) => {
+      console.log(err);
     });
 }
 export function userIsActive() {
