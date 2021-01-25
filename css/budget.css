@@ -43,10 +43,10 @@ main {
   position: relative;
   width: 100%;
   z-index: 5;
-  padding: 8px 0;
   transition: all 0.3s ease;
   font-family: "Ubuntu", sans-serif;
-  background: repeating-linear-gradient(120deg, #ffffff, #b2ff9e, #ffffff);
+  background: #43aa8b;
+  height: 70px;
 }
 
 .navbar .max-width {
@@ -63,7 +63,7 @@ main {
 .navbar .menu li a {
   display: block;
   color: rgba(31, 29, 29, 0.699);
-  font-size: 20px;
+  font-size: 26px;
   font-weight: 500;
   margin-left: 15px;
   margin-right: 15px;
@@ -71,27 +71,22 @@ main {
 }
 
 .navbar li a:hover {
-  color: rgb(67, 65, 236);
+  color: #277da1;
   transform: scale(1.1);
 }
 
 .menu-button {
-  color: slateblue;
   font-size: 25px;
   cursor: pointer;
   display: none;
 }
 
 .menu-button1::first-line {
-  color: rgb(67, 65, 236);
-}
-
-.menu-button1:hover::first-line {
-  color: white;
+  color: #277da1;
 }
 
 .navbar img {
-  width: 60px;
+  width: 70px;
   cursor: pointer;
 }
 
@@ -197,6 +192,10 @@ select {
   -moz-appearance: none;
   -ms-appearance: none;
   -o-appearance: none;
+  background-color: rgb(232, 230, 230);
+}
+option {
+  cursor: pointer;
 }
 select:focus {
   outline: none;
@@ -318,7 +317,7 @@ input:focus {
   text-anchor: middle;
 }
 .loader {
-  color: #54ed12;
+  color: #90be6d;
   font-size: 90px;
   text-indent: -9999em;
   overflow: hidden;

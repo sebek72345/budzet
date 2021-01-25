@@ -4,6 +4,7 @@ import {
   getDataFromDataBase,
   userIsActive,
   logUser,
+  switchSignInSingOut,
 } from "./helpers.js";
 const translateCategories = {
   Dom: "House.svg",
@@ -16,11 +17,22 @@ const translateCategories = {
   Zdrowie: "Health.svg",
   Inne: "Other.svg",
 };
-
+const colors = [
+  "#F3722C",
+  "#F8961E",
+  "#F9844A",
+  "#F9C74F",
+  "#90BE6D",
+  "#43AA8B",
+  "#4D908E",
+  "#577590",
+  "#277DA1",
+];
 const selectedMonth = document.querySelector("#month");
 const selectedYear = document.querySelector("#year");
 const changeLimit = document.querySelector(".change-limit");
 let isLoaded = false;
+switchSignInSingOut();
 changeLimit.addEventListener("keydown", (e) => changeMounthlyLimit(e));
 selectedMonth.addEventListener("change", reloadData);
 selectedYear.addEventListener("change", reloadData);
@@ -139,27 +151,18 @@ function drawLimitChart(limit, totalSpending) {
 
   switch (true) {
     case percent < 25:
-      document.documentElement.style.setProperty(
-        "--stroke-color",
-        "rgb(15, 226, 7)"
-      );
+      document.documentElement.style.setProperty("--stroke-color", colors[4]);
       break;
     case percent < 25:
-      document.documentElement.style.setProperty(
-        "--stroke-color",
-        "rgb(233, 219, 24)"
-      );
+      document.documentElement.style.setProperty("--stroke-color", colors[3]);
       break;
     case percent < 90:
-      document.documentElement.style.setProperty(
-        "--stroke-color",
-        "rgb(230, 125, 6)"
-      );
+      document.documentElement.style.setProperty("--stroke-color", colors[1]);
       break;
     default:
       document.documentElement.style.setProperty(
         "--stroke-color",
-        "rgb(219, 14, 14)"
+        "rgb(209, 55, 55)"
       );
   }
 }
@@ -213,15 +216,15 @@ function categoryExpencesChart(categories = ["Brak danych"], values = [1]) {
         {
           label: "Population (millions)",
           backgroundColor: [
-            "#F3722C",
-            "#F8961E",
-            "#F9844A",
-            "#F9C74F",
-            "#90BE6D",
-            "#43AA8B",
-            "#4D908E",
-            "#577590",
-            "#277DA1",
+            colors[0],
+            colors[1],
+            colors[2],
+            colors[3],
+            colors[4],
+            colors[5],
+            colors[6],
+            colors[7],
+            colors[8],
           ],
           data: values.map((value) => value),
         },
