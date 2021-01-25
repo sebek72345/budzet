@@ -187,8 +187,8 @@ window.addEventListener("DOMContentLoaded", async () => {
       perPage: 5,
       perPageSelect: false,
       firstLast: true,
-      nextText: "Następna",
-      prevText: "Poprzednia",
+      nextText: ">",
+      prevText: "<",
       labels: {
         info: "",
       },
