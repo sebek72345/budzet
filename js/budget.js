@@ -4,6 +4,7 @@ import {
   getDataFromDataBase,
   userIsActive,
   logUser,
+  switchSignInSingOut,
 } from "./helpers.js";
 const translateCategories = {
   Dom: "House.svg",
@@ -14,12 +15,24 @@ const translateCategories = {
   Rozrywka: "Entertainment.svg",
   Transport: "Transport.svg",
   Zdrowie: "Health.svg",
+  Inne: "Other.svg",
 };
-
+const colors = [
+  "#F3722C",
+  "#F8961E",
+  "#F9844A",
+  "#F9C74F",
+  "#90BE6D",
+  "#43AA8B",
+  "#4D908E",
+  "#577590",
+  "#277DA1",
+];
 const selectedMonth = document.querySelector("#month");
 const selectedYear = document.querySelector("#year");
 const changeLimit = document.querySelector(".change-limit");
 let isLoaded = false;
+switchSignInSingOut();
 changeLimit.addEventListener("keydown", (e) => changeMounthlyLimit(e));
 selectedMonth.addEventListener("change", reloadData);
 selectedYear.addEventListener("change", reloadData);
@@ -124,40 +137,32 @@ function drawLimitChart(limit, totalSpending) {
   const percentage = document.querySelector(".percentage");
   const limitAmountEl = document.querySelector("#limit-amount");
   const restAmountEl = document.querySelector("#rest-amount");
-  const percent = Number(((totalSpending * 100) / limit).toFixed(2));
+  const percent = limit && Number(((totalSpending * 100) / limit).toFixed(2));
   let restAmount = defaultValue ? 0 : (limit - totalSpending).toFixed(2);
   document.documentElement.style.setProperty(
     "--circle",
     `${defaultValue ? "0" : percent}`
   );
-  restAmount = restAmount < 0 ? "Jesteś na minusie" : `${restAmount} zł`;
+  console.log(restAmount, percent);
+  restAmount = restAmount < -0.1 ? "Jesteś na minusie" : `${restAmount} zł`;
   percentage.textContent = defaultValue ? "0%" : `${percent}%`;
   limitAmountEl.textContent = limitSpendig ? "Ustal swój limit" : limit + " zł";
   restAmountEl.textContent = `${defaultValue ? "Brak danych" : restAmount}`;
 
   switch (true) {
     case percent < 25:
-      document.documentElement.style.setProperty(
-        "--stroke-color",
-        "rgb(15, 226, 7)"
-      );
+      document.documentElement.style.setProperty("--stroke-color", colors[4]);
       break;
     case percent < 25:
-      document.documentElement.style.setProperty(
-        "--stroke-color",
-        "rgb(233, 219, 24)"
-      );
+      document.documentElement.style.setProperty("--stroke-color", colors[3]);
       break;
     case percent < 90:
-      document.documentElement.style.setProperty(
-        "--stroke-color",
-        "rgb(230, 125, 6)"
-      );
+      document.documentElement.style.setProperty("--stroke-color", colors[1]);
       break;
     default:
       document.documentElement.style.setProperty(
         "--stroke-color",
-        "rgb(219, 14, 14)"
+        "rgb(209, 55, 55)"
       );
   }
 }
@@ -211,15 +216,15 @@ function categoryExpencesChart(categories = ["Brak danych"], values = [1]) {
         {
           label: "Population (millions)",
           backgroundColor: [
-            "#3e95cd",
-            "#003f5c",
-            "#2f4b7c",
-            "#665191",
-            "#a05195",
-            "#d45087",
-            "#f95d6a",
-            "#ff7c43",
-            "#ffa600",
+            colors[0],
+            colors[1],
+            colors[2],
+            colors[3],
+            colors[4],
+            colors[5],
+            colors[6],
+            colors[7],
+            colors[8],
           ],
           data: values.map((value) => value),
         },
@@ -227,7 +232,7 @@ function categoryExpencesChart(categories = ["Brak danych"], values = [1]) {
     },
     options: {
       elements: { arc: { borderWidth: 0 } },
-      legend: { labels: { boxWidth: 15 } },
+      legend: { labels: { boxWidth: 15, fontColor: "#050202" } },
       tooltips: {
         displayColors: false,
         callbacks: {
@@ -256,9 +261,10 @@ function categoryExpencesChart(categories = ["Brak danych"], values = [1]) {
       title: {
         display: true,
         text: "Wydatki względem kategorii [zł]",
-        color: "black",
+        fontColor: "#050202",
       },
       aspectRatio: 1,
+      responsive: true,
     },
   });
 }
@@ -278,12 +284,13 @@ function linearChart(expences = [], days = []) {
           label: "Wydatki",
           borderColor: "#48c011",
           fill: true,
-          backgroundColor: "#328011",
+          backgroundColor: "#2D898B",
           steppedLine: true,
         },
       ],
     },
     options: {
+      responsive: true,
       tooltips: {
         displayColors: false,
         callbacks: {
@@ -302,13 +309,15 @@ function linearChart(expences = [], days = []) {
               display: true,
               labelString: "Wydatki [zł]",
               fontSize: 14,
+              fontColor: "black",
             },
             gridLines: {
               display: true,
             },
             ticks: {
               beginAtZero: true,
-              stepSize: 50,
+              stepSize: 100,
+              fontColor: "black",
             },
           },
         ],
@@ -318,11 +327,16 @@ function linearChart(expences = [], days = []) {
               display: true,
               labelString: "Dzień Miesiąca",
               fontSize: 14,
+              fontColor: "black",
+            },
+            gridLines: {
+              display: false,
             },
             ticks: {
               beginAtZero: true,
               maxRotation: 0,
               maxTicksLimit: 18,
+              fontColor: "black",
             },
           },
         ],
@@ -333,7 +347,7 @@ function linearChart(expences = [], days = []) {
       title: {
         display: true,
         fontFamily: "Helvetica",
-        fontColor: "#1b0ba7",
+        fontColor: "#050202",
         text:
           expences.length && days.length
             ? "Wydatki każdego dnia miesiąca"
@@ -450,12 +464,20 @@ function startAnimation() {
 function restoreSpeedometerAndLimitCharts() {
   const speedometer = document.querySelector(".ratio-spending-container");
   const ringChart = document.querySelector(".rest-money-wrapper");
+  const mostSpending = document.querySelector(".most-spending>h3");
+  const desc = document.querySelector(".spedometer-desc");
   ringChart.style.display = "flex";
   speedometer.style.display = "block";
+  mostSpending.style.display = "block";
+  desc.style.display = "block";
 }
 function deleteElements() {
   const speedometer = document.querySelector(".ratio-spending-container");
   const ringChart = document.querySelector(".rest-money-wrapper");
+  const mostSpending = document.querySelector(".most-spending>h3");
+  const most = document.querySelector(".spedometer-desc");
+  console.log(most);
   ringChart.style.display = "none";
   speedometer.style.display = "none";
+  mostSpending.style.display = "none";
 }

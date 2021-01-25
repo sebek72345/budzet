@@ -5,13 +5,13 @@
 	 width="505.95px" height="253.511px" viewBox="3.5 3 505.95 253.511" enable-background="new 3.5 3 505.95 253.511"
 	 xml:space="preserve">
 <g>
-	<path stroke="#E41C3F" stroke-width="60" stroke-miterlimit="10" d="M441.433,131.926c24.026,35.563,38.058,78.436,38.058,124.585"
+	<path stroke="#F94144" stroke-width="60" stroke-miterlimit="10" d="M441.433,131.926c24.026,35.563,38.058,78.436,38.058,124.585"
 		/>
-	<path fill="none" stroke="#F99D1C" stroke-width="60" stroke-miterlimit="10" d="M256.661,33.681
+	<path fill="none" stroke="#F8961E" stroke-width="60" stroke-miterlimit="10" d="M256.661,33.681
 		c76.915,0,144.728,38.972,184.771,98.246"/>
-	<path fill="none" stroke="#F7DD17" stroke-width="60" stroke-miterlimit="10" d="M94.132,104.074
+	<path fill="none" stroke="#edd737" stroke-width="60" stroke-miterlimit="10" d="M94.132,104.074
 		c40.652-43.326,98.431-70.393,162.529-70.393"/>
-	<path fill="none" stroke="#19B24B" stroke-width="60" stroke-miterlimit="10" d="M33.831,256.512
+	<path fill="none" stroke="#71ae43" stroke-width="60" stroke-miterlimit="10" d="M33.831,256.512
 		c0-58.965,22.905-112.58,60.301-152.437"/>
 </g>
 </svg>

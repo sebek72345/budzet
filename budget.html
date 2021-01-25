@@ -4,11 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Budżet Domowy</title>
+    <link rel="shortcut icon" href="/assets/favicon.ico" />
     <link rel="stylesheet" href="css/budget.css" />
     <link rel="stylesheet" href="css/modalInfo.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="modal--info"></div>
+    <div class="loader loader--position"></div>
+
     <div class="wrapper">
       <nav class="navbar">
         <div class="max-width">
@@ -17,8 +24,10 @@
           /></a>
           <ul class="menu">
             <li class="menu-button1"><a href="#">Pulpit</a></li>
-            <li class="menu-button"><a href="#">Transakcje</a></li>
-            <li class="menu-button"><a href="#">Zaloguj się</a></li>
+            <li class="menu-button">
+              <a href="/transactions.html">Transakcje</a>
+            </li>
+            <li class="menu-button"><a href="/signUp.html">Zaloguj się</a></li>
 
             <!-- <div class="animation start-aplikacja"></div> -->
           </ul>
@@ -37,7 +46,6 @@
           </div>
           <div>
             <canvas id="line-chart"></canvas>
-            <div class="loader"></div>
           </div>
           <div class="most-spending">
             <h3>Najwięcej wydajesz na poniższe kategorie produktów:</h3>
@@ -56,13 +64,11 @@
         </div>
         <div class="spending-by-categories">
           <canvas id="doughnut-chart" width="400px" height="400px"></canvas>
-
-          <div class="loader">Ładowanie danych</div>
         </div>
         <div class="additional-charts">
           <div class="select-mounth">
             <label for="period">Wybierz okres: </label>
-            <select name="period" id="month" size="1">
+            <select name="period" id="month">
               <option value="1">Styczeń</option>
               <option value="2">Luty</option>
               <option value="3">Marzec</option>
@@ -91,21 +97,22 @@
             <div class="ratio-spending-container">
               <div class="speedometer">
                 <div class="speedometer-dial">
-                  <p class="spending-percent"></p>
                   <img src="./assets/arc.svg" alt="arc" />
                   <div class="speedometer-arrow">
                     <img src="./assets/hand.svg" alt="" />
                   </div>
                 </div>
+                <div class="">
+                  <p class="spedometer-desc">
+                    Stosunek Twoich wydatków do przychodów:
+                  </p>
+                  <p class="spending-percent"></p>
+                </div>
               </div>
-              <p class="spedometer-desc">
-                Stosunek Twoich wydatków do przychodów
-              </p>
             </div>
-            <div class="loader">Ładowanie danych</div>
           </div>
+
           <div class="limit-money">
-            <div class="loader"></div>
             <div class="rest-money-wrapper">
               <div class="rest-money-description">
                 <div class="spending-limit">
