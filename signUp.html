@@ -12,6 +12,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/signIn.css" />
+    <link rel="stylesheet" href="css/modalInfo.css" />
     <title>Budżet Domowy</title>
   </head>
   <body>
@@ -34,11 +35,11 @@
       </div>
     </nav>
 
-    <div class="modal"></div>
+    <div class="modal--info"></div>
     <div class="container">
       <div class="forms-container">
         <div class="signin-signup">
-          <form class="sign-in-form">
+          <form class="sign-in-form" autocomplete="off">
             <h2 class="title">Zaloguj się</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
@@ -62,7 +63,7 @@
             </div>
             <input type="submit" value="Zaloguj" class="btn login" />
           </form>
-          <form class="sign-up-form">
+          <form class="sign-up-form" autocomplete="off">
             <h2 class="title">Załóż konto</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
@@ -167,10 +168,6 @@
     <script
       defer
       src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"
-    ></script>
-    <script
-      defer
-      src="https://www.gstatic.com/firebasejs/8.2.1/firebase-firestore.js"
     ></script>
     <script type="module" src="./js/signIn.js"></script>
   </body>

@@ -18,13 +18,14 @@ signInForm.addEventListener("submit", (e) => {
   const email = e.target.elements.email.value;
   const password = e.target.elements.password.value;
   signIn(email, password);
-  console.log("enw");
 });
 function signIn(email, password) {
+  console.log("inSignin");
   firebaseApp
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then((user) => {
+      console.log("signIn");
       showTostify(
         "Zostałeś zalogowany. Za chwilę zostaniesz przekierowany na stronę do zarząrzania budżetu domowego",
         "green"
@@ -33,9 +34,10 @@ function signIn(email, password) {
         window.location.href = "/budzet.html";
       }, 2000);
     })
-    .catch((err) =>
-      showTostify("Coś poszło nie tak, spróbuj ponownie " + err, "red")
-    );
+    .catch((err) => {
+      showTostify("Coś poszło nie tak, spróbuj ponownie. ", "red");
+      console.log(err);
+    });
 }
 signUpForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -57,6 +59,6 @@ function signUp(email, password) {
       }, 2000);
     })
     .catch((err) =>
-      showTostify("Coś poszło nie tak, spróbuj ponownie " + err, "red")
+      showTostify("Coś poszło nie tak, spróbuj ponownie.", "red")
     );
 }

@@ -1,3 +1,4 @@
+import { showTostify } from "./helpers.js";
 $(document).ready(function () {
   $(window).scroll(function () {
     // sticky navbar on scroll script
@@ -126,12 +127,15 @@ $(document).ready(function () {
       content,
     };
 
-    emailjs.send(
-      "service_qhiee3g",
-      "template_ro2rfhf",
-      templateParams,
-      "user_rKSxubFxTbH8A7cKq1w1S"
-    );
+    emailjs
+      .send(
+        "service_qhiee3g",
+        "template_ro2rfhf",
+        templateParams,
+        "user_rKSxubFxTbH8A7cKq1w1S"
+      )
+      .then(() => showTostify("Widaomość została wysłana"))
+      .catch((err) => showTostify("Widaomość nie została wysłana", "#df2424"));
     emailEl.reset();
   });
 });

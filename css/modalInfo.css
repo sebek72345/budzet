@@ -1,0 +1,17 @@
+.modal--info {
+  position: fixed;
+  z-index: 10;
+  padding: 20px 50px;
+  background-color: #3db134;
+  /* background-color: #df2424; */
+  left: 50%;
+  top: -200px;
+  transform: translateX(-50%);
+  border-radius: 0 0 20px 20px;
+  transition: top 1s ease-in;
+  font-size: 20px;
+  color: rgb(233, 233, 233);
+}
+.modal--info.active {
+  top: 0px;
+}
