@@ -1,13 +1,15 @@
 .modal--info {
   position: fixed;
   z-index: 10;
-  padding: 20px 50px;
+  padding: 20px 40px;
   background-color: #3db134;
   /* background-color: #df2424; */
+  text-align: center;
   left: 50%;
+  width: 400px;
   top: -200px;
   transform: translateX(-50%);
-  border-radius: 0 0 20px 20px;
+  border-radius: 0 0 40px 40px;
   transition: top 1s ease-in;
   font-size: 20px;
   color: rgb(233, 233, 233);

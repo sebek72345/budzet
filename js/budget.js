@@ -31,11 +31,16 @@ const colors = [
 const selectedMonth = document.querySelector("#month");
 const selectedYear = document.querySelector("#year");
 const changeLimit = document.querySelector(".change-limit");
+
 let isLoaded = false;
+
+init();
 switchSignInSingOut();
+
 changeLimit.addEventListener("keydown", (e) => changeMounthlyLimit(e));
 selectedMonth.addEventListener("change", reloadData);
 selectedYear.addEventListener("change", reloadData);
+
 async function changeMounthlyLimit(e) {
   e.preventDefault();
   const user = firebaseApp.auth().currentUser;
@@ -53,17 +58,20 @@ async function changeMounthlyLimit(e) {
         { merge: true }
       )
       .then(async () => {
-        showTostify("Twój miesięczny limit został", "green");
-        const data = await getDataFromDataBase(
+        showTostify("Twój miesięczny limit został", "success");
+        const data = getDataFromDataBase(
           `${selectedMonth.value}-${selectedYear.value}`
         );
+        return data;
+      })
+      .then((data) => {
         const [mounthlyLimit, transactions] = data;
         const spendings = transactions.filter((item) => !item.income);
         const allSpending = getSum(spendings);
         drawLimitChart(mounthlyLimit, allSpending);
       })
       .catch((err) => {
-        showTostify("Twój miesięczny limit NIE  został", "red");
+        showTostify("Twój miesięczny limit NIE został", "fail");
       });
   }
   changeLimit.value += e.key;
@@ -71,82 +79,90 @@ async function changeMounthlyLimit(e) {
 
 function reloadData() {
   isLoaded = false;
-  deleteElements();
+  changeVisibilityOfContent("none");
   removeSpendingCategories();
   spinnersVisability("block");
   removeChats();
   init();
 }
 
-init();
 async function init() {
+  let spendings = [];
+  let incomes = [];
+
+  await logUser();
+  await userIsActive();
+
   const daysInMonth = new Date(
     selectedYear.value,
     selectedMonth.value,
     0
   ).getDate();
-  await logUser();
-  await userIsActive();
   const arrayOfDays = getArrayOfDays(daysInMonth);
   const data = await getDataFromDataBase(
     `${selectedMonth.value}-${selectedYear.value}`,
     isLoaded
   );
   const [mounthlyLimit, transactons] = data;
-  let spendings = [];
-  let incomes = [];
+
   if (transactons) {
     spendings = transactons.filter((item) => !item.income);
     incomes = transactons.filter((item) => item.income);
     isLoaded = true;
   }
-
+  const mostSpendingTitle = document.querySelector(".most-spending>h3");
   if (!spendings.length) {
-    showTostify("W wybranym przez Ciebie okresie nie ma wydatków", "red");
+    showTostify("W wybranym przez Ciebie okresie nie ma wydatków", "fail");
     spinnersVisability("none");
-    restoreSpeedometerAndLimitCharts();
+    changeVisibilityOfContent("block");
     displayCharts();
     drawLimitChart(mounthlyLimit, null);
     drawSpeedometer();
-    document.querySelector(".most-spending>h3").textContent =
-      "Brak kategorii do wyświetlenia.";
+
+    mostSpendingTitle.textContent = "Brak kategorii do wyświetlenia.";
     return;
   }
 
-  const sumIncome = getSum(incomes);
-  const spendingByDay = sortSpendingByDay(spendings, arrayOfDays);
-  const [categories, amounts] = reduceArrayWithTheSameCategory(spendings);
   if (isLoaded) {
+    const sumIncome = getSum(incomes);
+    const spendingByDay = sortSpendingByDay(spendings, arrayOfDays);
+    const [categories, amounts] = reduceSpendingsWithTheSameCategory(spendings);
+    const allSpending = getSum(spendings);
+    mostSpendingTitle.textContent =
+      "Najwięcej wydajesz na poniższe kategorie produktów:";
+
     displayCharts(categories, amounts, spendingByDay, arrayOfDays);
     spinnersVisability("none");
     startAnimation();
-    restoreSpeedometerAndLimitCharts();
-    document.querySelector(".most-spending>h3").textContent =
-      "Najwięcej wydajesz na poniższe kategorie produktów:";
+    changeVisibilityOfContent("block");
+    drawLimitChart(mounthlyLimit, allSpending);
+    drawSpeedometer(sumIncome, allSpending);
+    addSpendingCategories(categories, amounts);
   }
-
-  const allSpending = getSum(spendings);
-  drawLimitChart(mounthlyLimit, allSpending);
-  drawSpeedometer(sumIncome, allSpending);
-  addSpendingCategories(categories, amounts);
 }
 
 function drawLimitChart(limit, totalSpending) {
-  const defaultValue = totalSpending === null;
-  const limitSpendig = limit === undefined;
-  const percentage = document.querySelector(".percentage");
+  console.log({ limit, totalSpending });
+  const isDefaultValue = totalSpending === null;
+  const isLimitSpendig = limit === undefined;
+  const percentEl = document.querySelector(".percentage");
   const limitAmountEl = document.querySelector("#limit-amount");
   const restAmountEl = document.querySelector("#rest-amount");
-  const percent = limit && Number(((totalSpending * 100) / limit).toFixed(2));
-  let restAmount = defaultValue ? 0 : (limit - totalSpending).toFixed(2);
+  const percent = limit
+    ? Number(((totalSpending * 100) / limit).toFixed(2))
+    : 0;
+  console.log(percent);
+  let restAmount = isDefaultValue ? 0 : (limit - totalSpending).toFixed(2);
   document.documentElement.style.setProperty(
     "--circle",
-    `${defaultValue ? "0" : percent}`
+    `${isDefaultValue ? "0" : percent}`
   );
   restAmount = restAmount < -0.1 ? "Jesteś na minusie" : `${restAmount} zł`;
-  percentage.textContent = defaultValue ? "0%" : `${percent}%`;
-  limitAmountEl.textContent = limitSpendig ? "Ustal swój limit" : limit + " zł";
-  restAmountEl.textContent = `${defaultValue ? "Brak danych" : restAmount}`;
+  percentEl.textContent = isDefaultValue ? "0%" : `${percent}%`;
+  limitAmountEl.textContent = isLimitSpendig
+    ? "Ustal swój limit"
+    : `${limit} zł`;
+  restAmountEl.textContent = `${isDefaultValue ? "Brak danych" : restAmount}`;
 
   switch (true) {
     case percent < 25:
@@ -166,17 +182,17 @@ function drawLimitChart(limit, totalSpending) {
   }
 }
 function drawSpeedometer(sumIncomes, sumSpendings) {
-  const defaultValue = sumIncomes === undefined && sumSpendings === undefined;
+  const isDefaultValue = sumIncomes === undefined && sumSpendings === undefined;
   let percent = ((sumSpendings * 100) / sumIncomes).toFixed(0);
   percent = percent > 100 ? 100 : percent;
   const deg = (percent * 180) / 100;
   document.documentElement.style.setProperty(
     "--speedometer-rotare",
-    `${defaultValue ? 0 : deg}deg`
+    `${isDefaultValue ? 0 : deg}deg`
   );
   const spedingPercent = document.querySelector(".spending-percent");
   spedingPercent.textContent = `${percent >= 100 ? "powyżej " : ""}${
-    defaultValue ? 0 : percent
+    isDefaultValue ? 0 : percent
   } %`;
 }
 function addSpendingCategories(categories, amounts) {
@@ -186,20 +202,22 @@ function addSpendingCategories(categories, amounts) {
       '<h5 class="no-category">Nie jesteś zalogowany albo nie masz wydatków w tym miesiącu</h5>';
     return;
   }
-  const temp = document.querySelector("#category-clone");
+  const template = document.querySelector("#category-clone");
+
   categories.forEach((category, index) => {
     if (index > 4) return;
-    const categoryClone = temp.content.cloneNode(true);
+    const categoryClone = template.content.cloneNode(true);
     const img = categoryClone.querySelector("img");
+    const name = categoryClone.querySelector(".category-name");
+    const amount = categoryClone.querySelector(".category-amount");
     img.setAttribute("alt", `${category.categoryName} icon`);
     img.setAttribute(
       "src",
       `../assets/categories/${translateCategories[category]}`
     );
-    categoryClone.querySelector(".category-name").textContent = category;
-    categoryClone.querySelector(
-      ".category-amount"
-    ).textContent = `${amounts[index]} zł`;
+    name.textContent = category;
+    amount.textContent = `${amounts[index]} zł`;
+
     categoriesList.append(categoryClone);
   });
 }
@@ -251,7 +269,7 @@ function categoryExpencesChart(categories = ["Brak danych"], values = [1]) {
             var currentValue = dataset.data[tooltipItem.index];
             var percentage = Math.floor((currentValue / total) * 100 + 0.5);
             const category = data.labels[tooltipItem.index];
-            return categories.length >= 1
+            return categories.length > 1
               ? `${percentage}% wydałeś na ${category}`
               : "Brak wydatków";
           },
@@ -364,7 +382,7 @@ function getArrayOfDays(days) {
   return arrayOfDays;
 }
 
-function reduceArrayWithTheSameCategory(spendings) {
+function reduceSpendingsWithTheSameCategory(spendings) {
   let array = reduceArrayOfObjectByKey(spendings, "category");
   const newArray = array.sort((a, b) => {
     if (a.amount > b.amount) return -1;
@@ -427,9 +445,7 @@ function removeSpendingCategories() {
   }
 }
 function removeChats() {
-  //remove categories chart
   removeChart(".spending-by-categories", "doughnut-chart");
-  //remove bar chart
   removeChart(".main-chart-wrapper", "line-chart");
 }
 function removeChart(wrapperClass, chartClass) {
@@ -460,22 +476,14 @@ function startAnimation() {
   hand.style.animationPlayState = "running";
   circle.style.animationPlayState = "running";
 }
-function restoreSpeedometerAndLimitCharts() {
-  const speedometer = document.querySelector(".ratio-spending-container");
-  const ringChart = document.querySelector(".rest-money-wrapper");
-  const mostSpending = document.querySelector(".most-spending>h3");
-  const desc = document.querySelector(".spedometer-desc");
-  ringChart.style.display = "flex";
-  speedometer.style.display = "block";
-  mostSpending.style.display = "block";
-  desc.style.display = "block";
-}
-function deleteElements() {
+
+function changeVisibilityOfContent(visible) {
   const speedometer = document.querySelector(".ratio-spending-container");
   const ringChart = document.querySelector(".rest-money-wrapper");
   const mostSpending = document.querySelector(".most-spending>h3");
   const most = document.querySelector(".spedometer-desc");
-  ringChart.style.display = "none";
-  speedometer.style.display = "none";
-  mostSpending.style.display = "none";
+  most.style.display = visible;
+  ringChart.style.display = visible === "block" && "flex";
+  speedometer.style.display = visible;
+  mostSpending.style.display = visible;
 }

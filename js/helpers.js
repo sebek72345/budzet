@@ -9,7 +9,10 @@ const firebaseConfig = {
 };
 export const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-export function showTostify(text, color) {
+export function showTostify(text, type) {
+  const succesColor = "#3db134";
+  const errorColor = "#df2424";
+  const color = type === "success" ? succesColor : errorColor;
   const modal = document.querySelector(".modal--info");
   modal.style.backgroundColor = color;
   modal.textContent = text;
@@ -38,15 +41,7 @@ export function logUser() {
   firebaseApp
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .then((user) => {
-      /*  firebaseApp
-        .firestore()
-        .collection("8SenRtWDipgvAi3Q4Ptz7slJeXV2")
-        .doc("9-2020")
-        .set({
-          transactions: tractions,
-        }); */
-    })
+    .then((user) => {})
     .catch((err) => {
       console.log(err);
     });

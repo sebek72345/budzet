@@ -107,16 +107,22 @@ window.addEventListener("DOMContentLoaded", async () => {
   addIncome.addEventListener("click", () => {
     toggleVisabilityIncomeModal("open");
     const confirmBnt = document.querySelector(".btn-confirm.income");
-    let newDate = document.querySelector("#add-income-date");
-    newDate.value = getCurrentData();
+    let dateInput = document.querySelector("#add-income-date");
+    let categoryInput = document.querySelector("#add-income-category");
+    let descInput = document.querySelector("#add-income-desc");
+    const amountInput = document.querySelector("#add-income-amount");
+    dateInput.value = getCurrentData();
+    descInput.value = "";
+    amountInput.value = "";
     confirmBnt.addEventListener("click", () => {
-      let newCategory = document.querySelector("#add-income-category").value;
-      let newDesc = document.querySelector("#add-income-desc").value;
-      let newAmount = Number(
-        document.querySelector("#add-income-amount").value
+      let fixedAmount = Number(amountInput.value).toFixed(2);
+      addToDataBase(
+        true,
+        categoryInput.value,
+        descInput.value,
+        fixedAmount,
+        dateInput.value
       );
-      const dataValue = newDate.value;
-      addToDataBase(true, newCategory, newDesc, newAmount, newDate.value);
       toggleVisabilityIncomeModal("close");
     });
   });
@@ -130,16 +136,23 @@ window.addEventListener("DOMContentLoaded", async () => {
   addSpending.addEventListener("click", () => {
     toggleVisabilitySpendingModal("open");
     const confirmBnt = document.querySelector(".btn-confirm.spending");
-    let newDate = document.querySelector("#add-spending-date");
-    newDate.value = getCurrentData();
+    let dateInput = document.querySelector("#add-spending-date");
+    let categoryInput = document.querySelector("#add-spending-category");
+    let descInput = document.querySelector("#add-spending-desc");
+    const amountInput = document.querySelector("#add-spending-amount");
+    dateInput.value = getCurrentData();
+    descInput.value = "";
+    amountInput.value = "";
     confirmBnt.addEventListener("click", () => {
-      let newCategory = document.querySelector("#add-spending-category").value;
-      let newDesc = document.querySelector("#add-spending-desc").value;
-      let newAmount = Number(
-        document.querySelector("#add-spending-amount").value
+      let fixedAmount = Number(amountInput.value).toFixed(2);
+      addToDataBase(
+        false,
+        categoryInput.value,
+        descInput.value,
+        fixedAmount,
+        dateInput.value
       );
-      addToDataBase(false, newCategory, newDesc, newAmount, newDate.value);
-      toggleVisabilityIncomeModal("close");
+      toggleVisabilitySpendingModal("close");
     });
   });
   buttonPdf.addEventListener("click", () => generatePDF(transactions));
@@ -389,7 +402,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       income: isIncome ? true : false,
     };
     const newTransactions = [...transactions, newTransaction];
-    updateDatabase(newTransactions);
+    updateDatabase(newTransactions, "Tranzakcja została dodana");
   }
   async function deleteTransaction(e) {
     const transactionId = e.target.parentNode.parentNode.dataset.id;
@@ -412,14 +425,13 @@ window.addEventListener("DOMContentLoaded", async () => {
         transactions: newTransactions,
       })
       .then(() => {
-        console.log(messageTitle);
         const message =
           "Wydatki zostały dopisane do twojej listy" && messageTitle;
-        showTostify(message, "green");
+        showTostify(message, "success");
         realTimeUpdate();
       })
       .catch((err) => {
-        showTostify("Coś poszło nie tak, spróbój ponownie", "red");
+        showTostify("Coś poszło nie tak, spróbój ponownie", "fail");
         console.log(err);
       });
   }
@@ -473,13 +485,13 @@ window.addEventListener("DOMContentLoaded", async () => {
         spendings.forEach((item) => {
           //spending
           if (data.row.index === item.index) {
-            data.cell.styles.fillColor = [230, 50, 50];
+            data.cell.styles.fillColor = [200, 50, 50];
           }
         });
         incomes.forEach((item) => {
           //income
           if (data.row.index === item.index) {
-            data.cell.styles.fillColor = [70, 156, 50];
+            data.cell.styles.fillColor = [100, 190, 90];
           }
         });
         if (data.section === "head") {
@@ -500,15 +512,6 @@ window.addEventListener("DOMContentLoaded", async () => {
         4: { cellWidth: 30 },
       },
     });
-
-    doc.text("Dziękujemy za skorzystanie z naszej aplikacji", 45, 10);
-    const finalY = doc.lastAutoTable.finalY;
-
-    doc.text(
-      20,
-      finalY + 20,
-      "Mamy nadzieję że dzięki nam zaoszczędzisz dużo pieniędzy"
-    );
     doc.save(`TwojeWydatki-${months[month.value - 1]}-${year.value}.pdf`);
   }
 });
