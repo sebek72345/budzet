@@ -48,7 +48,6 @@ main {
   /* position: fixed; */
   width: 100%;
   z-index: 999;
-  padding: 8px 0;
   transition: all 0.3s ease;
   font-family: "Ubuntu", sans-serif;
   background: #2fbf94;
@@ -174,6 +173,9 @@ body {
 }
 .select-mounth {
   text-align: center;
+}
+.select-mounth > label {
+  font-weight: 600;
 }
 
 .ratio-spending-income {

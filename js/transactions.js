@@ -198,6 +198,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         info: "",
       },
     });
+    table.input.attributes[1].nodeValue = "Wyszukaj...";
   }
   //show transactions
   function fillTable(array) {
@@ -277,7 +278,10 @@ window.addEventListener("DOMContentLoaded", async () => {
               id: transactionId,
               income: true,
             };
-            updateDatabase([...restTransactions, newIncome]);
+            updateDatabase(
+              [...restTransactions, newIncome],
+              "Tranzackja została pomyślnie zmieniona"
+            );
             modalBackground.style.display = "none";
             modalContent.style.display = "none";
           });
@@ -311,7 +315,10 @@ window.addEventListener("DOMContentLoaded", async () => {
               id: transactionId,
               income: false,
             };
-            updateDatabase([...restTransactions, newSpending]);
+            updateDatabase(
+              [...restTransactions, newSpending],
+              "Tranzackja została pomyślnie zmieniona"
+            );
             modalBackground.style.display = "none";
             modalContent.style.display = "none";
           });
@@ -382,16 +389,19 @@ window.addEventListener("DOMContentLoaded", async () => {
       income: isIncome ? true : false,
     };
     const newTransactions = [...transactions, newTransaction];
-    updateDatabase(newTransactions, "7-2020");
+    updateDatabase(newTransactions);
   }
   async function deleteTransaction(e) {
     const transactionId = e.target.parentNode.parentNode.dataset.id;
     const updatedTransaction = transactions.filter(
       ({ id }) => id !== transactionId
     );
-    updateDatabase([...updatedTransaction], "7-2020");
+    updateDatabase(
+      [...updatedTransaction],
+      "Tranzackja została pomyślnie usunięta"
+    );
   }
-  async function updateDatabase(newTransactions) {
+  async function updateDatabase(newTransactions, messageTitle) {
     const user = await firebaseApp.auth().currentUser;
     await firebaseApp
       .firestore()
@@ -402,12 +412,16 @@ window.addEventListener("DOMContentLoaded", async () => {
         transactions: newTransactions,
       })
       .then(() => {
-        showTostify("Wydatki zostały dopisane do twojej listy", "green");
+        console.log(messageTitle);
+        const message =
+          "Wydatki zostały dopisane do twojej listy" && messageTitle;
+        showTostify(message, "green");
         realTimeUpdate();
       })
-      .catch((err) =>
-        showTostify("Coś poszło nie tak, spróbój ponownie", "red")
-      );
+      .catch((err) => {
+        showTostify("Coś poszło nie tak, spróbój ponownie", "red");
+        console.log(err);
+      });
   }
   function getUniqueId() {
     return "_" + Math.random().toString(36).substr(2, 9);

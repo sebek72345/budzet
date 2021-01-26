@@ -143,7 +143,6 @@ function drawLimitChart(limit, totalSpending) {
     "--circle",
     `${defaultValue ? "0" : percent}`
   );
-  console.log(restAmount, percent);
   restAmount = restAmount < -0.1 ? "Jesteś na minusie" : `${restAmount} zł`;
   percentage.textContent = defaultValue ? "0%" : `${percent}%`;
   limitAmountEl.textContent = limitSpendig ? "Ustal swój limit" : limit + " zł";
@@ -252,7 +251,7 @@ function categoryExpencesChart(categories = ["Brak danych"], values = [1]) {
             var currentValue = dataset.data[tooltipItem.index];
             var percentage = Math.floor((currentValue / total) * 100 + 0.5);
             const category = data.labels[tooltipItem.index];
-            return categories.length > 1
+            return categories.length >= 1
               ? `${percentage}% wydałeś na ${category}`
               : "Brak wydatków";
           },
@@ -476,7 +475,6 @@ function deleteElements() {
   const ringChart = document.querySelector(".rest-money-wrapper");
   const mostSpending = document.querySelector(".most-spending>h3");
   const most = document.querySelector(".spedometer-desc");
-  console.log(most);
   ringChart.style.display = "none";
   speedometer.style.display = "none";
   mostSpending.style.display = "none";

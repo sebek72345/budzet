@@ -112,8 +112,7 @@
           <div class="mainPanel__navi">
             <div class="group_title_tranzaction">
               <span class="mainPanel__text">
-                Wybierz interesujący Cię okres:
-                <h6>Możesz skorzystać również z filtrów</h6></span
+                Zarządzaj swoim budżetem domowym</span
               >
               <div class="group_button">
                 <button class="mainPanel__btn" id="addIncomeBtn">
@@ -249,41 +248,48 @@
           </div>
 
           <div class="mainPanel__navi alignRight">
-            <div>
-              <select class="mainPanel__btn" id="select-month">
-                <option value="1">Styczeń</option>
-                <option value="2">Luty</option>
-                <option value="3">Marzec</option>
-                <option value="4">Kwiecień</option>
-                <option value="5">Maj</option>
-                <option value="6">Czerwiec</option>
-                <option value="7">Lipiec</option>
-                <option value="8">Sierpień</option>
-                <option value="9">Wrzesień</option>
-                <option value="10">Październik</option>
-                <option value="11">Listopad</option>
-                <option value="12">Grudzień</option>
-              </select>
-              <select class="mainPanel__btn" id="select-year">
-                <option value="2017">2017</option>
-                <option value="2018">2018</option>
-                <option value="2019">2019</option>
-                <option value="2020" selected>2020</option>
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-              </select>
+            <div class="">
+              <h3 class="select-description">Wybierz okres rozliczeniowy</h3>
+
+              <div>
+                <select class="mainPanel__btn" id="select-month">
+                  <option value="1">Styczeń</option>
+                  <option value="2">Luty</option>
+                  <option value="3">Marzec</option>
+                  <option value="4">Kwiecień</option>
+                  <option value="5">Maj</option>
+                  <option value="6">Czerwiec</option>
+                  <option value="7">Lipiec</option>
+                  <option value="8">Sierpień</option>
+                  <option value="9">Wrzesień</option>
+                  <option value="10">Październik</option>
+                  <option value="11">Listopad</option>
+                  <option value="12">Grudzień</option>
+                </select>
+                <select class="mainPanel__btn" id="select-year">
+                  <option value="2017">2017</option>
+                  <option value="2018">2018</option>
+                  <option value="2019">2019</option>
+                  <option value="2020" selected>2020</option>
+                  <option value="2021">2021</option>
+                  <option value="2022">2022</option>
+                  <option value="2023">2023</option>
+                </select>
+              </div>
             </div>
-            <div>
-              <select class="mainPanel__btn" id="filter-transactions-date">
-                <option value="theLatest" selected>Najnowsze</option>
-                <option value="theOldest">Najstarsze</option>
-              </select>
-              <select class="mainPanel__btn" id="filter-transactions-type">
-                <option value="All" selected>Wszystkie</option>
-                <option value="Incomes">Przychody</option>
-                <option value="Spendings">Wydatki</option>
-              </select>
+            <div class="filter-title">
+              <h3 class="select-description">Użyj filtrowania tranzakcji</h3>
+              <div class="">
+                <select class="mainPanel__btn" id="filter-transactions-date">
+                  <option value="theLatest" selected>Najnowsze</option>
+                  <option value="theOldest">Najstarsze</option>
+                </select>
+                <select class="mainPanel__btn" id="filter-transactions-type">
+                  <option value="All" selected>Wszystkie</option>
+                  <option value="Incomes">Przychody</option>
+                  <option value="Spendings">Wydatki</option>
+                </select>
+              </div>
             </div>
           </div>
           <table class="table" id="table">

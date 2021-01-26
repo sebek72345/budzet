@@ -42,9 +42,9 @@ export function logUser() {
       /*  firebaseApp
         .firestore()
         .collection("8SenRtWDipgvAi3Q4Ptz7slJeXV2")
-        .doc("a-2020")
+        .doc("9-2020")
         .set({
-          transactions: transac,
+          transactions: tractions,
         }); */
     })
     .catch((err) => {

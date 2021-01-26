@@ -19,7 +19,6 @@ html {
   /* position: fixed; */
   width: 100%;
   z-index: 999;
-  padding: 8px 0;
   transition: all 0.3s ease;
   font-family: "Ubuntu", sans-serif;
   background: #2fbf94;
@@ -470,6 +469,11 @@ td {
   font-size: 26px;
   padding-top: 16px;
 }
+.select-description {
+  text-align: center;
+  font-size: 12px;
+  margin: 5px 0;
+}
 
 .dataTable-table > thead > tr > th {
   text-align: center !important;
@@ -487,6 +491,9 @@ td {
   background-color: #bdd4e1 !important;
   border-radius: 50% !important;
   cursor: pointer !important;
+}
+.dataTable-container {
+  margin-top: -30px !important;
 }
 /* keyframsy */
 @keyframes modal__animation {
