@@ -64,10 +64,9 @@ main {
   list-style: none;
   display: inline-block;
 }
-
 .navbar .menu li a {
   display: block;
-  color: #eeeff0;
+  color: #484848;
   font-size: 26px;
   font-weight: 500;
   margin-left: 15px;
@@ -77,22 +76,21 @@ main {
 
 .navbar li a:hover {
   transform: scale(1.1);
+  color: #eeeff0;
 }
 
 .menu-button {
-  font-size: #277da1;
   cursor: pointer;
   display: none;
 }
 
 .menu-button1::first-line {
-  color: #484848;
+  color: #eeeff0;
 }
 
 .menu-button1:hover::first-line {
   color: #eeeff0;
 }
-
 .navbar img {
   width: 70px;
   cursor: pointer;
@@ -457,12 +455,47 @@ input:focus {
     width: 100%;
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 620px) {
   .rest-money-wrapper {
     flex-direction: column;
   }
   .category-wrapper {
     flex-wrap: wrap;
     justify-content: center;
+  }
+  div.menu-button {
+    display: block;
+    z-index: 999;
+    width: 25px;
+    height: 25px;
+  }
+  .menu-button > img {
+    width: 100%;
+    height: 100%;
+  }
+  .menu-button i.active:before {
+    content: "\f00d";
+  }
+  .navbar .menu {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    left: -100%;
+    top: 0;
+    background: #111;
+    text-align: center;
+    padding-top: 80px;
+    transition: all 0.3s ease;
+  }
+  .navbar .menu.active {
+    left: 0;
+  }
+  .navbar .menu li {
+    display: block;
+    margin-top: 15px;
+    cursor: pointer;
+  }
+  .navbar .menu li a {
+    cursor: pointer;
   }
 }

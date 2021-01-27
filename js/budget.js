@@ -28,6 +28,19 @@ const colors = [
   "#577590",
   "#277DA1",
 ];
+
+const hamburgerIconWrapper = document.querySelector("div.menu-button");
+const menu = document.querySelector("ul.menu");
+const icon = document.querySelector("div.menu-button>img");
+hamburgerIconWrapper.addEventListener("click", () => {
+  menu.classList.toggle("active");
+  if (menu.className === "menu active") {
+    icon.setAttribute("src", "/assets/close.png");
+  } else {
+    icon.setAttribute("src", "/assets/hamburger.svg");
+  }
+});
+
 const selectedMonth = document.querySelector("#month");
 const selectedYear = document.querySelector("#year");
 const changeLimit = document.querySelector(".change-limit");

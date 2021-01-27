@@ -37,6 +37,17 @@ window.addEventListener("DOMContentLoaded", async () => {
     "#filter-transactions-type"
   );
   let displayText = document.querySelector(".informations");
+  const hamburgerIconWrapper = document.querySelector("div.menu-button");
+  const menu = document.querySelector("ul.menu");
+  const icon = document.querySelector("div.menu-button>img");
+  hamburgerIconWrapper.addEventListener("click", () => {
+    menu.classList.toggle("active");
+    if (menu.className === "menu active") {
+      icon.setAttribute("src", "/assets/close.png");
+    } else {
+      icon.setAttribute("src", "/assets/hamburger.svg");
+    }
+  });
   await logUser();
   let transactions = [];
   let spendings = [];
@@ -219,7 +230,6 @@ window.addEventListener("DOMContentLoaded", async () => {
     });
     table.input.attributes[1].nodeValue = "Wyszukaj...";
     table.options.labels.noRows = "Nie znaleziono żadnego wyniku";
-    console.log(table);
   }
   //show transactions
   function fillTable(array) {
