@@ -21,8 +21,15 @@ html {
   z-index: 999;
   transition: all 0.3s ease;
   font-family: "Ubuntu", sans-serif;
-  background: #2fbf94;
+  background: #59A891;
   height: 70px;
+  background: rgb(36,185,140);
+  background: -moz-radial-gradient(circle, rgba(36,185,140,1) 12%, rgba(32,181,137,1) 100%);
+  background: -webkit-radial-gradient(circle, rgba(36,185,140,1) 12%, rgba(32,181,137,1) 100%);
+  background: radial-gradient(circle, rgba(36,185,140,1) 12%, rgba(32,181,137,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#24b98c",endColorstr="#20b589",GradientType=1);
+  padding: 5px;
+  border-bottom: 1px solid grey;
 }
 
 .navbar .max-width {
@@ -34,6 +41,8 @@ html {
 .navbar .menu li {
   list-style: none;
   display: inline-block;
+  font-size: 22px;
+  letter-spacing: .9px;;
 }
 
 .navbar .menu li a {
@@ -51,7 +60,6 @@ html {
 }
 
 .menu-button {
-  font-size: #277da1;
   cursor: pointer;
   display: none;
 }
@@ -92,8 +100,11 @@ html {
 }
 
 .mainPanel__btn {
-  background-color: rgb(135 174 208);
-  border: 1px solid rgba(28, 30, 33, 0.15);
+  background: -moz-radial-gradient(circle, rgba(36,185,140,1) 12%, rgba(32,181,137,1) 100%);
+  background: -webkit-radial-gradient(circle, rgba(36,185,140,1) 12%, rgba(32,181,137,1) 100%);
+  background: radial-gradient(circle, rgba(36,185,140,1) 12%, rgba(32,181,137,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#24b98c",endColorstr="#20b589",GradientType=1);
+  box-shadow: 1px 1px 4px 1px rgb(155, 155, 155);
   border-radius: 17px;
   color: rgb(248, 248, 248);
   margin-bottom: 9px;
@@ -195,8 +206,12 @@ option {
 }
 .table__th {
   display: table-cell;
-  background-color: #226f4b;
-  color: #b2cdb5;
+  background: rgb(36,185,140);
+  background: -moz-radial-gradient(circle, rgba(36,185,140,1) 12%, rgba(32,181,137,1) 100%);
+  background: -webkit-radial-gradient(circle, rgba(36,185,140,1) 12%, rgba(32,181,137,1) 100%);
+  background: radial-gradient(circle, rgba(36,185,140,1) 12%, rgba(32,181,137,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#24b98c",endColorstr="#20b589",GradientType=1);
+  color: #fafffb;
   font-size: 1.5rem;
   text-align: center;
   padding: 5px 30px;
@@ -256,7 +271,7 @@ td {
   max-width: 300px;
   text-align: left;
   padding: 15px 15px 15px;
-  box-shadow: 2px 2px 4px 6px #6c9586;
+  box-shadow: 1px 1px 4px 1px rgb(155, 155, 155);
 }
 .infoPanel .close {
   position: absolute;
@@ -272,8 +287,13 @@ td {
   width: 100%;
 }
 .infoPanel__te {
-  font-size: 14px;
+  line-height: 20px;
+  color: #232323;
+  font-weight: 300;
+  font-size: 18px;
   text-align: justify;
+  margin-top: 4%;
+  margin-bottom: 4%;
 }
 .accountBalance__text,
 .infoPanel__text {
@@ -320,14 +340,14 @@ td {
   text-align: center;
   margin-left: 3%;
   border-radius: 100px;
-  background-color: #be7d37;
+  background-color: #25833f;
 }
 
 .infoPanel__content {
-  line-height: 18px;
+  line-height: 20px;
   color: #232323;
   font-weight: 300;
-  font-size: 2rem;
+  font-size: 18px;
   text-align: justify;
 }
 .infoPanel__content {
@@ -393,8 +413,13 @@ td {
 }
 .modal__header {
   /* display: block; */
-  background-color: #005a42;
-  color: #b2cdb5;
+  background-color: #2fbf94;
+  color: #b2cdb5;	  background: #2fbf94;
+  background: rgb(36,185,140);
+  background: -moz-radial-gradient(circle, rgba(36,185,140,1) 12%, rgba(32,181,137,1) 100%);
+  background: -webkit-radial-gradient(circle, rgba(36,185,140,1) 12%, rgba(32,181,137,1) 100%);
+  background: radial-gradient(circle, rgba(36,185,140,1) 12%, rgba(32,181,137,1) 100%);
+  color: #ebf3ec;
   font-size: 4rem;
   line-height: 4rem;
   letter-spacing: 0.1rem;
@@ -420,7 +445,7 @@ td {
   background-color: transparent;
   border: 1px solid rgba(28, 30, 33, 0.15);
   border-radius: 4px;
-  color: #005a42;
+  color: #ebf3ec;
   margin-bottom: 9px;
   width: 100%;
   padding: 9px 17px;
@@ -437,7 +462,7 @@ td {
   border: none;
   border-radius: 40px;
   background-color: #77b99b;
-  color: rgb(28, 26, 26);
+  color: #ebf3ec;
   margin: 10px 0;
   font-size: 18px;
   letter-spacing: 3px;
@@ -448,15 +473,19 @@ td {
   text-align: center;
 }
 #pdf {
-  border-radius: 20px;
-  width: 40%;
-  font-size: 16px;
-  padding: 5px 10px;
-  margin: 10px auto;
-  outline: none;
-  background-color: #a04c2d;
-  color: #ddd;
-  letter-spacing: 3px;
+  display: block;
+  border: transparent;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  line-height: 30px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #fff;
+  width: 70px;
+  text-align: center;
+  margin-left: 3%;
+  border-radius: 100px;
+  background-color: #25833f;
 }
 .modal__close--spending,
 .modal__close--income,
