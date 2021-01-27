@@ -27,7 +27,7 @@ input {
 .navbar {
   position: fixed;
   width: 100%;
-  z-index: 5;
+  z-index: 20;
   padding: 4px 0;
   transition: all 0.3s ease;
   font-family: "Ubuntu", sans-serif;
@@ -61,7 +61,7 @@ input {
 }
 
 .menu-button {
-  color: slateblue;
+  color: #277da1;
   font-size: 25px;
   cursor: pointer;
   display: none;
@@ -89,7 +89,7 @@ input {
   transform: translateX(-50%);
   border-radius: 10px;
   transition: top 1s ease-in;
-  z-index: 20;
+  z-index: 30;
 }
 .modal.active {
   top: 0px;
@@ -98,7 +98,6 @@ input {
 .container {
   position: relative;
   width: 100%;
-  /* background: repeating-linear-gradient(90deg, #d2d3d2, rgb(220, 255, 250)); */
   min-height: 87vh;
   overflow: hidden;
 }
@@ -268,6 +267,7 @@ form.sign-in-form {
   color: rgb(49, 49, 49);
   transition: transform 0.8s ease-in-out;
   transition-delay: 0.5s;
+  padding-top: 50px;
 }
 
 .panel h3 {
@@ -421,6 +421,16 @@ span {
   pointer-events: all;
 }
 
+@media (max-width: 1024px){
+  .right-panel .image{
+    width: 300px;
+  }
+
+  .left-panel .image{
+    width: 300px;
+  }
+}
+
 @media (max-width: 870px) {
   .container {
     min-height: 800px;
@@ -431,6 +441,7 @@ span {
     top: 95%;
     transform: translate(-50%, -100%);
     transition: 1s 0.8s ease-in-out;
+    padding-top: 150px;
   }
 
   .signin-signup,
@@ -516,6 +527,7 @@ span {
   .right-panel .image,
   .right-panel .content {
     transform: translateY(300px);
+    height: 600px;
   }
 
   .container.sign-up-mode .signin-signup {
