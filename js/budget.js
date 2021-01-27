@@ -58,7 +58,7 @@ async function changeMounthlyLimit(e) {
         { merge: true }
       )
       .then(async () => {
-        showTostify("Twój miesięczny limit został", "success");
+        showTostify("Twój miesięczny limit został zmieniony.", "success");
         const data = getDataFromDataBase(
           `${selectedMonth.value}-${selectedYear.value}`
         );
@@ -142,7 +142,6 @@ async function init() {
 }
 
 function drawLimitChart(limit, totalSpending) {
-  console.log({ limit, totalSpending });
   const isDefaultValue = totalSpending === null;
   const isLimitSpendig = limit === undefined;
   const percentEl = document.querySelector(".percentage");
@@ -151,7 +150,6 @@ function drawLimitChart(limit, totalSpending) {
   const percent = limit
     ? Number(((totalSpending * 100) / limit).toFixed(2))
     : 0;
-  console.log(percent);
   let restAmount = isDefaultValue ? 0 : (limit - totalSpending).toFixed(2);
   document.documentElement.style.setProperty(
     "--circle",

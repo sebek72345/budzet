@@ -111,6 +111,9 @@ window.addEventListener("DOMContentLoaded", async () => {
     let categoryInput = document.querySelector("#add-income-category");
     let descInput = document.querySelector("#add-income-desc");
     const amountInput = document.querySelector("#add-income-amount");
+    const modalTitle = document.querySelectorAll(".modal__header>p");
+    modalTitle[0].textContent = "Dodaj Tranzakcje";
+    modalTitle[1].textContent = "Dodaj Tranzakcje";
     dateInput.value = getCurrentData();
     descInput.value = "";
     amountInput.value = "";
@@ -140,6 +143,9 @@ window.addEventListener("DOMContentLoaded", async () => {
     let categoryInput = document.querySelector("#add-spending-category");
     let descInput = document.querySelector("#add-spending-desc");
     const amountInput = document.querySelector("#add-spending-amount");
+    const modalTitle = document.querySelectorAll(".modal__header>p");
+    modalTitle[0].textContent = "Dodaj Tranzakcje";
+    modalTitle[1].textContent = "Dodaj Tranzakcje";
     dateInput.value = getCurrentData();
     descInput.value = "";
     amountInput.value = "";
@@ -212,6 +218,8 @@ window.addEventListener("DOMContentLoaded", async () => {
       },
     });
     table.input.attributes[1].nodeValue = "Wyszukaj...";
+    table.options.labels.noRows = "Nie znaleziono żadnego wyniku";
+    console.log(table);
   }
   //show transactions
   function fillTable(array) {
@@ -281,7 +289,7 @@ window.addEventListener("DOMContentLoaded", async () => {
           );
           confirmBnt.addEventListener("click", () => {
             removerContainer();
-            modalTitle[0].textContent = "Dodaj Tranzakcje";
+            modalTitle[0].textContent = "Dodaj Transakcje";
             const newIncome = {
               //assign values from parameters
               date: newDate.value,
@@ -293,7 +301,7 @@ window.addEventListener("DOMContentLoaded", async () => {
             };
             updateDatabase(
               [...restTransactions, newIncome],
-              "Tranzackja została pomyślnie zmieniona"
+              "Transackja została pomyślnie zmieniona"
             );
             modalBackground.style.display = "none";
             modalContent.style.display = "none";
@@ -318,7 +326,7 @@ window.addEventListener("DOMContentLoaded", async () => {
           newAmount.value = editedTransaction.amount;
           confirmBnt.addEventListener("click", () => {
             removerContainer();
-            modalTitle[1].textContent = "Dodaj Tranzakcje";
+            modalTitle[1].textContent = "Dodaj Transakcje";
             const newSpending = {
               //assign values from parameters
               date: newDate.value,
@@ -330,7 +338,7 @@ window.addEventListener("DOMContentLoaded", async () => {
             };
             updateDatabase(
               [...restTransactions, newSpending],
-              "Tranzackja została pomyślnie zmieniona"
+              "Transackja została pomyślnie zmieniona"
             );
             modalBackground.style.display = "none";
             modalContent.style.display = "none";
@@ -393,6 +401,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   function addToDataBase(isIncome, category, desc, amount, date) {
     const transactionId = getUniqueId();
+    amount = Number(amount);
     const newTransaction = {
       date,
       category,
@@ -402,7 +411,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       income: isIncome ? true : false,
     };
     const newTransactions = [...transactions, newTransaction];
-    updateDatabase(newTransactions, "Tranzakcja została dodana");
+    updateDatabase(newTransactions, "Transakcja została dodana");
   }
   async function deleteTransaction(e) {
     const transactionId = e.target.parentNode.parentNode.dataset.id;
@@ -411,7 +420,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     );
     updateDatabase(
       [...updatedTransaction],
-      "Tranzackja została pomyślnie usunięta"
+      "Transackja została pomyślnie usunięta"
     );
   }
   async function updateDatabase(newTransactions, messageTitle) {
@@ -426,12 +435,12 @@ window.addEventListener("DOMContentLoaded", async () => {
       })
       .then(() => {
         const message =
-          "Wydatki zostały dopisane do twojej listy" && messageTitle;
+          "Wydatki zostały dopisane do twojej listy." && messageTitle;
         showTostify(message, "success");
         realTimeUpdate();
       })
       .catch((err) => {
-        showTostify("Coś poszło nie tak, spróbój ponownie", "fail");
+        showTostify("Coś poszło nie tak, spróbój ponownie.", "fail");
         console.log(err);
       });
   }

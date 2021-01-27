@@ -145,9 +145,9 @@ body {
 .category {
   margin-right: calc(var(--main-margin) * 2);
 }
-/* .spending-by-categories {
-  width: 30%;
-} */
+.spending-by-categories {
+  min-width: 30%;
+}
 .category {
   display: flex;
   flex-direction: column;
@@ -320,6 +320,9 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+  border: 2px solid rgb(128, 124, 124);
+  background-color: rgb(226, 248, 248);
+  color: #000;
 }
 textarea:focus,
 input:focus {
@@ -449,6 +452,9 @@ input:focus {
   .select-mounth {
     margin: 0 auto;
     padding: var(--main-margin);
+  }
+  .spending-by-categories {
+    width: 100%;
   }
 }
 @media (max-width: 600px) {
