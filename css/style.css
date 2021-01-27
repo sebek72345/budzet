@@ -33,7 +33,7 @@ html {
 body {
   height: 100vh;
   width: 100%;
-  background: repeating-linear-gradient(90deg, #b2ff9e, #fff);
+  background: repeating-linear-gradient(90deg, rgb(233, 233, 233), #fff);
   display: flex;
   flex-direction: row;
   flex-direction: column;
@@ -68,7 +68,7 @@ section .title {
 }
 
 .navbar img {
-  width: 60px;
+  width: 80px;
   cursor: pointer;
 }
 
@@ -80,12 +80,12 @@ section .title {
   padding: 8px 0;
   transition: all 0.3s ease;
   font-family: "Ubuntu", sans-serif;
-  background: repeating-linear-gradient(120deg, #ffffff, #b2ff9e, #ffffff);
+  background: repeating-linear-gradient(120deg, #43AA8B, #5aa891);
 }
 
 .navbar.sticky {
   padding: 15px 0;
-  background: repeating-linear-gradient(120deg, #ffffff, #adf7b6, #adf7b6);
+  background: repeating-linear-gradient(120deg, #73d6b9, #5aa891);
 }
 
 .navbar .max-width {
@@ -110,7 +110,7 @@ section .title {
 }
 
 .navbar li a:hover {
-  color: rgb(67, 65, 236);
+  color: #fff;
   transform: scale(1.05);
 }
 
@@ -123,7 +123,7 @@ section .title {
   position: fixed;
   height: 45px;
   width: 42px;
-  background: slateblue;
+  background: #277DA1;
   right: 30px;
   bottom: 10px;
   text-align: center;
@@ -156,14 +156,14 @@ section .title {
 }
 
 .menu-button {
-  color: slateblue;
+  color: #277DA1;
   font-size: 25px;
   cursor: pointer;
   display: none;
 }
 
 .menu-button1::first-line {
-  color: rgb(67, 65, 236);
+  color: rgb(249, 249, 251);
 }
 
 .menu-button1:hover::first-line {
@@ -225,13 +225,13 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
 .home .home-content .common-btn {
   margin: 30px;
   padding: 18px 40px;
-  font-size: 15px;
+  font-size: 18px;
   background: transparent;
   outline: none;
-  border: 1px solid #000;
-  background-color: #70e000;
+  border: 1px solid #4D908E;
+  background-color: #43AA8B;
   border-radius: 5px;
-  font-weight: bold;
+  font-weight: 500;
   cursor: pointer;
 }
 
@@ -375,7 +375,7 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
   transition: all 0.3s ease;
 }
 .teams .carousel .card:hover {
-  background-color: greenyellow;
+  background-color: #90be6db6;
 }
 .teams .carousel .card .box {
   display: flex;
@@ -398,7 +398,7 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
   width: 150px;
   object-fit: cover;
   border-radius: 50%;
-  border: 5px solid #70e000;
+  border: 5px solid #90BE6D;
   transition: all 0.3s ease;
 }
 .teams .carousel .card:hover img {
@@ -423,7 +423,7 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
 }
 .owl-dot.active,
 .owl-dot:hover {
-  background: greenyellow !important;
+  background: #90BE6D !important;
 }
 
 /* contact styling section */
@@ -436,6 +436,7 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 10px;
+  
 }
 
 .contact .contact-content .left p {
@@ -462,7 +463,7 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
 
 .contact .contact-content .row i {
   font-size: 25px;
-  color: #70e000;
+  color: #90BE6D;
 }
 
 .contact .contact-content .info .head {
@@ -497,7 +498,7 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
 .contact .right form .textarea textarea {
   height: 100%;
   width: 100%;
-  border: 1px solid #70e000;
+  border: 1px solid #90BE6D;
   border-radius: 6px;
   outline: none;
   padding: 0 15px;
@@ -525,11 +526,11 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
 .contact .right form .button button {
   width: 100%;
   height: 100%;
-  border: 1px solid #000;
-  background-color: #70e000;
+  border: 1px solid #90BE6D;
+  background-color: #90BE6D;
   color: #000;
   outline: none;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   border-radius: 6px;
   cursor: pointer;
@@ -558,7 +559,7 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
 hr {
   width: 100%;
   border: 0;
-  border-top: 1px solid #f67c92c5;
+  border-top: 1px solid #43AA8B;
 }
 
 .footer-row {
@@ -585,7 +586,7 @@ hr {
 
 .link-title h4,
 .social-icons h4 {
-  color: #f67c92c5;
+  color: #43AA8B;
   margin-bottom: 20px;
 }
 
@@ -606,8 +607,7 @@ hr {
 }
 
 .footer-logo img {
-  height: 45px;
-  width: 50px;
+  width: 65px;
 }
 
 .copyright-text,
@@ -703,7 +703,7 @@ span {
     display: inline-block;
     margin: 20px 0;
     font-size: 25px;
-    color: red;
+    color: #4D908E;
   }
   .home .home-content .text-1 {
     font-size: 70px;

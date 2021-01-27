@@ -10,7 +10,7 @@
 }
 
 body {
-  background: repeating-linear-gradient(90deg, #8e9feca6, #fff);
+  background: repeating-linear-gradient(90deg, rgb(233, 233, 233), #fff);
 }
 
 /* body,
@@ -28,10 +28,10 @@ input {
   position: fixed;
   width: 100%;
   z-index: 5;
-  padding: 8px 0;
+  padding: 4px 0;
   transition: all 0.3s ease;
   font-family: "Ubuntu", sans-serif;
-  background: repeating-linear-gradient(120deg, #ffffff, #8e9fec, #ffffff);
+  background: repeating-linear-gradient(120deg, #43AA8B, #5aa891);
 }
 
 .navbar .max-width {
@@ -56,7 +56,7 @@ input {
 }
 
 .navbar li a:hover {
-  color: rgb(67, 65, 236);
+  color: rgb(242, 242, 250);
   transform: scale(1.1);
 }
 
@@ -76,7 +76,7 @@ input {
 }
 
 .navbar img {
-  width: 60px;
+  width: 80px;
   cursor: pointer;
 }
 
@@ -98,7 +98,7 @@ input {
 .container {
   position: relative;
   width: 100%;
-  background-color: #9ab7ec77;
+  /* background: repeating-linear-gradient(90deg, #d2d3d2, rgb(220, 255, 250)); */
   min-height: 87vh;
   overflow: hidden;
 }
@@ -146,14 +146,14 @@ form.sign-in-form {
 
 .title {
   font-size: 25px;
-  color: #444;
+  color: rgb(49, 49, 49);
   margin-bottom: 15px;
 }
 
 .input-field {
   max-width: 380px;
   width: 100%;
-  background-color: #f0f0f0;
+  background-color: #e9ecf3;
   margin: 8px 0;
   height: 50px;
   border-radius: 50px;
@@ -166,7 +166,7 @@ form.sign-in-form {
 .input-field i {
   text-align: center;
   line-height: 55px;
-  color: #344ee0;
+  color: #277DA1;
   transition: 0.5s;
   font-size: 1.1rem;
 }
@@ -178,7 +178,7 @@ form.sign-in-form {
   line-height: 1;
   font-weight: 500;
   font-size: 18px;
-  color: #344ee0;
+  color: #277DA1;
 }
 
 .input-field input::placeholder {
@@ -188,14 +188,14 @@ form.sign-in-form {
 
 .btn {
   width: 150px;
-  background-color: #5995fd;
+  background-color: #4D908E;
   border: none;
   outline: none;
   height: 49px;
   border: 2px solid rgb(201, 197, 253);
   border-style: outset;
   border-radius: 50px;
-  color: #fff;
+  color: rgb(0, 0, 0);
   text-transform: uppercase;
   font-weight: 600;
   margin: 10px 0;
@@ -204,7 +204,7 @@ form.sign-in-form {
 }
 
 .btn:hover {
-  background-color: #4d84e2;
+  background-color: #71bebc;
 }
 
 .panels-container {
@@ -224,8 +224,7 @@ form.sign-in-form {
   width: 500%;
   top: -10%;
   right: 50%;
-  /* background-image: linear-gradient(90deg, #9ab7eca9, #385ca0a9); */
-  background: repeating-linear-gradient(90deg, #b6c3ffa6, b6c3ffa6);
+  background: repeating-linear-gradient(90deg, rgb(233, 233, 233) #fff);
   transition: 1.5s ease-in-out;
   z-index: 6;
 }
@@ -266,7 +265,7 @@ form.sign-in-form {
 }
 
 .panel .content {
-  color: #fff;
+  color: rgb(49, 49, 49);
   transition: transform 0.8s ease-in-out;
   transition-delay: 0.5s;
 }
@@ -286,13 +285,17 @@ form.sign-in-form {
 
 .btn.sign {
   margin: 0;
-  background: #9ab7eca9;
-  border: 2px solid #fff;
+  background: #43AA8B;
+  border: 2px solid #299075;
   border-style: outset;
   width: 130px;
   height: 41px;
   font-weight: 600;
   font-size: 12px;
+}
+
+.btn.sign:hover {
+  background-color: #78dfc0;
 }
 
 .right-panel .image,
@@ -304,7 +307,7 @@ form.sign-in-form {
 hr {
   width: 100%;
   border: 0;
-  border-top: 1px solid #f67c92c5;
+  border-top: 1px solid #43AA8B;
 }
 
 .footer-row {
@@ -331,7 +334,7 @@ hr {
 
 .link-title h4,
 .social-icons h4 {
-  color: #f67c92c5;
+  color: #43AA8B;
   margin-bottom: 20px;
 }
 
@@ -352,8 +355,7 @@ hr {
 }
 
 .footer-logo img {
-  height: 45px;
-  width: 50px;
+  width: 65px;
 }
 
 .copyright-text,
