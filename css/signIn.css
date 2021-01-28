@@ -424,10 +424,17 @@ span {
 @media (max-width: 1024px){
   .right-panel .image{
     width: 300px;
+    padding-bottom: 60px;
   }
-
+  .right-panel {
+    padding-bottom: 500px;
+  }
   .left-panel .image{
     width: 300px;
+    padding-bottom: 70px;
+  }
+  .left-panel {
+    padding-bottom: 500px;
   }
 }
 
@@ -468,6 +475,7 @@ span {
 
   .left-panel {
     grid-row: 1 / 2;
+    margin-bottom: -100px;
   }
 
   .image {
@@ -527,7 +535,7 @@ span {
   .right-panel .image,
   .right-panel .content {
     transform: translateY(300px);
-    height: 600px;
+    /* height: 600px; */
   }
 
   .container.sign-up-mode .signin-signup {
@@ -551,6 +559,10 @@ span {
     padding: 1.5rem;
   }
 
+  .left-panel {
+    padding-top: 100px;
+  }
+
   .container:before {
     bottom: 72%;
     left: 50%;
@@ -560,6 +572,7 @@ span {
     bottom: 28%;
     left: 50%;
   }
+
   #footer {
     text-align: justify;
     padding-left: 10px;
