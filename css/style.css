@@ -563,9 +563,9 @@ section .title {
 }
 
 .contact img {
-  height: 300px;
+  height: 230px;
   float: right;
-  margin-block: -170px;
+  margin-block: -100px;
 }
 
 #info {
