@@ -31,7 +31,7 @@ input {
   padding: 4px 0;
   transition: all 0.3s ease;
   font-family: "Ubuntu", sans-serif;
-  background: repeating-linear-gradient(120deg, #43AA8B, #5aa891);
+  background: repeating-linear-gradient(120deg, #43aa8b, #5aa891);
 }
 
 .navbar .max-width {
@@ -165,7 +165,7 @@ form.sign-in-form {
 .input-field i {
   text-align: center;
   line-height: 55px;
-  color: #277DA1;
+  color: #277da1;
   transition: 0.5s;
   font-size: 1.1rem;
 }
@@ -177,7 +177,7 @@ form.sign-in-form {
   line-height: 1;
   font-weight: 500;
   font-size: 18px;
-  color: #277DA1;
+  color: #277da1;
 }
 
 .input-field input::placeholder {
@@ -187,7 +187,7 @@ form.sign-in-form {
 
 .btn {
   width: 150px;
-  background-color: #4D908E;
+  background-color: #4d908e;
   border: none;
   outline: none;
   height: 49px;
@@ -285,7 +285,7 @@ form.sign-in-form {
 
 .btn.sign {
   margin: 0;
-  background: #43AA8B;
+  background: #43aa8b;
   border: 2px solid #299075;
   border-style: outset;
   width: 130px;
@@ -307,7 +307,7 @@ form.sign-in-form {
 hr {
   width: 100%;
   border: 0;
-  border-top: 1px solid #43AA8B;
+  border-top: 1px solid #43aa8b;
 }
 
 .footer-row {
@@ -334,7 +334,7 @@ hr {
 
 .link-title h4,
 .social-icons h4 {
-  color: #43AA8B;
+  color: #43aa8b;
   margin-bottom: 20px;
 }
 
@@ -421,15 +421,15 @@ span {
   pointer-events: all;
 }
 
-@media (max-width: 1024px){
-  .right-panel .image{
+@media (max-width: 1024px) {
+  .right-panel .image {
     width: 300px;
     padding-bottom: 60px;
   }
   .right-panel {
     padding-bottom: 500px;
   }
-  .left-panel .image{
+  .left-panel .image {
     width: 300px;
     padding-bottom: 70px;
   }

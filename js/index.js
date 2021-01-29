@@ -36,20 +36,20 @@ $(document).ready(function () {
   //typing text animation
   var typed = new Typed(".typing-1", {
     strings: ["Wynagrodzenie", "Praca dodatkowa", "Inne"],
-    typeSpeed: 100,
-    backSpeed: 60,
+    typeSpeed: 150,
+    backSpeed: 80,
     loop: true,
   });
   var typed = new Typed(".typing-2", {
     strings: ["Wynagrodzenie z firmy", "Wynagrodzenie za prace dodatkową"],
-    typeSpeed: 100,
-    backSpeed: 60,
+    typeSpeed: 150,
+    backSpeed: 80,
     loop: true,
   });
   var typed = new Typed(".typing-3", {
     strings: ["8000", "5500", "6800", "4200"],
-    typeSpeed: 100,
-    backSpeed: 60,
+    typeSpeed: 150,
+    backSpeed: 80,
     loop: true,
   });
   var typed = new Typed(".typing-4", {
@@ -64,8 +64,8 @@ $(document).ready(function () {
       "Zdrowie",
       "Inne",
     ],
-    typeSpeed: 100,
-    backSpeed: 60,
+    typeSpeed: 150,
+    backSpeed: 80,
     loop: true,
   });
   var typed = new Typed(".typing-5", {
@@ -79,14 +79,14 @@ $(document).ready(function () {
       "Paliwo",
       "Leki w aptece",
     ],
-    typeSpeed: 100,
-    backSpeed: 60,
+    typeSpeed: 150,
+    backSpeed: 80,
     loop: true,
   });
   var typed = new Typed(".typing-6", {
     strings: ["500", "30", "80", "430", "120", "270"],
-    typeSpeed: 100,
-    backSpeed: 60,
+    typeSpeed: 150,
+    backSpeed: 80,
     loop: true,
   });
 
