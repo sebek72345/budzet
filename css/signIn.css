@@ -27,11 +27,11 @@ input {
 .navbar {
   position: fixed;
   width: 100%;
-  z-index: 5;
+  z-index: 20;
   padding: 4px 0;
   transition: all 0.3s ease;
   font-family: "Ubuntu", sans-serif;
-  background: repeating-linear-gradient(120deg, #43AA8B, #5aa891);
+  background: repeating-linear-gradient(120deg, #43aa8b, #5aa891);
 }
 
 .navbar .max-width {
@@ -61,7 +61,7 @@ input {
 }
 
 .menu-button {
-  color: slateblue;
+  color: #277da1;
   font-size: 25px;
   cursor: pointer;
   display: none;
@@ -89,7 +89,7 @@ input {
   transform: translateX(-50%);
   border-radius: 10px;
   transition: top 1s ease-in;
-  z-index: 20;
+  z-index: 30;
 }
 .modal.active {
   top: 0px;
@@ -98,7 +98,6 @@ input {
 .container {
   position: relative;
   width: 100%;
-  /* background: repeating-linear-gradient(90deg, #d2d3d2, rgb(220, 255, 250)); */
   min-height: 87vh;
   overflow: hidden;
 }
@@ -166,7 +165,7 @@ form.sign-in-form {
 .input-field i {
   text-align: center;
   line-height: 55px;
-  color: #277DA1;
+  color: #277da1;
   transition: 0.5s;
   font-size: 1.1rem;
 }
@@ -178,7 +177,7 @@ form.sign-in-form {
   line-height: 1;
   font-weight: 500;
   font-size: 18px;
-  color: #277DA1;
+  color: #277da1;
 }
 
 .input-field input::placeholder {
@@ -188,7 +187,7 @@ form.sign-in-form {
 
 .btn {
   width: 150px;
-  background-color: #4D908E;
+  background-color: #4d908e;
   border: none;
   outline: none;
   height: 49px;
@@ -268,6 +267,7 @@ form.sign-in-form {
   color: rgb(49, 49, 49);
   transition: transform 0.8s ease-in-out;
   transition-delay: 0.5s;
+  padding-top: 50px;
 }
 
 .panel h3 {
@@ -285,7 +285,7 @@ form.sign-in-form {
 
 .btn.sign {
   margin: 0;
-  background: #43AA8B;
+  background: #43aa8b;
   border: 2px solid #299075;
   border-style: outset;
   width: 130px;
@@ -307,7 +307,7 @@ form.sign-in-form {
 hr {
   width: 100%;
   border: 0;
-  border-top: 1px solid #43AA8B;
+  border-top: 1px solid #43aa8b;
 }
 
 .footer-row {
@@ -334,7 +334,7 @@ hr {
 
 .link-title h4,
 .social-icons h4 {
-  color: #43AA8B;
+  color: #43aa8b;
   margin-bottom: 20px;
 }
 
@@ -421,6 +421,58 @@ span {
   pointer-events: all;
 }
 
+@media (max-width: 1024px) {
+  .right-panel .image {
+    width: 300px;
+    padding-bottom: 60px;
+  }
+  .right-panel {
+    padding-bottom: 500px;
+  }
+  .left-panel .image {
+    width: 300px;
+    padding-bottom: 70px;
+  }
+  .left-panel {
+    padding-bottom: 500px;
+  }
+}
+@media (max-width: 947px) {
+  .menu-button {
+    display: block;
+    z-index: 999;
+  }
+  .menu-button i.active:before {
+    content: "\f00d";
+  }
+  .navbar .menu {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    left: -100%;
+    top: 0;
+    background: #111;
+    text-align: center;
+    padding-top: 80px;
+    transition: all 0.3s ease;
+  }
+  .navbar .menu.active {
+    left: 0;
+  }
+  .navbar .menu li {
+    display: block;
+  }
+  .navbar .menu li a {
+    display: inline-block;
+    margin: 20px 0;
+    font-size: 25px;
+    color: #4d908e;
+  }
+  .max-width {
+    max-width: 930px;
+  }
+}
+
 @media (max-width: 870px) {
   .container {
     min-height: 800px;
@@ -431,6 +483,7 @@ span {
     top: 95%;
     transform: translate(-50%, -100%);
     transition: 1s 0.8s ease-in-out;
+    padding-top: 150px;
   }
 
   .signin-signup,
@@ -457,6 +510,7 @@ span {
 
   .left-panel {
     grid-row: 1 / 2;
+    margin-bottom: -100px;
   }
 
   .image {
@@ -516,6 +570,7 @@ span {
   .right-panel .image,
   .right-panel .content {
     transform: translateY(300px);
+    /* height: 600px; */
   }
 
   .container.sign-up-mode .signin-signup {
@@ -539,6 +594,10 @@ span {
     padding: 1.5rem;
   }
 
+  .left-panel {
+    padding-top: 100px;
+  }
+
   .container:before {
     bottom: 72%;
     left: 50%;
@@ -548,6 +607,7 @@ span {
     bottom: 28%;
     left: 50%;
   }
+
   #footer {
     text-align: justify;
     padding-left: 10px;

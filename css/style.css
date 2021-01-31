@@ -170,49 +170,6 @@ section .title {
   color: white;
 }
 
-/* TODO - navbar podkreslenie buttona */
-/* ul {
-    border-radius: 8px;
-}
-
-ul .animation{
-    position: absolute;
-    height: 5px;
-    bottom: 0;
-    z-index: 0;
-    background: white;
-    border-radius: 8px;
-    transition: all .5s ease 0;
-}
-a:nth-child(1){
-    width: 110px;
-}
-ul .start-aplikacja,a:nth-child(1):hover~.animation{
-    width: 110px;
-    left: 838px;
-}
-a:nth-child(2){
-    width: 100px;
-}
-ul .start-about,a:nth-child(2):hover~.animation{
-    width: 100px;
-    left: 1000px;
-}
-a:nth-child(3){
-    width: 110px;
-}
-ul .start-załóż,a:nth-child(3):hover~.animation{
-    width: 110px;
-    left: 1100px;
-}
-a:nth-child(4){
-    width: 110px;
-}
-ul .start-kontakt,a:nth-child(4):hover~.animation{
-    width: 100px;
-    left: 1200px;
-} */
-
 /* home styling section */
 .home {
   align-content: center;
@@ -368,17 +325,17 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
 }
 .category {
   position: absolute;
-  top: 170px;
+  top: 210px;
   left: 80px;
 }
 .description {
   position: absolute;
-  top: 241px;
+  top: 300px;
   left: 80px;
 }
 .amount {
   position: absolute;
-  top: 298px;
+  top: 368px;
   left: 80px;
 }
 .expenses-text h3 {
@@ -416,17 +373,17 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
 }
 .category-1 {
   position: absolute;
-  top: 170px;
+  top: 210px;
   left: 80px;
 }
 .description-1 {
   position: absolute;
-  top: 241px;
+  top: 300px;
   left: 80px;
 }
 .amount-1 {
   position: absolute;
-  top: 298px;
+  top: 368px;
   left: 80px;
 }
 /* about */
@@ -606,9 +563,9 @@ ul .start-kontakt,a:nth-child(4):hover~.animation{
 }
 
 .contact img {
-  height: 300px;
+  height: 230px;
   float: right;
-  margin-block: -170px;
+  margin-block: -100px;
 }
 
 #info {
@@ -710,13 +667,12 @@ span {
     height: 350px;
     width: 350px;
   }
-}
 
-@media (max-width: 1024px) {
-  .home .home-content .common-btn {
-    width: fit-content;
+  @media (max-width: 1024px) {
+    .home .home-content .common-btn {
+      width: fit-content;
+    }
   }
-
   .home img {
     width: 600px;
   }

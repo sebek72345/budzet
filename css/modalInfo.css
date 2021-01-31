@@ -1,6 +1,6 @@
 .modal--info {
   position: fixed;
-  z-index: 10;
+  z-index: 40;
   padding: 20px 40px;
   background-color: #3db134;
   /* background-color: #df2424; */
