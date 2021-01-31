@@ -62,3 +62,12 @@ function signUp(email, password) {
       showTostify("Coś poszło nie tak, spróbuj ponownie.", "red")
     );
 }
+$(document).ready(function () {
+  $(window).scroll(function () {
+    // toggle menu/navbar script
+    $(".menu-button").click(function () {
+      $(".navbar .menu").toggleClass("active");
+      $(".menu-button i").toggleClass("active");
+    });
+  });
+});
