@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget App</title>
+    <link rel="stylesheet" href="./css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="./css/modalInfo.css" type="text/css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">   
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.11/typed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script
+      defer
+      src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"
+    ></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+    <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js" defer>
+</script>
+    <script type="module" src="./js/index.js" defer></script>
+</head>
+<body>
+<div class="modal--info"></div>
+    <div class="scroll-up-btn">
+        <i class="fas fa-angle-up"></i>
+    </div>
+    <nav class="navbar">
+        <div class="max-width">
+            <a href="index.html" title="Strona główna"><img src="assets/logo.svg"></a>
+            <ul class="menu">
+                <li class="menu-button1"><a href="#">Aplikacja</a></li>
+                <li class="menu-button"><a href="#feature-1">Jak to działa</a></li>
+                <li class="menu-button"><a href="#teams">O nas</a></li>
+                <li class="menu-button"><a href="#contact">Kontakt</a></li>
+                <li class="menu-button"><a href="signUp.html">Zaloguj się</a></li>
+                <!-- <div class="animation start-aplikacja"></div> -->
+             </ul>
+             <div class="menu-button">
+                 <i class="fas fa-bars"></i>
+             </div>
+        </div> 
+    </nav>
+        
+        <!-- home section -->
+    <section class="home" id="home">
+        <div class="max-width">
+            <div class="home-content">
+                <div class="text-1"> Śledź swoje wydatki, oszczędzaj więcej i szybciej osiągaj swoje cele z aplikacją Budget App.</div>
+                <img src="assets/img1.svg">
+                <div class="text-2">Wszystko czego potrzebujesz by zarządzać swoimi finansami w jednym miejscu. </div><button class="common-btn">
+                <a href="signUp.html">Dołącz teraz</a>
+                </button>
+            </div>
+        </div>
+    </section>
+
+<!-- how it works -->
+<section class="feature-3" id="feature-3">
+    <div class="max-width">
+        <h2 class="title">Jak to działa</h2>
+        <div class="pulpit-text" id="pulpit-text">
+            <h3>Kontroluj swoje wydatki</h3>
+            <p>Przejmij kontrolę nad swoimi pieniędzmi dzięki użyciu aplikacji BudgetApp. Wygodna i prosta obsługa pozwoli tobie oszczędzić więcej pieniędzy.</p>
+        </div>
+        <div class="pulpit-image" id="pulpit-image">
+            <img src="assets/pulpitDesign.png" alt="">
+        </div>
+    </div>
+<section class="feature-4" id="feature-4">
+    <div class="max-width">
+        <div class="transactions-text" id="transaction-text">
+            <h3>Śledź swoje wydatki</h3>
+            <p>Śledź swój plan, śledząc wydatki przez cały miesiąc. Za każdym razem, kiedy wydajesz pieniądze, utwórz transakcję i śledź ją zgodnie z budżetem.</p>
+        </div>
+        <div class="transactions-image" id="transaction-image">
+            <img src="assets/transactionsDesign.png" alt="">
+        </div>
+    </div>
+</section>
+</section>
+<section class="feature-1" id="feature-1">
+    <div class="max-width">
+        
+        <div class="income-text" id="income-text">
+            <h3>Dodaj swój miesięczny dochód</h3>
+            <p>Rozpocznij swój budżet dodając swój dochód, którego się spodziewasz w tym miesiącu.</p>
+        </div>
+        
+        <div class="income-image" id="income-image">
+            <img src="assets/income.png" alt="">
+            <div class="category" id="category">Wybierz kategorię: <span class="typing-1"></span></div>
+            <div class="description" id="description">Krótki opis: <span class="typing-2"></span></div>
+            <div class="amount" id="amount">Wprowadź kwotę: <span class="typing-3"></span></div>
+        </div>
+    </div>
+</section>
+<section class="feature-2" id="feature-2">
+    <div class="max-width">
+        <div class="expenses-text" id="expenses-text">
+            <h3>Zaplanuj swoje wydatki</h3>
+            <p>Przygotuj plan swoich dochodów. Aplikacja budżetu domowego zapewni tobie dostęp do szablonów budżetowania miesięcznych wydatków.</p>
+        </div>
+        <div class="expenses-image" id="expenses-image">
+            <img src="assets/expenses.png" alt="">
+            <div class="category-1" id="category-1">Wybierz kategorię: <span class="typing-4"></span></div>
+            <div class="description-1" id="description-1">Krótki opis: <span class="typing-5"></span></div>
+            <div class="amount-1" id="amount-1">Wprowadź kwotę: <span class="typing-6"></span></div>
+        </div>
+    </div>
+</section>
+<section class="feature-5" id="feature-5">
+    <div class="max-width">
+        <div class="pdf-text" id="pdf-text">
+            <h3>Przechowywanie nie tylko w jednym miejscu</h3>
+            <p>Poprzez dodawanie swoich wydatków masz również możliwość wydrukowania raportu w wyznaczonym przez ciebie okresie.</p>
+        </div>
+        <div class="pdf-image" id="pdf-image">
+            <img src="assets/pdfDesign.png" alt="">
+        </div>
+    </div>
+</section>
+
+<!-- about us -->
+<section class="teams" id="teams">
+    <div class="max-width">
+        <h2 class="title">O nas</h2>
+        <div class="carousel owl-carousel">
+            <div class="card">
+                <div class="box">
+                    <img src="assets/image-X.png" alt="">
+                    <div class="text">Sebastian Sokół</div>
+                    <p>Z wykształcenia jestem inż.mgr Mechaniki i Budowy Maszyn z zamiłowania amator programista. Jestem samoukiem, który od ponad roku zgłębia tajniki programowania aplikacji webowych. Technologie jakie używam to: HTML, CSS, JS oraz React. Obecnie zgłębiam tajniki środowiska NodeJS. </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="box">
+                    <img src="assets/image-X.png" alt="">
+                    <div class="text">Patryk Wójcik</div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore voluptatem, cum facere, numquam vero rem non quis illum eum minus eveniet veritatis, earum asperiores voluptatibus reprehenderit. Animi ducimus est vel.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="box">
+                    <img src="assets/image-X.png" alt="">
+                    <div class="text">Klaudia Burzyńska</div>
+                    <p>Swoją przygodę z programowaniem rozpoczęłam wraz z rozpoczęciem kursu WORK-ON. Zainspirowana możliwościami jakie daje branża IT, postanowiłam zmienić branżę, po 3 latach pracy w dziedzinie medycyny i farmacji.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="box">
+                    <img src="assets/imageWojtek.jpg" alt="">
+                    <div class="text">Wojciech Kownacki</div>
+                    <p>Witaj, postanowiłem przebranżnowić się na ścieżkę IT w kierunku Front-end Developera. Stale poznaje i rozszerzam swoję umiejętności w technologiach takich jak HTML, CSS, JavaScript oraz jQuery. </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- form section -->
+<section class="contact" id="contact">
+    <div class="max-width">
+        <h2 class="title">Kontakt</h2>
+        <div class="contact-content">
+            <div class="column left">
+                <div class="text">Zostańmy w kontakcie</div>
+                <p>
+                    Jeśli masz jakiś problem bądź chcesz uzyskać więcej informacji na temat funkcjonalności naszej aplikacj budżetu domowego lub chcesz o coś zapytać wypełnij formularz kontaktowy a z checią odpowiemy na twoje pytanie.
+                </p>
+                <div class="icons">
+                    <div class="row">
+                        <i class="fas fa-user"></i>
+                        <div class="info">
+                            <div class="head">Wsparcie</div>
+                            <div class="sub-title">Nasz zespół</div>
+                        </div> 
+                    </div>
+                    <img src="/assets/contact.svg">
+                    <div class="row">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="info" id="info">
+                            <div class="head">Adres</div>
+                            <div class="sub-title">Bydgoszcz, Polska</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <i class="fas fa-envelope"></i>
+                        <div class="info">
+                            <div class="head">Email</div>
+                            <div class="sub-title">budzetdomowy@gmail.com</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column right">
+                <div class="text">Napisz do nas</div>
+                <form action="#" class="contact-email">
+                    <div class="fields">
+                        <div class="field name">
+                            <input type="text" placeholder="Imię" required name="firstName">
+                        </div>
+                        <div class="field email">
+                            <input type="email" placeholder="Email" required name="email" pattern="^\S{1,}@\S{2,}\.\S{2,}$">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <input type="text" placeholder="Temat" required name="subject">
+                    </div>
+                    <div class="field textarea">
+                        <textarea cols="30" rows="10" placeholder="Wiadomość..." required name="content"></textarea>
+                        
+                    </div>
+                    <div class="button">
+                        <button type="submit">Wyślij wiadomość</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Footer -->
+<section id="footer">
+    <div class="footer-row">
+        <hr>
+        <div class="footer-left-col">
+            <div class="footer-links">
+                <div class="link-title">
+                    <h4>O Nas</h4>
+                    <small>Jak działa aplikacja</small><br>
+                    <small><a href="#contact">Kontakt</a></small>
+                </div>
+                <div class="link-title">
+                    <h4>Konto klienta</h4>
+                    <small><a href="signUp.html">Załóż konto</a></small><br>
+                    <small><a href="signUp.html">Zaloguj się</a></small>
+                </div>
+                <div class="social-icons">
+                    <h4>Znajdziesz nas również:</h4>
+                    <span>
+                    <a href="#" target="_blank" title="Facebook"><img src="assets/facebook.svg"></a>
+                    <a href="#" target="_blank" title="Instagram"><img src="assets/instagram.svg"></a>
+                    <a href="#" target="_blank" title="Twitter"><img src="assets/twitter.svg"></a>
+                    </span>
+                </div>
+        </div>
+    </div>
+    <div class="footer-right-col">
+        <div class="footer-info">
+            <div class="copyright-text">
+                <small>budzetdomowy@gmail.com</small><br>
+                <small> &copy; 2021 Budżet Domowy</small>
+            </div>
+        
+            <div class="footer-logo">
+                <img src="assets/logo.svg">
+            </div>
+    </div>
+</div>
+</section>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
