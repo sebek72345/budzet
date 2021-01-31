@@ -3,7 +3,6 @@ import {
   showTostify,
   getDataFromDataBase,
   userIsActive,
-  logUser,
   switchSignInSingOut,
 } from "./helpers.js";
 const translateCategories = {
@@ -103,7 +102,6 @@ async function init() {
   let spendings = [];
   let incomes = [];
 
-  await logUser();
   await userIsActive();
 
   const daysInMonth = new Date(

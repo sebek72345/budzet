@@ -3,7 +3,6 @@ import {
   getDataFromDataBase,
   switchSignInSingOut,
   showTostify,
-  logUser,
   userIsActive,
 } from "./helpers.js";
 // dodac do kazdej tranzakcji income:false or true
@@ -48,19 +47,18 @@ window.addEventListener("DOMContentLoaded", async () => {
       icon.setAttribute("src", "/assets/hamburger.svg");
     }
   });
-  await logUser();
   let transactions = [];
   let spendings = [];
   let incomes = [];
   let monthLimit;
   let table;
   let isLogged = await userIsActive();
-  /* if (!isLogged) {
+  if (!isLogged) {
     return;
-  } */
+  }
   const userId = await firebaseApp.auth().currentUser.uid;
-  await logUser();
-  /* await userIsActive(); */
+  console.log(userId);
+  await userIsActive();
   switchSignInSingOut();
 
   function realTimeUpdate() {

@@ -35,8 +35,8 @@ export async function getDataFromDataBase(period = "7-2020") {
   }
 }
 export function logUser() {
-  const email = "Sebastian723@interia.eu";
-  const password = "123456";
+  /*   const email = "Sebastian723@interia.eu";
+  const password = "123456"; */
 
   firebaseApp
     .auth()

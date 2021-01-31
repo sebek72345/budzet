@@ -20,23 +20,20 @@ signInForm.addEventListener("submit", (e) => {
   signIn(email, password);
 });
 function signIn(email, password) {
-  console.log("inSignin");
   firebaseApp
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then((user) => {
-      console.log("signIn");
       showTostify(
         "Zostałeś zalogowany. Za chwilę zostaniesz przekierowany na stronę do zarząrzania budżetu domowego",
-        "green"
+        "success"
       );
       setTimeout(() => {
-        window.location.href = "/budzet.html";
+        window.location.href = "/budget.html";
       }, 2000);
     })
     .catch((err) => {
       showTostify("Coś poszło nie tak, spróbuj ponownie. ", "red");
-      console.log(err);
     });
 }
 signUpForm.addEventListener("submit", (e) => {
@@ -52,10 +49,10 @@ function signUp(email, password) {
     .then((user) => {
       showTostify(
         "Zostałeś zarejestrowany. Dziękujemy za zaufanie :)",
-        "green"
+        "success"
       );
       setTimeout(() => {
-        window.location.href = "/budzet.html";
+        window.location.href = "/budget.html";
       }, 2000);
     })
     .catch((err) =>
