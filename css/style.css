@@ -325,17 +325,17 @@ section .title {
 }
 .category {
   position: absolute;
-  top: 195px;
+  top: 210px;
   left: 80px;
 }
 .description {
   position: absolute;
-  top: 279px;
+  top: 300px;
   left: 80px;
 }
 .amount {
   position: absolute;
-  top: 341px;
+  top: 368px;
   left: 80px;
 }
 .expenses-text h3 {
@@ -373,17 +373,17 @@ section .title {
 }
 .category-1 {
   position: absolute;
-  top: 195px;
+  top: 210px;
   left: 80px;
 }
 .description-1 {
   position: absolute;
-  top: 279px;
+  top: 300px;
   left: 80px;
 }
 .amount-1 {
   position: absolute;
-  top: 341px;
+  top: 368px;
   left: 80px;
 }
 /* about */
