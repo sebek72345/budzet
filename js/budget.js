@@ -219,7 +219,7 @@ function addSpendingCategories(categories, amounts) {
     const img = categoryClone.querySelector("img");
     const name = categoryClone.querySelector(".category-name");
     const amount = categoryClone.querySelector(".category-amount");
-    img.setAttribute("alt", `${category.categoryName} icon`);
+    img.setAttribute("alt", `${category} icon`);
     img.setAttribute(
       "src",
       `../assets/categories/${translateCategories[category]}`

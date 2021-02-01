@@ -261,6 +261,7 @@ form.sign-in-form {
   pointer-events: none;
   padding: 20px 20% 25px 20%;
   line-height: 25px;
+  margin-left: -200px;
 }
 
 .panel .content {

@@ -21,24 +21,8 @@ html {
   z-index: 999;
   transition: all 0.3s ease;
   font-family: "Ubuntu", sans-serif;
-  background: #59a891;
   height: 70px;
-  background: rgb(36, 185, 140);
-  background: -moz-radial-gradient(
-    circle,
-    rgba(36, 185, 140, 1) 12%,
-    rgba(32, 181, 137, 1) 100%
-  );
-  background: -webkit-radial-gradient(
-    circle,
-    rgba(36, 185, 140, 1) 12%,
-    rgba(32, 181, 137, 1) 100%
-  );
-  background: radial-gradient(
-    circle,
-    rgba(36, 185, 140, 1) 12%,
-    rgba(32, 181, 137, 1) 100%
-  );
+  background: repeating-linear-gradient(120deg, #43aa8b, #5aa891);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#24b98c",endColorstr="#20b589",GradientType=1);
   padding: 5px;
   border-bottom: 1px solid grey;

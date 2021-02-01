@@ -5,7 +5,6 @@ import {
   showTostify,
   userIsActive,
 } from "./helpers.js";
-// dodac do kazdej tranzakcji income:false or true
 
 const months = [
   "Styczeń",
@@ -181,6 +180,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       displayText.innerHTML =
         'Brak wyników do wyświetlenia<br><h2 style="font-size:16px">Dodaj tranzakcje do swojej listy<h2>';
       removerContainer();
+      document.querySelector(".dataTable-bottom").style.display = "none";
       transactions = [];
       return;
     }
@@ -209,7 +209,6 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     displayText.textContent = "";
   }
-  //remove previous list item
   function removerContainer() {
     const li = [...document.querySelectorAll(".mainPanel__position")];
     li.forEach((item) => item.remove());
@@ -229,7 +228,6 @@ window.addEventListener("DOMContentLoaded", async () => {
     table.input.attributes[1].nodeValue = "Wyszukaj...";
     table.options.labels.noRows = "Nie znaleziono żadnego wyniku";
   }
-  //show transactions
   function fillTable(array) {
     removerContainer();
     const list = document.querySelector("#table__body");
@@ -254,7 +252,6 @@ window.addEventListener("DOMContentLoaded", async () => {
       list.append(transactionClone);
     });
   }
-  //delate item from DOM
   function interactiveButtons() {
     const deleteButtons = [...document.querySelectorAll(".--delete")];
     const editButtons = [...document.querySelectorAll(".--edit")];
@@ -290,7 +287,7 @@ window.addEventListener("DOMContentLoaded", async () => {
           let newAmount = document.querySelector("#add-income-amount");
           newCategory.value = editedTransaction.category;
           newDesc.value = editedTransaction.desc;
-          newDate.value = getCurrentData();
+          newDate.value = editedTransaction.date;
           newAmount.value = editedTransaction.amount;
           const confirmBnt = modalBackground.querySelector(
             ".btn-confirm.income"
@@ -299,7 +296,6 @@ window.addEventListener("DOMContentLoaded", async () => {
             removerContainer();
             modalTitle[0].textContent = "Dodaj Transakcje";
             const newIncome = {
-              //assign values from parameters
               date: newDate.value,
               category: newCategory.value,
               desc: newDesc.value,
@@ -336,7 +332,6 @@ window.addEventListener("DOMContentLoaded", async () => {
             removerContainer();
             modalTitle[1].textContent = "Dodaj Transakcje";
             const newSpending = {
-              //assign values from parameters
               date: newDate.value,
               category: newCategory.value,
               desc: newDesc.value,
@@ -355,7 +350,6 @@ window.addEventListener("DOMContentLoaded", async () => {
       });
     });
   }
-  //format data from dd/mm/yyy to  mm dd
   function formatDate(date) {
     let [day, month, year] = date.split("/");
     if (month[0] === "0") {
@@ -500,19 +494,16 @@ window.addEventListener("DOMContentLoaded", async () => {
         const spendings = rows.filter((row) => row.raw[1] === "Nie");
         const incomes = rows.filter((row) => row.raw[1] === "Tak");
         spendings.forEach((item) => {
-          //spending
           if (data.row.index === item.index) {
             data.cell.styles.fillColor = [200, 50, 50];
           }
         });
         incomes.forEach((item) => {
-          //income
           if (data.row.index === item.index) {
             data.cell.styles.fillColor = [100, 190, 90];
           }
         });
         if (data.section === "head") {
-          //header
           data.cell.styles.fillColor = [211, 211, 211];
           data.cell.styles.fontSize = 16;
         }

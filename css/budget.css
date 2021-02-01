@@ -50,7 +50,7 @@ main {
   z-index: 999;
   transition: all 0.3s ease;
   font-family: "Ubuntu", sans-serif;
-  background: #2fbf94;
+  background: repeating-linear-gradient(120deg, #43aa8b, #5aa891);
   height: 70px;
 }
 
