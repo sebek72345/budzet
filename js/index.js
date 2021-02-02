@@ -134,8 +134,8 @@ $(document).ready(function () {
         templateParams,
         "user_rKSxubFxTbH8A7cKq1w1S"
       )
-      .then(() => showTostify("Widaomość została wysłana", "success"))
-      .catch((err) => showTostify("Widaomość nie została wysłana", "#df2424"));
+      .then(() => showTostify("Wiadomość została wysłana.", "success"))
+      .catch((err) => showTostify("Wiadomość nie została wysłana.", "#df2424"));
     emailEl.reset();
   });
 });

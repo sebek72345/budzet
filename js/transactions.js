@@ -56,7 +56,6 @@ window.addEventListener("DOMContentLoaded", async () => {
     return;
   }
   const userId = await firebaseApp.auth().currentUser.uid;
-  console.log(userId);
   await userIsActive();
   switchSignInSingOut();
 
@@ -305,7 +304,7 @@ window.addEventListener("DOMContentLoaded", async () => {
             };
             updateDatabase(
               [...restTransactions, newIncome],
-              "Transackja została pomyślnie zmieniona"
+              "Transakcja została pomyślnie zmieniona"
             );
             modalBackground.style.display = "none";
             modalContent.style.display = "none";
@@ -341,7 +340,7 @@ window.addEventListener("DOMContentLoaded", async () => {
             };
             updateDatabase(
               [...restTransactions, newSpending],
-              "Transackja została pomyślnie zmieniona"
+              "Transakcja została pomyślnie zmieniona."
             );
             modalBackground.style.display = "none";
             modalContent.style.display = "none";

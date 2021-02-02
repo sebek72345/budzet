@@ -28,32 +28,19 @@ export async function getDataFromDataBase(period = "7-2020") {
   const snap = await firebaseApp.firestore().collection(uid).doc(period).get();
   if (snap.exists) {
     const mounthlyLimit = snap.data().limit;
-    const transactions = snap.data().transactions || [];
+    const transactions =
+      snap.data().transactions || snap.data().transations || [];
     return [mounthlyLimit, transactions];
   } else {
     return [];
   }
 }
-export function logUser() {
-  /*   const email = "Sebastian723@interia.eu";
-  const password = "123456"; */
-
-  firebaseApp
-    .auth()
-    .signInWithEmailAndPassword(email, password)
-    .then((user) => {})
-    .catch((err) => {
-      console.log(err);
-    });
-}
 export function userIsActive() {
   return new Promise((resolve, reject) =>
     firebaseApp.auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log("user is active");
         return resolve(true);
       } else {
-        console.log("no user");
         return resolve(false);
       }
     })
@@ -77,8 +64,6 @@ export async function switchSignInSingOut() {
     });
   } else {
     userStatus.textContent = "Zaloguj";
-    userStatus.addEventListener("click", () => {
-      window.location.href = "/signUp.html";
-    });
+    window.location.href = "/signUp.html";
   }
 }
