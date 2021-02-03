@@ -12,9 +12,9 @@ If you want to see this repo live, click below:
 http://frontend4.work-on.pl/
 
 # Stack:
-*HTML5, CSS3
-*Vanila JS,jQuery(only animations),
-*Firebase (database and backend)
+* HTML5, CSS3
+* Vanila JS,jQuery(only animations),
+* Firebase (database and backend)
 
 # Creators
 [Sebastian Sokół](https://github.com/sebek72345),
