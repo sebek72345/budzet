@@ -8,7 +8,7 @@ Join us!
 
 # Live
 
-If you want to see this repo live, click below:
+If you want to see this repo live, click below:<br/>
 http://frontend4.work-on.pl/
 
 # Stack:
