@@ -25,7 +25,7 @@ function signIn(email, password) {
     .signInWithEmailAndPassword(email, password)
     .then((user) => {
       showTostify(
-        "Zostałeś zalogowany. Za chwilę zostaniesz przekierowany na stronę do zarząrzania budżetu domowego",
+        "Zostałeś zalogowany. Za chwilę zostaniesz przekierowany na stronę główną.",
         "success"
       );
       setTimeout(() => {
